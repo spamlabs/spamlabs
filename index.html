@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>S.P.A.M. LABS // Terminal Legendaria</title>
+    <link rel="icon" href="spamlabs.jpg" type="image/jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
     
     <style>
@@ -126,6 +127,14 @@
         .btn-purple { border-color: var(--neon-purple); color: var(--neon-purple); }
         .btn-pink { border-color: var(--neon-pink); color: var(--neon-pink); }
         .btn-magenta { border-color: var(--neon-magenta); color: var(--neon-magenta); }
+        .btn-green { border-color: var(--solana-green); color: var(--solana-green); text-shadow: 0 0 5px var(--solana-green); }
+
+        /* --- BADGE LIVE --- */
+        .badge-live {
+            position: absolute; top: 15px; right: 15px; background: var(--solana-green); color: #000;
+            padding: 4px 8px; font-size: 10px; font-weight: bold; letter-spacing: 1px;
+            box-shadow: 0 0 10px var(--solana-green); z-index: 10; font-family: 'Orbitron', sans-serif;
+        }
 
         /* --- ESTILOS DE DASHBOARD --- */
         .market-grid {
@@ -142,11 +151,12 @@
         .wallet-box {
             background: #000; border: 1px solid var(--neon-pink); padding: 12px;
             font-family: monospace; font-size: 10px; color: #aaa; margin-top: 10px;
-            word-break: break-all; display: flex; align-items: center; justify-content: space-between;
+            word-break: break-all; display: flex; align-items: center; justify-content: space-between; gap: 10px;
         }
         .copy-btn {
             background: var(--neon-pink); color: #000; border: none; padding: 5px 10px;
-            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: bold; cursor: pointer;
+            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: bold; cursor: pointer; flex-shrink: 0;
+            transition: 0.2s;
         }
 
         /* --- CONTENEDOR PONG --- */
@@ -157,7 +167,7 @@
         }
         canvas { width: 100%; height: 100%; display: block; }
 
-        /* --- REDES SOCIALES (NUEVO) --- */
+        /* --- REDES SOCIALES --- */
         .social-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; margin-bottom: 25px;
         }
@@ -170,17 +180,17 @@
         }
         .social-btn:hover, .social-btn:active { background: var(--neon-purple); color: #fff; border-color: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple); }
 
-        /* --- BARRA DE NAVEGACIÓN INFERIOR --- */
+        /* --- BARRA DE NAVEGACIÓN INFERIOR (5 ITEMS) --- */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(10, 2, 20, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-top: 1px solid var(--neon-purple); display: flex; justify-content: space-around;
+            border-top: 1px solid var(--neon-purple); display: flex; justify-content: space-between;
             padding: 15px 5px 20px; z-index: 1000; box-shadow: 0 -5px 25px rgba(181, 0, 255, 0.2);
         }
         .nav-item {
-            color: #888; text-decoration: none; font-size: 9px; font-weight: 700;
+            color: #888; text-decoration: none; font-size: 8px; font-weight: 700;
             text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 4px;
-            transition: 0.3s; cursor: pointer; flex: 1;
+            transition: 0.3s; cursor: pointer; flex: 1; text-align: center;
         }
         .nav-item.active, .nav-item:hover { color: var(--neon-magenta); transform: translateY(-3px); text-shadow: 0 0 8px var(--neon-magenta); }
         .nav-icon { font-size: 16px; }
@@ -191,15 +201,15 @@
 <body>
 
     <div id="boot-screen">
-        <div class="boot-line">> SPAM_OS v1.0.5 BOOTING...</div>
+        <div class="boot-line">> SPAM_OS v1.0.6 BOOTING...</div>
         <div class="boot-line">> FETCHING MARKET DATA... OK</div>
-        <div class="boot-line">> CONNECTING TO S.P.A.M. TREASURY... OK</div>
+        <div class="boot-line">> CONNECTING TO PUMP.FUN CA... OK</div>
         <div class="boot-line">> LOADING ARCADE HUB... OK</div>
         <div class="boot-line" style="margin-top: 20px; animation: blink 0.5s infinite;">_ TOUCH TO START _</div>
     </div>
 
     <header class="master-banner">
-        <img src="banner superior.png" alt="S.P.A.M. LABS" class="banner-img">
+        <img src="banner superior.gif" alt="S.P.A.M. LABS" class="banner-img">
     </header>
 
     <div class="app-wrapper">
@@ -235,8 +245,8 @@
                     <p class="card-subtitle" style="color: var(--neon-pink); margin-bottom: 5px;">// S.P.A.M. TREASURY</p>
                     <p style="font-size: 11px; color: #ccc;">Wallet oficial del estudio. Única dirección válida para soporte o contribuciones.</p>
                     <div class="wallet-box">
-                        <span id="wallet-address">ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy</span>
-                        <button class="copy-btn" onclick="copyWallet()">COPIAR</button>
+                        <span id="wallet-address">ARRGSnv...rXWyxy</span>
+                        <button class="copy-btn" onclick="copyGeneric('ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy', this)">COPIAR</button>
                     </div>
                 </div>
             </div>
@@ -287,8 +297,34 @@
             </a>
         </section>
 
+        <section id="memes" class="view-section">
+            <h2 class="section-title">04_MEMECOINS</h2>
+            
+            <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="cyber-card clickable card-green" style="border: 2px solid var(--solana-green);">
+                <div class="badge-live">PUMP.FUN</div>
+                <div class="card-bg" style="background: radial-gradient(circle, rgba(20,241,149,0.2) 0%, rgba(0,0,0,1) 100%); opacity: 1;"></div>
+                
+                <div class="card-overlay" style="justify-content: center;">
+                    <h3 class="card-title" style="color: var(--solana-green); font-size: 24px;">S.P.A.M. TOKEN</h3>
+                    <p class="card-subtitle" style="color: #fff;">// THE DEGEN SIDE OF THE ARCADE //</p>
+                    <div class="cyber-btn btn-green" style="margin-top: 10px;">TRADE NOW ▶</div>
+                </div>
+            </a>
+
+            <div class="cyber-card card-purple" style="height: auto;">
+                <div class="gadget-overlay">
+                    <p class="card-subtitle" style="color: var(--neon-purple); margin-bottom: 10px;">// CONTRACT ADDRESS (CA)</p>
+                    <p style="font-size: 11px; color: #ccc;">Asegúrate de copiar el contrato oficial para evitar scams.</p>
+                    <div class="wallet-box" style="border-color: var(--neon-purple);">
+                        <span style="color: var(--solana-green);">2RCZQm7...LLwpump</span>
+                        <button class="copy-btn" style="background: var(--neon-purple);" onclick="copyGeneric('2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump', this)">COPIAR CA</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="social" class="view-section">
-            <h2 class="section-title">04_NETWORK</h2>
+            <h2 class="section-title">05_NETWORK</h2>
             
             <div class="social-grid">
                 <a href="https://x.com/SPAM_Labs" target="_blank" class="social-btn">X_TWITTER</a>
@@ -298,7 +334,7 @@
             <div class="cyber-card card-purple" style="height: auto;">
                 <div class="gadget-overlay" style="text-align: center;">
                      <p class="card-subtitle" style="color: var(--neon-purple); margin-bottom: 10px;">// ÚNETE AL ECOSISTEMA //</p>
-                     <p style="font-size: 11px; color: #ccc; line-height: 1.6;">Conecta con la comunidad, participa en la gobernanza, recibe alfa temprano y prepárate para los próximos airdrops exclusivos de S.P.A.M. Labs.</p>
+                     <p style="font-size: 11px; color: #ccc; line-height: 1.6;">Conecta con la comunidad, participa en la gobernanza, recibe alfa temprano y prepárate para los próximos airdrops exclusivos.</p>
                 </div>
             </div>
         </section>
@@ -320,6 +356,10 @@
         <a class="nav-item" data-target="nfts">
             <span class="nav-icon">👾</span>
             <span>NFTs</span>
+        </a>
+        <a class="nav-item" data-target="memes">
+            <span class="nav-icon">💊</span>
+            <span>Tokens</span>
         </a>
         <a class="nav-item" data-target="social">
             <span class="nav-icon">📡</span>
@@ -367,17 +407,18 @@
         fetchMarketData();
         setInterval(fetchMarketData, 60000);
 
-        // --- 4. FUNCIÓN COPIAR WALLET ---
-        function copyWallet() {
-            const walletText = "ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy";
-            navigator.clipboard.writeText(walletText).then(() => {
-                const btn = document.querySelector('.copy-btn');
-                const originalText = btn.innerText;
-                btn.innerText = "¡COPIADO!";
-                btn.style.background = "#fff";
+        // --- 4. FUNCIÓN COPIAR (GENÉRICA) ---
+        function copyGeneric(textToCopy, btnElement) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalText = btnElement.innerText;
+                const originalBg = btnElement.style.background;
+                btnElement.innerText = "¡COPIADO!";
+                btnElement.style.background = "#fff";
+                btnElement.style.color = "#000";
                 setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.style.background = "var(--neon-pink)";
+                    btnElement.innerText = originalText;
+                    btnElement.style.background = originalBg || "var(--neon-pink)";
+                    btnElement.style.color = "#000";
                 }, 2000);
             });
         }
