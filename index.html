@@ -2,507 +2,790 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>S.P.A.M. LABS // Terminal Legendaria</title>
-    <link rel="icon" href="spamlabs.jpg" type="image/jpeg">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.P.A.M. LABS // Modern Dashboard</title>
     
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Iconos limpios (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <style>
         :root {
-            /* PALETA SINTÉTICA */
-            --bg-color: #030106;
-            --neon-purple: #b500ff;
-            --neon-pink: #ff007f;
-            --neon-magenta: #ff00ff;
-            --solana-green: #14F195;
+            /* Paleta basada en spamlabs.jpg (Neon Arcade Synthwave) */
+            --bg-outer: #05020a;
+            --app-bg: #12091e;
+            --sidebar-bg: #0a0412;
+            --card-bg: #1f1135;
+            --card-bg-hover: #2d194d;
+            --card-dark: #090410;
+            
+            --accent-orange: #ff007f; /* Rosa Neón como acento principal */
+            --accent-yellow: #00f3ff; /* Cyan Neón como secundario */
+            --accent-green: #14F195; /* Solana Green */
+            
+            --text-main: #ffffff;
+            --text-muted: #e6e0f8; /* TONO ULTRA CLARO PARA MÁXIMO CONTRASTE */
+            --text-dark: #05020a;
+            
+            --radius-app: 32px;
+            --radius-card: 24px;
+            --radius-btn: 14px;
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            overflow-x: hidden;
-            flex-direction: column;
-            align-items: center;
+            background-color: var(--bg-outer);
+            height: 100vh; width: 100vw;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; padding: 20px;
         }
 
-        /* --- PANTALLA DE CARGA --- */
-        #boot-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000; z-index: 9999; display: flex; flex-direction: column;
-            justify-content: center; padding: 30px; font-family: 'Press Start 2P', monospace;
-            font-size: 10px; color: var(--neon-magenta); line-height: 2.2;
-            transition: opacity 0.5s ease, visibility 0.5s;
-        }
-        .boot-line { opacity: 0; margin-bottom: 5px; }
-
-        /* --- FONDO CRT --- */
-        body::before {
-            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), 
-                        linear-gradient(90deg, rgba(181, 0, 255, 0.05), rgba(255, 0, 127, 0.05));
-            z-index: 2; background-size: 100% 3px, 4px 100%; pointer-events: none;
+        /* --- CONTENEDOR PRINCIPAL DE LA APP --- */
+        .app-container {
+            width: 100%; max-width: 1400px; height: 100%; max-height: 900px;
+            background-color: var(--app-bg);
+            border-radius: var(--radius-app);
+            box-shadow: 0 30px 60px rgba(65, 32, 37, 0.3);
+            display: flex; overflow: hidden;
+            position: relative;
         }
 
-        /* --- BANNER --- */
-        .master-banner { width: 100%; position: relative; z-index: 10; text-align: center; }
-        .banner-img {
-            width: 100%; max-width: 100vw; display: block;
-            border-bottom: 2px solid var(--neon-purple); box-shadow: 0 0 20px rgba(181, 0, 255, 0.4);
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
+        /* --- BARRA LATERAL IZQUIERDA (NAVEGACIÓN) --- */
+        .sidebar-left {
+            width: 90px; background-color: var(--sidebar-bg);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 30px 0; gap: 25px; flex-shrink: 0;
+            z-index: 10;
         }
 
-        .app-wrapper {
-            width: 100%; max-width: 480px; padding: 20px; padding-bottom: 120px;
-            position: relative; z-index: 3; margin-top: -10px; min-height: 60vh;
+        .logo {
+            color: var(--text-main); font-size: 32px; margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3); font-weight: 800;
         }
 
-        /* --- HUD --- */
-        .hud-status-bar {
-            display: flex; justify-content: flex-end; align-items: center;
-            border-bottom: 2px solid var(--neon-pink); padding-bottom: 8px; margin-bottom: 30px;
-            font-family: 'Press Start 2P', cursive; font-size: 9px;
-        }
-        .status-dot { color: var(--solana-green); animation: blink 1s infinite; margin-right: 8px; }
-        @keyframes blink { 50% { opacity: 0.1; } }
-
-        /* --- SISTEMA DE PESTAÑAS --- */
-        .view-section { display: none; }
-        .view-section.active { display: block; animation: slideFadeIn 0.4s ease forwards; }
-        @keyframes slideFadeIn { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
-
-        /* --- TÍTULOS DE SECCIÓN --- */
-        .section-title {
-            font-size: 13px; letter-spacing: 3px; color: var(--neon-purple); margin-bottom: 20px;
-            text-transform: uppercase; display: flex; align-items: center; gap: 12px;
-            text-shadow: 0 0 5px var(--neon-purple);
-        }
-        .section-title::before { content: ''; width: 30px; height: 2px; background-color: var(--neon-purple); }
-
-        /* --- TARJETAS GLOBALES --- */
-        .cyber-card {
-            position: relative; width: 100%; margin-bottom: 25px; background: #0a0115;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
-            border-left: 5px solid; text-decoration: none; display: block; overflow: hidden;
-        }
-        .card-purple { border-left-color: var(--neon-purple); }
-        .card-pink { border-left-color: var(--neon-pink); }
-        .card-magenta { border-left-color: var(--neon-magenta); }
-        .card-green { border-left-color: var(--solana-green); }
-
-        .card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .cyber-card.clickable:hover .card-bg { opacity: 0.8; }
-        .cyber-card.clickable:active { transform: scale(0.97); }
-
-        .card-overlay {
-            position: relative; background: linear-gradient(to top, rgba(5, 1, 10, 0.95) 10%, rgba(5, 1, 10, 0.6) 80%, transparent);
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 22px; z-index: 5; height: 100%; min-height: 220px;
-        }
-        .gadget-overlay { padding: 15px 20px; z-index: 5; background: rgba(5, 1, 10, 0.8); height: 100%; }
-
-        .card-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 6px; text-shadow: 2px 2px 0px #000; }
-        .card-subtitle { font-size: 11px; color: #bbb; font-family: monospace; margin-bottom: 15px; letter-spacing: 1px; }
-
-        /* --- BOTONES --- */
-        .cyber-btn {
-            background: transparent; color: #fff; border: 1px solid; padding: 10px 18px;
-            font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: bold;
-            text-transform: uppercase; width: fit-content; display: flex; align-items: center; gap: 12px; cursor: pointer;
-        }
-        @keyframes glitch {
-            0% { transform: translate(0); } 20% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--neon-pink); }
-            40% { transform: translate(-2px, -1px); } 60% { transform: translate(2px, 1px); } 100% { transform: translate(0); }
-        }
-        .cyber-card.clickable:active .cyber-btn, .cyber-btn:active { animation: glitch 0.2s infinite; }
-        .btn-purple { border-color: var(--neon-purple); color: var(--neon-purple); }
-        .btn-pink { border-color: var(--neon-pink); color: var(--neon-pink); }
-        .btn-magenta { border-color: var(--neon-magenta); color: var(--neon-magenta); }
-        .btn-green { border-color: var(--solana-green); color: var(--solana-green); text-shadow: 0 0 5px var(--solana-green); }
-
-        /* --- BADGE LIVE --- */
-        .badge-live {
-            position: absolute; top: 15px; right: 15px; background: var(--solana-green); color: #000;
-            padding: 4px 8px; font-size: 10px; font-weight: bold; letter-spacing: 1px;
-            box-shadow: 0 0 10px var(--solana-green); z-index: 10; font-family: 'Orbitron', sans-serif;
-        }
-
-        /* --- ESTILOS DE DASHBOARD --- */
-        .market-grid {
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px;
-        }
-        .market-item {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px; text-align: center; border-radius: 4px;
-        }
-        .market-ticker { font-size: 10px; color: #aaa; font-family: monospace; margin-bottom: 5px; }
-        .market-price { font-size: 14px; font-weight: 900; color: #fff; }
-        .price-green { color: var(--solana-green); }
-
-        .wallet-box {
-            background: #000; border: 1px solid var(--neon-pink); padding: 12px;
-            font-family: monospace; font-size: 10px; color: #aaa; margin-top: 10px;
-            word-break: break-all; display: flex; align-items: center; justify-content: space-between; gap: 10px;
-        }
-        .copy-btn {
-            background: var(--neon-pink); color: #000; border: none; padding: 5px 10px;
-            font-family: 'Orbitron', sans-serif; font-size: 10px; font-weight: bold; cursor: pointer; flex-shrink: 0;
-            transition: 0.2s;
-        }
-
-        /* --- CONTENEDOR PONG --- */
-        .pong-container {
-            width: 100%; height: 140px; background: #000; border: 1px solid var(--neon-purple);
-            margin-top: 10px; position: relative; box-shadow: inset 0 0 10px rgba(181, 0, 255, 0.2);
-            touch-action: none;
-        }
-        canvas { width: 100%; height: 100%; display: block; }
-
-        /* --- REDES SOCIALES --- */
-        .social-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; margin-bottom: 25px;
-        }
-        .social-btn {
-            display: block; text-align: center; padding: 15px; border: 1px solid #333;
-            background: rgba(255,255,255,0.02); color: #fff; text-decoration: none;
-            font-size: 14px; font-weight: bold;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-            transition: all 0.3s ease;
-        }
-        .social-btn:hover, .social-btn:active { background: var(--neon-purple); color: #fff; border-color: var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple); }
-
-        /* --- BARRA DE NAVEGACIÓN INFERIOR (5 ITEMS) --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(10, 2, 20, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-top: 1px solid var(--neon-purple); display: flex; justify-content: space-between;
-            padding: 15px 5px 20px; z-index: 1000; box-shadow: 0 -5px 25px rgba(181, 0, 255, 0.2);
-        }
         .nav-item {
-            color: #888; text-decoration: none; font-size: 8px; font-weight: 700;
-            text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 4px;
-            transition: 0.3s; cursor: pointer; flex: 1; text-align: center;
+            color: var(--text-muted); font-size: 24px; cursor: pointer;
+            width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
+            border-radius: 18px; transition: all 0.3s ease; position: relative;
         }
-        .nav-item.active, .nav-item:hover { color: var(--neon-magenta); transform: translateY(-3px); text-shadow: 0 0 8px var(--neon-magenta); }
-        .nav-icon { font-size: 16px; }
+        .nav-item:hover { color: var(--text-main); background-color: rgba(255,255,255,0.05); }
+        .nav-item.active {
+            color: var(--accent-orange); background-color: rgba(242, 109, 75, 0.15);
+        }
+        /* Botón de añadir (Abajo) */
+        .nav-add {
+            margin-top: auto; color: var(--accent-orange); border: 2px dashed var(--accent-orange);
+            background: transparent;
+        }
+        .nav-add:hover { background: var(--accent-orange); color: var(--app-bg); }
 
-        .app-footer { text-align: center; font-size: 10px; color: #444; margin-top: 40px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); }
+        /* --- ÁREA DE CONTENIDO PRINCIPAL --- */
+        .main-wrapper {
+            flex-grow: 1; display: flex; flex-direction: column;
+            padding: 30px 40px; overflow-y: auto; overflow-x: hidden;
+            scrollbar-width: none; /* Firefox */
+        }
+        .main-wrapper::-webkit-scrollbar { display: none; } /* Chrome */
+
+        /* --- HEADER SUPERIOR --- */
+        .topbar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;
+        }
+        .topbar-logo { display: flex; align-items: center; gap: 15px; }
+        .topbar-logo img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; border: 2px solid var(--accent-yellow); box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+        .topbar-logo h1 { font-size: 24px; font-weight: 800; color: var(--text-main); letter-spacing: 1px;}
+        
+        .topbar-right { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; justify-content: flex-end;}
+        .live-ticker {
+            background-color: var(--card-bg); border-radius: 20px; padding: 10px 15px;
+            display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px;
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .ticker-lbl { color: var(--text-muted); font-size: 11px; }
+        .ticker-val { color: var(--accent-green); font-family: monospace; }
+
+        /* --- GESTIÓN DE VISTAS --- */
+        .view { display: none; animation: fadeIn 0.4s ease forwards; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- LAYOUT DEL DASHBOARD --- */
+        .dashboard-grid {
+            display: grid; grid-template-columns: 1.5fr 1fr; gap: 25px;
+        }
+
+        /* Tarjeta Hero (Estilo Valorant) */
+        .hero-card {
+            background: linear-gradient(135deg, #4b0082, #ff007f);
+            border-radius: var(--radius-card); padding: 30px;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            box-shadow: 0 15px 30px rgba(75, 0, 130, 0.4);
+            min-height: 280px;
+        }
+        .hero-card-img {
+            position: absolute; top: 0; right: 0; height: 100%; width: 50%;
+            object-fit: cover; mask-image: linear-gradient(to right, transparent, black 40%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 40%); opacity: 0.8;
+        }
+        .hero-badges { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2; }
+        .badge {
+            background: rgba(255,255,255,0.9); color: var(--text-dark);
+            padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .hero-title { font-size: 36px; font-weight: 800; margin-bottom: 15px; position: relative; z-index: 2; color: #ffffff !important; }
+        .hero-desc { font-size: 14px; line-height: 1.5; color: #ffffff !important; max-width: 50%; margin-bottom: 20px; position: relative; z-index: 2;}
+        .hero-actions { display: flex; gap: 15px; position: relative; z-index: 2; margin-top: auto;}
+        .btn-primary {
+            background: var(--text-main); color: var(--text-dark); border: none;
+            padding: 10px 20px; border-radius: var(--radius-btn); font-weight: 700; font-size: 14px;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; text-decoration: none;
+        }
+        .btn-primary:active { transform: scale(0.95); }
+
+        /* Lista Lateral (Mercado) */
+        .list-card { display: flex; flex-direction: column; gap: 15px; }
+        .list-item {
+            background-color: var(--card-bg); border-radius: 20px; padding: 15px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            transition: 0.2s; cursor: pointer;
+        }
+        .list-item:hover { background-color: var(--card-bg-hover); transform: translateX(5px); }
+        .item-info { display: flex; align-items: center; gap: 15px; }
+        .item-icon { width: 45px; height: 45px; border-radius: 12px; background: var(--card-dark); display: flex; justify-content: center; align-items: center; font-size: 24px; color: var(--accent-orange); }
+        .item-title { font-size: 16px; font-weight: 700; }
+        .item-subtitle { font-size: 12px; color: var(--text-muted); }
+        .item-price { font-size: 18px; font-weight: 800; color: var(--text-main); }
+        .item-price.up { color: var(--accent-green); }
+
+        /* Sección Inferior */
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 30px 0 15px 0; }
+        .section-title { font-size: 20px; font-weight: 700; color: #ffffff !important; }
+        .section-link { color: var(--text-muted); font-size: 13px; text-decoration: none; transition: 0.2s; }
+        .section-link:hover { color: var(--text-main); }
+
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
+
+        /* Tarjetas Cuadradas (Juegos / Pong) */
+        .square-card {
+            background-color: var(--card-bg); border-radius: var(--radius-card); padding: 20px;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            min-height: 220px; transition: 0.3s; cursor: pointer; text-decoration: none; color: inherit;
+        }
+        .square-card:hover { transform: translateY(-5px); background-color: var(--card-bg-hover); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .card-img-bg { position: absolute; top: 0; left: 0; width: 100%; height: 60%; object-fit: cover; opacity: 0.5; transition: 0.3s;}
+        .square-card:hover .card-img-bg { opacity: 0.8; height: 65%; }
+        .card-icon-top { position: absolute; top: 15px; left: 15px; width: 35px; height: 35px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 18px; z-index: 2;}
+        .square-card-content { margin-top: auto; position: relative; z-index: 2; }
+        .sc-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: #ffffff !important; }
+        .sc-desc { font-size: 12px; color: var(--text-muted); }
+
+        /* Contenedor específico para el Pong (Simula el "Your Statistic") */
+        .pong-widget {
+            background: linear-gradient(180deg, var(--card-dark) 0%, #1f0f12 100%);
+            border-radius: var(--radius-card); padding: 20px; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .pong-canvas-container { width: 100%; flex-grow: 1; border-radius: 16px; overflow: hidden; background: #000; position: relative;}
+        canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+        .pong-stats { display: flex; justify-content: space-between; margin-top: 15px; }
+        .stat-col { text-align: center; }
+        .stat-val { font-size: 16px; font-weight: 800; color: var(--accent-orange); }
+        .stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+
+        /* Tarjeta Larga (Treasury / Last Download) */
+        .long-card {
+            background-color: var(--card-bg); border-radius: 100px; padding: 15px 25px;
+            display: flex; align-items: center; gap: 20px; margin-top: 20px; position: relative; overflow: hidden;
+        }
+        .lc-icon { width: 50px; height: 50px; background: var(--text-main); border-radius: 16px; display: flex; justify-content: center; align-items: center; color: var(--card-bg); font-size: 24px; font-weight: 800; }
+        .lc-info { flex-grow: 1; }
+        .lc-title { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+        .lc-subtitle { font-size: 12px; color: var(--text-muted); font-family: monospace;}
+        .lc-actions { display: flex; gap: 10px; }
+        .lc-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--text-main); color: var(--app-bg); display: flex; justify-content: center; align-items: center; font-size: 18px; cursor: pointer; border: none; transition: 0.2s; }
+        .lc-btn:hover { transform: scale(1.1); }
+        .lc-btn.outline { background: transparent; border: 2px solid var(--text-muted); color: var(--text-muted); }
+        .lc-btn.outline:hover { background: var(--text-muted); color: var(--app-bg); }
+
+        /* --- BARRA LATERAL DERECHA (SOCIALS / FRIENDS) --- */
+        .sidebar-right {
+            width: 250px; background-color: var(--app-bg);
+            border-left: 2px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; padding: 30px 20px;
+            flex-shrink: 0;
+        }
+        
+        .profile-card {
+            background-color: var(--card-bg); border-radius: 20px; padding: 15px;
+            display: flex; align-items: center; gap: 15px; margin-bottom: 30px;
+        }
+        .avatar { width: 45px; height: 45px; border-radius: 15px; background: var(--accent-orange); display: flex; justify-content: center; align-items: center; font-size: 24px; }
+        .profile-info h4 { font-size: 14px; font-weight: 700; }
+        .profile-info p { font-size: 11px; color: var(--text-muted); }
+
+        .social-list-title { font-size: 14px; font-weight: 600; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;}
+        .social-list { display: flex; flex-direction: column; gap: 15px; flex-grow: 1;}
+        .social-item { display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit; padding: 10px; border-radius: 15px; transition: 0.2s;}
+        .social-item:hover { background: var(--card-bg); }
+        .social-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; color: #fff; position: relative;}
+        .bg-twitter { background: #1DA1F2; }
+        .bg-discord { background: #5865F2; }
+        .social-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
+        .social-status { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+        /* --- SECCIÓN DE TENDENCIAS (REEMPLAZO DE NOTICIAS) --- */
+        .trending-list { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .trending-item {
+            background-color: var(--card-bg); border-radius: 20px; padding: 15px 20px;
+            display: flex; gap: 15px; align-items: center; transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .trending-item:hover { background-color: var(--card-bg-hover); transform: translateX(5px); }
+        .trend-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--card-dark); display: flex; justify-content: center; align-items: center;}
+        .trend-info { flex-grow: 1; }
+        .trend-name { font-size: 16px; font-weight: 700; color: var(--text-main); }
+        .trend-symbol { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
+        .trend-rank { background: var(--accent-yellow); color: var(--text-dark); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; }
+
+        /* Toast */
+        #toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 100px);
+            background: var(--text-main); color: var(--app-bg); padding: 12px 24px;
+            border-radius: 30px; font-weight: 700; font-size: 14px; opacity: 0; transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 9999;
+        }
+        #toast.show { transform: translate(-50%, 0); opacity: 1; }
+
+        /* Responsive basico */
+        @media (max-width: 1024px) {
+            .sidebar-right { display: none; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-card { min-height: 220px; }
+            .hero-card-img { width: 40%; }
+        }
+
+        /* Ocultar barra inferior en escritorio */
+        .bottom-nav { display: none; } 
+
+        @media (max-width: 768px) {
+            .app-container { border-radius: 0; height: 100vh; max-height: 100vh; }
+            body { padding: 0; }
+            .bottom-grid { grid-template-columns: 1fr; }
+            
+            /* Reemplazar barra lateral por barra inferior interactiva en móvil */
+            .sidebar-left { display: none; }
+            .bottom-nav {
+                display: flex; justify-content: space-around; align-items: center;
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 70px;
+                background-color: var(--sidebar-bg); border-top: 1px solid rgba(255,255,255,0.05);
+                z-index: 1000;
+            }
+            .main-wrapper { padding-bottom: 90px; } /* Dar espacio para que no se oculte el contenido */
+
+            .long-card { flex-direction: column; text-align: center; border-radius: 20px; gap: 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="boot-screen">
-        <div class="boot-line">> SPAM_OS v1.0.7 BOOTING...</div>
-        <div class="boot-line">> FETCHING MARKET DATA... OK</div>
-        <div class="boot-line">> FETCHING CA: 2RCZQ... OK</div>
-        <div class="boot-line">> LOADING ARCADE HUB... OK</div>
-        <div class="boot-line" style="margin-top: 20px; animation: blink 0.5s infinite;">_ TOUCH TO START _</div>
-    </div>
+    <div id="toast">¡Dirección Copiada!</div>
 
-    <header class="master-banner">
-        <img src="banner superior.gif" alt="S.P.A.M. LABS" class="banner-img">
-    </header>
-
-    <div class="app-wrapper">
-        <header class="hud-status-bar">
-            <span class="status-dot">●</span> SECURE_CONNECTION
-        </header>
-
-        <section id="inicio" class="view-section active">
-            <h2 class="section-title">01_DASHBOARD</h2>
+    <div class="app-container">
+        
+        <!-- SIDEBAR NAVEGACIÓN -->
+        <aside class="sidebar-left">
+            <div class="logo"><i class="ph-fill ph-code"></i></div>
             
-            <div class="cyber-card card-green">
-                <div class="gadget-overlay">
-                    <p class="card-subtitle" style="color: var(--solana-green); margin-bottom: 5px;">// MERCADO SOLANA EN VIVO</p>
-                    <div class="market-grid">
-                        <div class="market-item">
-                            <div class="market-ticker">$SOL</div>
-                            <div class="market-price price-green" id="price-sol">--</div>
-                        </div>
-                        <div class="market-item">
-                            <div class="market-ticker">$BONK</div>
-                            <div class="market-price" id="price-bonk">--</div>
-                        </div>
-                        <div class="market-item">
-                            <div class="market-ticker">$WIF</div>
-                            <div class="market-price" id="price-wif">--</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="nav-item active" data-target="view-dashboard" title="Dashboard">
+                <i class="ph-fill ph-house"></i>
             </div>
-
-            <div class="cyber-card card-pink">
-                <div class="gadget-overlay">
-                    <p class="card-subtitle" style="color: var(--neon-pink); margin-bottom: 5px;">// S.P.A.M. TREASURY</p>
-                    <p style="font-size: 11px; color: #ccc;">Wallet oficial del estudio. Única dirección válida para soporte o contribuciones.</p>
-                    <div class="wallet-box">
-                        <span id="wallet-address">ARRGSnv...rXWyxy</span>
-                        <button class="copy-btn" onclick="copyGeneric('ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy', this)">COPIAR</button>
-                    </div>
-                </div>
+            <div class="nav-item" data-target="view-arcade" title="Arcade Games">
+                <i class="ph-fill ph-game-controller"></i>
             </div>
-
-            <div class="cyber-card card-purple" style="clip-path: polygon(0 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%);">
-                <div class="gadget-overlay">
-                    <p class="card-subtitle" style="color: var(--neon-purple); margin-bottom: 5px;">// DEVS_PLAYGROUND: PONG</p>
-                    <p style="font-size: 9px; color: #aaa;">Desliza para mover tu raqueta (Rosa)</p>
-                    <div class="pong-container">
-                        <canvas id="pongCanvas" width="300" height="140"></canvas>
-                    </div>
-                </div>
+            <div class="nav-item" data-target="view-nft" title="NFT Vault">
+                <i class="ph-fill ph-hexagon"></i>
             </div>
-        </section>
+            <div class="nav-item" data-target="view-dex" title="DEX Market">
+                <i class="ph-fill ph-chart-line-up"></i>
+            </div>
+            <div class="nav-item" data-target="view-social" title="Community">
+                <i class="ph-fill ph-users"></i>
+            </div>
+        </aside>
 
-        <section id="juegos" class="view-section">
-            <h2 class="section-title">02_ARCADE</h2>
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-wrapper">
             
-            <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="cyber-card clickable card-purple">
-                <img src="box banner.png" class="card-bg" alt="Box">
-                <div class="card-overlay">
-                    <h3 class="card-title">SOLANA BOXING</h3>
-                    <p class="card-subtitle">// V 1.0.0 [PLAYABLE]</p>
-                    <div class="cyber-btn btn-purple">INIT_GAME ▶</div>
+            <!-- HEADER -->
+            <header class="topbar">
+                <div class="topbar-logo">
+                    <img src="spamlabs.jpg" alt="SPAM LABS Logo">
+                    <h1>SPAM LABS</h1>
                 </div>
-            </a>
-
-            <div class="cyber-card card-pink">
-                <img src="octopus banner.png" class="card-bg" alt="Octopus" style="opacity: 0.2;">
-                <div class="card-overlay">
-                    <h3 class="card-title">OCTOPUS VISCOSO</h3>
-                    <p class="card-subtitle">// [TBA] V 0.0.1</p>
-                    <div class="cyber-btn btn-pink" style="opacity: 0.5;">LOCKED ✕</div>
+                <div class="topbar-right">
+                    <div class="live-ticker"><span class="ticker-lbl">BTC</span> <span class="ticker-val" id="top-price-btc">SYNC...</span></div>
+                    <div class="live-ticker"><span class="ticker-lbl">SOL</span> <span class="ticker-val" id="top-price-sol">SYNC...</span></div>
+                    <div class="live-ticker"><span class="ticker-lbl">GRASS</span> <span class="ticker-val" id="top-price-grass">SYNC...</span></div>
                 </div>
-            </div>
-        </section>
+            </header>
 
-        <section id="nfts" class="view-section">
-            <h2 class="section-title">03_COLECCIONES</h2>
-            
-            <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="cyber-card clickable card-magenta">
-                <img src="octopus nft.png" alt="Octopus NFT" class="card-bg" style="opacity: 0.7;">
-                <div class="card-overlay">
-                    <h3 class="card-title">OCTOPUS COLLECTION</h3>
-                    <p class="card-subtitle">// SUPPLY: 3,000 | MINT LIVE</p>
-                    <div class="cyber-btn btn-magenta">ACCESS_MINT ▶</div>
-                </div>
-            </a>
-        </section>
-
-        <section id="memes" class="view-section">
-            <h2 class="section-title">04_MEMECOINS</h2>
-            
-            <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="cyber-card clickable card-green">
-                <div class="badge-live" style="background: var(--neon-magenta); color: #fff; box-shadow: 0 0 10px var(--neon-magenta);">PUMP.FUN</div>
+            <!-- CONTENEDOR DE VISTAS -->
+            <div id="views-container">
                 
-                <img src="drump.jpg" alt="Drump Meme" class="card-bg" style="opacity: 0.7;">
-                
-                <div class="card-overlay">
-                    <h3 class="card-title">DRUMP</h3>
-                    <p class="card-subtitle">// PRECIO: <span id="drump-price" style="color: var(--solana-green); font-weight: bold;">Cargando...</span></p>
-                    <div class="cyber-btn btn-green">BUY ON PUMP.FUN ▶</div>
+                <!-- VISTA 1: DASHBOARD -->
+                <div id="view-dashboard" class="view active">
+                    
+                    <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                        <!-- Hero Card (Mini Bio + Redes) -->
+                        <div class="hero-card">
+                            <img src="banner superior.gif" class="hero-card-img" alt="SPAM LABS Banner">
+                            <div class="hero-badges">
+                                <span class="badge"><i class="ph-fill ph-fire"></i> S.P.A.M. HQ</span>
+                                <span class="badge"><i class="ph-fill ph-globe"></i> LIVE</span>
+                            </div>
+                            <h2 class="hero-title">S.P.A.M. LABS</h2>
+                            <p class="hero-desc" style="color: #ffffff; text-shadow: 0 2px 6px rgba(0,0,0,0.9); font-weight: 500; font-size: 15px; max-width: 60%;">
+                                Somos un estudio de desarrollo enfocado en crear experiencias interactivas, juegos arcade on-chain y herramientas para el ecosistema de Solana.
+                            </p>
+                            <div class="hero-actions">
+                                <a href="https://x.com/SPAM_Labs" target="_blank" class="btn-primary" style="background: #1DA1F2; color: #fff;"><i class="ph-fill ph-twitter-logo"></i> Twitter / X</a>
+                                <a href="https://discord.com/invite/5376haND6" target="_blank" class="btn-primary" style="background: #5865F2; color: #fff;"><i class="ph-fill ph-discord-logo"></i> Discord</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-header">
+                        <h3 class="section-title">New Games</h3>
+                        <a href="#" class="section-link" onclick="switchTab('view-arcade')">See More <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+
+                    <div class="bottom-grid">
+                        <!-- Arcade Card 1 -->
+                        <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="square-card">
+                            <img src="box banner.png" class="card-img-bg" alt="Solana Boxing">
+                            <div class="square-card-content">
+                                <h4 class="sc-title">Solana Boxing</h4>
+                                <p class="sc-desc">Simulador deportivo en la red de Solana. Entrena y sobrevive.</p>
+                            </div>
+                        </a>
+
+                        <!-- Arcade Card 2 -->
+                        <div class="square-card" style="opacity: 0.7; cursor: default;">
+                            <img src="octopus banner.png" class="card-img-bg" alt="Octopus Viscoso">
+                            <div class="square-card-content">
+                                <h4 class="sc-title">Octopus Viscoso</h4>
+                                <p class="sc-desc">Standard Edition. Próximamente.</p>
+                            </div>
+                        </div>
+
+                        <!-- PONG (Imita el "Your Statistic") -->
+                        <div class="pong-widget">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                <h4 class="sc-title">Pong.sys</h4>
+                                <i class="ph-bold ph-arrow-right" style="color:var(--text-muted);"></i>
+                            </div>
+                            <div class="pong-canvas-container">
+                                <canvas id="pongCanvas"></canvas>
+                                <div style="position:absolute; top:5px; width:100%; text-align:center; font-size:9px; color:rgba(255,255,255,0.5); pointer-events:none;">SWIPE TO MOVE</div>
+                            </div>
+                            <div class="pong-stats">
+                                <div class="stat-col"><div class="stat-val" id="pong-score-p">0</div><div class="stat-lbl">TÚ</div></div>
+                                <div class="stat-col"><div class="stat-val" style="color:var(--text-muted);">VS</div><div class="stat-lbl">---</div></div>
+                                <div class="stat-col"><div class="stat-val" id="pong-score-c">0</div><div class="stat-lbl">CPU</div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 20px;">
+                        <h3 class="section-title">Treasury Vault</h3>
+                    </div>
+
+                    <!-- Treasury Card (Imita "Last Downloads") -->
+                    <div class="long-card">
+                        <div class="lc-icon">S</div>
+                        <div class="lc-info">
+                            <h4 class="lc-title">S.P.A.M. Ecosystem Wallet</h4>
+                            <p class="lc-subtitle">ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy</p>
+                        </div>
+                        <div class="lc-actions">
+                            <button class="lc-btn" title="Copiar Dirección" onclick="copyCA('ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy')"><i class="ph-fill ph-copy"></i></button>
+                            <button class="lc-btn outline"><i class="ph-bold ph-x"></i></button>
+                        </div>
+                    </div>
+
                 </div>
-            </a>
 
-         
-        </section>
+                <!-- VISTA 2: ARCADE -->
+                <div id="view-arcade" class="view">
+                    <h2 class="hero-title" style="margin-bottom:30px;">Arcade Games</h2>
+                    <div class="bottom-grid">
+                        <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="square-card" style="min-height: 280px;">
+                            <img src="box banner.png" class="card-img-bg" alt="Solana Boxing">
+                            <div class="square-card-content">
+                                <span class="badge" style="width:fit-content; margin-bottom:10px; background:var(--accent-orange); color:#fff;">PLAYABLE</span>
+                                <h4 class="sc-title">Solana Boxing</h4>
+                                <p class="sc-desc">Simulador de combate on-chain. Demuestra tus habilidades en el ring digital.</p>
+                            </div>
+                        </a>
+                        <div class="square-card" style="min-height: 280px; opacity: 0.6;">
+                            <img src="octopus banner.png" class="card-img-bg" alt="Octopus Viscoso">
+                            <div class="square-card-content">
+                                <span class="badge" style="width:fit-content; margin-bottom:10px; background:var(--text-muted); color:#000;">TBA</span>
+                                <h4 class="sc-title">Octopus Viscoso</h4>
+                                <p class="sc-desc">Juego en desarrollo. Las mecánicas viscosas aún están siendo compiladas en la red.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <section id="social" class="view-section">
-            <h2 class="section-title">05_NETWORK</h2>
+                <!-- VISTA 3: NFT VAULT -->
+                <div id="view-nft" class="view">
+                    <h2 class="hero-title" style="margin-bottom:30px;">Asset Generator</h2>
+                    <div class="hero-card" style="background: linear-gradient(135deg, #2b00ff, #00d4ff);">
+                        <img src="octopus nft.png" class="hero-card-img" style="opacity:1;" alt="Octopus Collection">
+                        <div class="hero-badges">
+                            <span class="badge" style="color:#2b00ff;"><i class="ph-fill ph-hexagon"></i> MINT LIVE</span>
+                        </div>
+                        <h2 class="hero-title">Octopus<br>Collection</h2>
+                        <p class="hero-desc">Extrae tus entidades digitales. Colección exclusiva limitada a 3,000 unidades en todo el ecosistema.</p>
+                        <div class="hero-actions">
+                            <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="btn-primary" style="color:#7c3b8a;"><i class="ph-bold ph-rocket-launch"></i> Iniciar Mint</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 4: DEX -->
+                <div id="view-dex" class="view">
+                    <h2 class="hero-title" style="margin-bottom:30px;">DEX Terminal</h2>
+                    <div class="hero-card" style="background: linear-gradient(135deg, #004d33, #14F195);">
+                        <img src="drump.jpg" class="hero-card-img" alt="Drump Token">
+                        <div class="hero-badges">
+                            <span class="badge" style="color:#004d33;"><i class="ph-fill ph-chart-line-up"></i> PUMP.FUN</span>
+                        </div>
+                        <h2 class="hero-title">DRUMP<br>($DRMP)</h2>
+                        <p class="hero-desc">Token de la comunidad. Participa en la curva de liquidez y sé parte del movimiento.</p>
+                        
+                        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 16px; width: fit-content; margin-bottom: 20px; position:relative; z-index:2;">
+                            <div style="font-size: 10px; color:rgba(255,255,255,0.7); margin-bottom:5px;">PRECIO EN VIVO</div>
+                            <div id="drump-price" style="font-size: 24px; font-weight:800; font-family:monospace;">SYNC...</div>
+                        </div>
+
+                        <div class="hero-actions">
+                            <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="btn-primary" style="color:#1d976c;"><i class="ph-bold ph-shopping-cart"></i> Comprar Tokens</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VISTA 5: SOCIAL -->
+                <div id="view-social" class="view">
+                    <h2 class="hero-title" style="margin-bottom:30px;">Comunidad</h2>
+                    <div class="bottom-grid">
+                        <a href="https://x.com/SPAM_Labs" target="_blank" class="square-card" style="min-height: 200px; background: #1DA1F2;">
+                            <div class="card-icon-top" style="background:rgba(255,255,255,0.2);"><i class="ph-fill ph-twitter-logo" style="color:#ffffff !important;"></i></div>
+                            <div class="square-card-content">
+                                <h4 class="sc-title">Twitter / X</h4>
+                                <p class="sc-desc" style="color:#ffffff !important; font-weight: 500;">Síguenos para anuncios oficiales y noticias.</p>
+                            </div>
+                        </a>
+                        <a href="https://discord.com/invite/5376haND6" target="_blank" class="square-card" style="min-height: 200px; background: #5865F2;">
+                            <div class="card-icon-top" style="background:rgba(255,255,255,0.2);"><i class="ph-fill ph-discord-logo" style="color:#ffffff !important;"></i></div>
+                            <div class="square-card-content">
+                                <h4 class="sc-title">Servidor Discord</h4>
+                                <p class="sc-desc" style="color:#ffffff !important; font-weight: 500;">Conecta con otros operativos, recibe soporte y comparte alfa.</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 40px;">
+                        <h3 class="section-title">Radar de Tendencias</h3>
+                        <span class="section-link" style="cursor: default; color: var(--accent-yellow);">Top 3 Global</span>
+                    </div>
+
+                    <div class="trending-list" id="trending-list">
+                        <div style="text-align: center; color: var(--text-muted); padding: 30px; font-weight: 500;">
+                            <p>Escaneando el ecosistema global...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- BARRA LATERAL DERECHA (FRIENDS / SOCIAL SUMMARY) -->
+        <aside class="sidebar-right">
+            <div class="profile-card">
+                <div class="avatar"><i class="ph-fill ph-user"></i></div>
+                <div class="profile-info">
+                    <h4>Operative</h4>
+                    <p>S.P.A.M. LABS</p>
+                </div>
+                <i class="ph-bold ph-caret-down" style="margin-left:auto; color:var(--text-muted); cursor:pointer;"></i>
+            </div>
+
+            <div class="social-list-title">
+                Redes Activas
+                <i class="ph-fill ph-circles-three" style="color:var(--text-muted);"></i>
+            </div>
             
-            <div class="social-grid">
-                <a href="https://x.com/SPAM_Labs" target="_blank" class="social-btn">X_TWITTER</a>
-                <a href="https://discord.com/invite/5376haND6" target="_blank" class="social-btn">DISCORD</a>
+            <div class="social-list">
+                <a href="https://x.com/SPAM_Labs" target="_blank" class="social-item">
+                    <div class="social-icon bg-twitter"><i class="ph-fill ph-twitter-logo"></i><div class="notification-dot" style="background:#fff;"></div></div>
+                    <div>
+                        <div class="social-name">Twitter Oficial</div>
+                        <div class="social-status">Últimas noticias</div>
+                    </div>
+                </a>
+                
+                <a href="https://discord.com/invite/5376haND6" target="_blank" class="social-item">
+                    <div class="social-icon bg-discord"><i class="ph-fill ph-discord-logo"></i><div class="notification-dot" style="background:#14F195;"></div></div>
+                    <div>
+                        <div class="social-name">Comunidad</div>
+                        <div class="social-status">Online</div>
+                    </div>
+                </a>
             </div>
+        </aside>
 
-            <div class="cyber-card card-purple" style="height: auto;">
-                <div class="gadget-overlay" style="text-align: center;">
-                     <p class="card-subtitle" style="color: var(--neon-purple); margin-bottom: 10px;">// ÚNETE AL ECOSISTEMA //</p>
-                     <p style="font-size: 11px; color: #ccc; line-height: 1.6;">Conecta con la comunidad, participa en la gobernanza, recibe alfa temprano y prepárate para los próximos airdrops exclusivos.</p>
-                </div>
-            </div>
-        </section>
+        <!-- BARRA DE NAVEGACIÓN INFERIOR (MÓVIL) -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-target="view-dashboard" title="Dashboard"><i class="ph-fill ph-house"></i></div>
+            <div class="nav-item" data-target="view-arcade" title="Arcade Games"><i class="ph-fill ph-game-controller"></i></div>
+            <div class="nav-item" data-target="view-nft" title="NFT Vault"><i class="ph-fill ph-hexagon"></i></div>
+            <div class="nav-item" data-target="view-dex" title="DEX Market"><i class="ph-fill ph-chart-line-up"></i></div>
+            <div class="nav-item" data-target="view-social" title="Community"><i class="ph-fill ph-users"></i></div>
+        </nav>
 
-        <footer class="app-footer">
-            <p>S.P.A.M. LABS © 2026 // LFG</p>
-        </footer>
     </div>
-
-    <nav class="bottom-nav">
-        <a class="nav-item active" data-target="inicio">
-            <span class="nav-icon">🏠</span>
-            <span>Inicio</span>
-        </a>
-        <a class="nav-item" data-target="juegos">
-            <span class="nav-icon">🕹️</span>
-            <span>Juegos</span>
-        </a>
-        <a class="nav-item" data-target="nfts">
-            <span class="nav-icon">👾</span>
-            <span>NFTs</span>
-        </a>
-        <a class="nav-item" data-target="memes">
-            <span class="nav-icon">💊</span>
-            <span>Memes</span>
-        </a>
-        <a class="nav-item" data-target="social">
-            <span class="nav-icon">📡</span>
-            <span>Social</span>
-        </a>
-    </nav>
 
     <script>
-        // --- 1. BOOT SCREEN ---
-        const boot = document.getElementById('boot-screen');
-        const lines = document.querySelectorAll('.boot-line');
-        lines.forEach((l, i) => { setTimeout(() => { l.style.opacity = '1'; }, i * 300); });
-        const startApp = () => { boot.style.opacity = '0'; setTimeout(() => { boot.style.visibility = 'hidden'; }, 500); };
-        boot.addEventListener('click', startApp);
-        boot.addEventListener('touchstart', startApp);
-        setTimeout(startApp, 3500);
-
-        // --- 2. LÓGICA DE NAVEGACIÓN ---
+        // ==========================================
+        // 1. NAVEGACIÓN SPA (Single Page App)
+        // ==========================================
         const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('.view-section');
+        const views = document.querySelectorAll('.view');
+
         navItems.forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                const targetId = this.getAttribute('data-target');
+            item.addEventListener('click', () => {
+                if(!item.hasAttribute('data-target')) return; // Ignorar botones vacíos
+                
+                const targetId = item.getAttribute('data-target');
+                
+                // Sincronizar botones en la barra lateral y en la barra móvil
                 navItems.forEach(nav => nav.classList.remove('active'));
-                sections.forEach(sec => sec.classList.remove('active'));
-                this.classList.add('active');
+                document.querySelectorAll(`.nav-item[data-target="${targetId}"]`).forEach(nav => nav.classList.add('active'));
+                
+                // Actualizar Vistas
+                views.forEach(view => view.classList.remove('active'));
                 document.getElementById(targetId).classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Hacer scroll al tope de la vista suavemente
+                document.querySelector('.main-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        // --- 3. API: PRECIOS EN VIVO (MERCADO GENERAL) ---
+        // Función global para cambiar tabs desde links internos
+        window.switchTab = function(targetId) {
+            const targetBtn = document.querySelector(`.nav-item[data-target="${targetId}"]`);
+            if(targetBtn) targetBtn.click();
+        }
+
+        // ==========================================
+        // 2. UTILIDAD COPIAR PORTAPAPELES
+        // ==========================================
+        window.copyCA = function(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            } catch (err) {
+                console.error("Error copiando address:", err);
+            }
+            document.body.removeChild(textArea);
+        };
+
+        // ==========================================
+        // 3. APIS DE PRECIOS Y NOTICIAS AUTOMÁTICAS
+        // ==========================================
         async function fetchMarketData() {
             try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,bonk,dogwifcoin&vs_currencies=usd');
-                const data = await response.json();
-                document.getElementById('price-sol').innerText = `$${data.solana.usd.toFixed(2)}`;
-                document.getElementById('price-bonk').innerText = `$${data.bonk.usd.toFixed(6)}`;
-                document.getElementById('price-wif').innerText = `$${data.dogwifcoin.usd.toFixed(2)}`;
-            } catch (error) {
-                console.log("Error al cargar datos de CoinGecko");
-            }
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,bitcoin,grass&vs_currencies=usd');
+                const data = await res.json();
+                
+                if(document.getElementById('top-price-btc')) document.getElementById('top-price-btc').innerText = `$${data.bitcoin.usd.toLocaleString()}`;
+                if(document.getElementById('top-price-sol')) document.getElementById('top-price-sol').innerText = `$${data.solana.usd.toFixed(2)}`;
+                if(document.getElementById('top-price-grass')) {
+                    const grassPrice = data.grass ? data.grass.usd.toFixed(4) : "0.00";
+                    document.getElementById('top-price-grass').innerText = `$${grassPrice}`;
+                }
+            } catch (error) { console.log("Error sincronizando precios de CoinGecko"); }
         }
-        fetchMarketData();
-        setInterval(fetchMarketData, 60000);
 
-        // --- 4. API: PRECIO EN VIVO (DRUMP EN DEXSCREENER) ---
         async function fetchDrumpPrice() {
             try {
-                // Llama al CA específico del token
-                const response = await fetch('https://api.dexscreener.com/latest/dex/tokens/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump');
-                const data = await response.json();
-                
-                // Si el token tiene pares listados, muestra el precio.
+                const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump');
+                const data = await res.json();
+                const el = document.getElementById('drump-price');
                 if(data.pairs && data.pairs.length > 0) {
-                    const price = parseFloat(data.pairs[0].priceUsd);
-                    document.getElementById('drump-price').innerText = `$${price.toFixed(8)}`;
-                } else {
-                    // Si aún no migra a Raydium (Sigue en la curva de Pump.fun)
-                    document.getElementById('drump-price').innerText = "EN CURVA";
+                    el.innerText = `$${parseFloat(data.pairs[0].priceUsd).toFixed(8)}`;
+                } else { 
+                    el.innerText = "BONDING CURVE"; 
                 }
-            } catch (error) {
-                document.getElementById('drump-price').innerText = "OFFLINE";
+            } catch (error) { 
+                const el = document.getElementById('drump-price');
+                if(el) el.innerText = "OFFLINE"; 
             }
         }
-        fetchDrumpPrice();
-        setInterval(fetchDrumpPrice, 30000); // Actualiza cada 30 segs
 
-        // --- 5. FUNCIÓN COPIAR (GENÉRICA) ---
-        function copyGeneric(textToCopy, btnElement) {
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                const originalText = btnElement.innerText;
-                const originalBg = btnElement.style.background;
-                btnElement.innerText = "¡COPIADO!";
-                btnElement.style.background = "#fff";
-                btnElement.style.color = "#000";
-                setTimeout(() => {
-                    btnElement.innerText = originalText;
-                    btnElement.style.background = originalBg || "var(--neon-pink)";
-                    btnElement.style.color = "#000";
-                }, 2000);
-            });
+        async function fetchTrending() {
+            const container = document.getElementById('trending-list');
+            if(!container) return;
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
+                const data = await res.json();
+                
+                if(data && data.coins && data.coins.length > 0) {
+                    container.innerHTML = ''; 
+                    const top3 = data.coins.slice(0, 3); 
+                    
+                    top3.forEach(item => {
+                        const coin = item.item;
+                        const rank = coin.market_cap_rank ? `#${coin.market_cap_rank}` : 'HOT';
+                        
+                        const html = `
+                            <div class="trending-item">
+                                <img src="${coin.thumb}" class="trend-icon" alt="${coin.name}" onerror="this.style.display='none'">
+                                <div class="trend-info">
+                                    <div class="trend-name">${coin.name}</div>
+                                    <div class="trend-symbol">${coin.symbol}</div>
+                                </div>
+                                <div class="trend-rank">${rank}</div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', html);
+                    });
+                }
+            } catch (error) {
+                console.error("Error al cargar tendencias:", error);
+                container.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 20px;">No fue posible sincronizar el radar en este momento.</p>';
+            }
         }
 
-        // --- 6. LÓGICA DEL JUEGO PONG ---
+        // Iniciar llamadas
+        fetchMarketData(); setInterval(fetchMarketData, 60000);
+        fetchDrumpPrice(); setInterval(fetchDrumpPrice, 30000);
+        fetchTrending(); setInterval(fetchTrending, 300000); // Actualiza cada 5 minutos
+
+        // ==========================================
+        // 4. PONG.SYS WIDGET
+        // ==========================================
         const canvas = document.getElementById("pongCanvas");
         const ctx = canvas.getContext("2d");
+        
+        const pongAccent = "#00f3ff"; 
 
-        const ball = { x: canvas.width/2, y: canvas.height/2, radius: 4, velocityX: 3, velocityY: 3, speed: 4, color: "var(--solana-green)" };
-        const user = { x: 10, y: (canvas.height - 40)/2, width: 6, height: 40, color: "var(--neon-pink)", score: 0 };
-        const cpu = { x: canvas.width - 16, y: (canvas.height - 40)/2, width: 6, height: 40, color: "var(--neon-purple)", score: 0 };
-        const net = { x: (canvas.width - 2)/2, y: 0, width: 2, height: 10, color: "#333" };
+        let ball = { x: 0, y: 0, radius: 4, vx: 3, vy: 3, speed: 4 };
+        let user = { x: 10, y: 0, w: 6, h: 30, s: 0 };
+        let cpu = { x: 0, y: 0, w: 6, h: 30, s: 0 };
 
-        function drawRect(x, y, w, h, color) { ctx.fillStyle = color; ctx.fillRect(x, y, w, h); }
-        function drawArc(x, y, r, color) { ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2, false); ctx.closePath(); ctx.fill(); }
-        function drawNet() { for(let i = 0; i <= canvas.height; i+=15) { drawRect(net.x, net.y + i, net.width, net.height, net.color); } }
-        function drawText(text, x, y, color) { ctx.fillStyle = color; ctx.font = "16px 'Press Start 2P', monospace"; ctx.fillText(text, x, y); }
+        function resizePong() {
+            if(!canvas) return;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            // Reposicionar
+            ball.x = canvas.width/2; ball.y = canvas.height/2;
+            cpu.x = canvas.width - 16;
+            user.y = (canvas.height - user.h)/2; cpu.y = (canvas.height - cpu.h)/2;
+        }
+        
+        setTimeout(resizePong, 100);
+        window.addEventListener('resize', resizePong);
 
         function render() {
-            drawRect(0, 0, canvas.width, canvas.height, "#000"); 
-            drawNet();
-            drawText(user.score, canvas.width/4, 25, user.color);
-            drawText(cpu.score, 3*canvas.width/4, 25, cpu.color);
-            drawRect(user.x, user.y, user.width, user.height, user.color);
-            drawRect(cpu.x, cpu.y, cpu.width, cpu.height, cpu.color);
-            drawArc(ball.x, ball.y, ball.radius, ball.color);
-        }
+            if(!ctx || canvas.width === 0) return;
+            ctx.fillStyle = "rgba(0,0,0,0.4)"; // Trail
+            ctx.fillRect(0, 0, canvas.width, canvas.height); 
+            
+            // Línea central punteada
+            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            for(let i=0; i<=canvas.height; i+=15) ctx.fillRect(canvas.width/2-1, i, 2, 8);
+            
+            // Raquetas y bola
+            ctx.fillStyle = pongAccent;
+            ctx.fillRect(user.x, user.y, user.w, user.h);
+            ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
+            
+            ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2); 
+            ctx.fillStyle = "#fff"; ctx.fill();
 
-        function collision(b, p) {
-            p.top = p.y; p.bottom = p.y + p.height; p.left = p.x; p.right = p.x + p.width;
-            b.top = b.y - b.radius; b.bottom = b.y + b.radius; b.left = b.x - b.radius; b.right = b.x + b.radius;
-            return p.left < b.right && p.top < b.bottom && p.right > b.left && p.bottom > b.top;
-        }
-
-        function resetBall() {
-            ball.x = canvas.width/2; ball.y = canvas.height/2;
-            ball.velocityX = -ball.velocityX;
-            ball.speed = 4;
+            // Actualizar Marcador HTML
+            if(document.getElementById('pong-score-p')) document.getElementById('pong-score-p').innerText = user.s;
+            if(document.getElementById('pong-score-c')) document.getElementById('pong-score-c').innerText = cpu.s;
         }
 
         function update() {
-            ball.x += ball.velocityX; ball.y += ball.velocityY;
-            cpu.y += ((ball.y - (cpu.y + cpu.height/2))) * 0.1;
-            if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) { ball.velocityY = -ball.velocityY; }
-            let player = (ball.x < canvas.width/2) ? user : cpu;
-            if(collision(ball, player)) {
-                let collidePoint = (ball.y - (player.y + player.height/2));
-                collidePoint = collidePoint / (player.height/2);
-                let angleRad = (Math.PI/4) * collidePoint;
-                let direction = (ball.x < canvas.width/2) ? 1 : -1;
-                ball.velocityX = direction * ball.speed * Math.cos(angleRad);
-                ball.velocityY = ball.speed * Math.sin(angleRad);
+            if(canvas.width === 0) return;
+
+            ball.x += ball.vx; ball.y += ball.vy;
+            cpu.y += ((ball.y - (cpu.y + cpu.h/2))) * 0.1; // CPU Suave
+            
+            if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) ball.vy = -ball.vy;
+            
+            let p = (ball.x < canvas.width/2) ? user : cpu;
+            
+            // Colisión
+            if(p.x < ball.x + ball.radius && p.x + p.w > ball.x - ball.radius && 
+               p.y < ball.y + ball.radius && p.y + p.h > ball.y - ball.radius) {
+                
+                let cp = (ball.y - (p.y + p.h/2)) / (p.h/2);
+                let a = (Math.PI/4) * cp;
+                let dir = (ball.x < canvas.width/2) ? 1 : -1;
+                ball.vx = dir * ball.speed * Math.cos(a); ball.vy = ball.speed * Math.sin(a);
                 ball.speed += 0.2; 
             }
-            if(ball.x - ball.radius < 0) { cpu.score++; resetBall(); }
-            else if(ball.x + ball.radius > canvas.width) { user.score++; resetBall(); }
+            
+            // Gol
+            if(ball.x - ball.radius < 0) { cpu.s++; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx;}
+            else if(ball.x + ball.radius > canvas.width) { user.s++; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx;}
         }
 
-        function gameLoop() { update(); render(); requestAnimationFrame(gameLoop); }
+        function gameLoop() { 
+            const dashView = document.getElementById('view-dashboard');
+            if(dashView && dashView.classList.contains('active')) {
+                update(); render(); 
+            }
+            requestAnimationFrame(gameLoop); 
+        }
         gameLoop(); 
 
-        canvas.addEventListener("mousemove", e => {
+        // Movimiento Táctil / Mouse
+        function mPaddle(clientY) {
             let rect = canvas.getBoundingClientRect();
-            user.y = e.clientY - rect.top - user.height/2;
-        });
-        canvas.addEventListener("touchmove", e => {
-            let rect = canvas.getBoundingClientRect();
-            user.y = e.touches[0].clientY - rect.top - user.height/2;
-            e.preventDefault(); 
-        });
+            if(rect.height === 0) return;
+            let scaleY = canvas.height / rect.height;
+            user.y = (clientY - rect.top) * scaleY - user.h/2;
+            if(user.y < 0) user.y = 0; if(user.y + user.h > canvas.height) user.y = canvas.height - user.h;
+        }
+
+        if(canvas) {
+            canvas.addEventListener("mousemove", e => mPaddle(e.clientY));
+            canvas.addEventListener("touchmove", e => { mPaddle(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
+        }
+
     </script>
 </body>
 </html>
