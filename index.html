@@ -122,18 +122,23 @@
             display: grid; grid-template-columns: 1.5fr 1fr; gap: 25px;
         }
 
+        /* BANNER INDEPENDIENTE Y AJUSTADO */
+        .standalone-banner {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: var(--radius-card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
         /* Tarjeta Hero (Estilo Valorant) */
         .hero-card {
             background: linear-gradient(135deg, #4b0082, #ff007f);
             border-radius: var(--radius-card); padding: 30px;
             position: relative; overflow: hidden; display: flex; flex-direction: column;
             box-shadow: 0 15px 30px rgba(75, 0, 130, 0.4);
-            min-height: 280px;
-        }
-        .hero-card-img {
-            position: absolute; top: 0; right: 0; height: 100%; width: 50%;
-            object-fit: cover; mask-image: linear-gradient(to right, transparent, black 40%);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 40%); opacity: 0.8;
         }
         .hero-badges { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2; }
         .badge {
@@ -142,12 +147,12 @@
             display: flex; align-items: center; gap: 5px;
         }
         .hero-title { font-size: 36px; font-weight: 800; margin-bottom: 15px; position: relative; z-index: 2; color: #ffffff !important; }
-        .hero-desc { font-size: 14px; line-height: 1.5; color: #ffffff !important; max-width: 50%; margin-bottom: 20px; position: relative; z-index: 2;}
-        .hero-actions { display: flex; gap: 15px; position: relative; z-index: 2; margin-top: auto;}
+        .hero-desc { font-size: 14px; line-height: 1.5; color: #ffffff !important; max-width: 100%; margin-bottom: 20px; position: relative; z-index: 2;}
+        .hero-actions { display: flex; gap: 15px; position: relative; z-index: 2; margin-top: auto; flex-wrap: wrap;}
         .btn-primary {
             background: var(--text-main); color: var(--text-dark); border: none;
             padding: 10px 20px; border-radius: var(--radius-btn); font-weight: 700; font-size: 14px;
-            cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; text-decoration: none;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; justify-content: center; flex-grow: 1; text-decoration: none;
         }
         .btn-primary:active { transform: scale(0.95); }
 
@@ -293,8 +298,6 @@
         @media (max-width: 1024px) {
             .sidebar-right { display: none; }
             .dashboard-grid { grid-template-columns: 1fr; }
-            .hero-card { min-height: 220px; }
-            .hero-card-img { width: 40%; }
         }
 
         /* Ocultar barra inferior en escritorio */
@@ -376,9 +379,9 @@
                 <div id="view-dashboard" class="view active">
                     
                     <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                        <img src="banner superior.gif" class="standalone-banner" alt="SPAM LABS Banner">
                         <!-- Hero Card (Mini Bio + Redes) -->
                         <div class="hero-card">
-                            <img src="banner superior.gif" class="hero-card-img" alt="SPAM LABS Banner">
                             <div class="hero-badges">
                                 <span class="badge"><i class="ph-fill ph-fire"></i> S.P.A.M. HQ</span>
                                 <span class="badge"><i class="ph-fill ph-globe"></i> LIVE</span>
@@ -485,8 +488,8 @@
                 <!-- VISTA 3: NFT VAULT -->
                 <div id="view-nft" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">NFTs S.P.A.M. Labs</h2>
+                    <img src="octopus nft.png" class="standalone-banner" alt="Octopus Collection">
                     <div class="hero-card" style="background: linear-gradient(135deg, #4a4a4a, #9e9e9e);">
-                        <img src="octopus nft.png" class="hero-card-img" style="opacity:1;" alt="Octopus Collection">
                         <div class="hero-badges">
                             <span class="badge" style="color:#4a4a4a;"><i class="ph-fill ph-hexagon"></i> MINT LIVE</span>
                         </div>
@@ -501,8 +504,8 @@
                 <!-- VISTA 4: DEX -->
                 <div id="view-dex" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Memes S.P.A.M. Labs</h2>
+                    <img src="drump.jpg" class="standalone-banner" alt="Drump Token">
                     <div class="hero-card" style="background: linear-gradient(135deg, #004d33, #14F195); margin-bottom: 30px;">
-                        <img src="drump.jpg" class="hero-card-img" alt="Drump Token">
                         <div class="hero-badges">
                             <span class="badge" style="color:#004d33;"><i class="ph-fill ph-chart-line-up"></i> PUMP.FUN</span>
                         </div>
