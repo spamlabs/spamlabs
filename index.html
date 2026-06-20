@@ -274,7 +274,7 @@
             font-size: 14px; outline: none; transition: 0.2s; width: 100%;
         }
         .meme-input:focus { border-color: var(--accent-green); }
-        .meme-buttons { display: flex; gap: 10px; margin-top: auto; }
+        .meme-buttons { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
 
         /* Toast */
         #toast {
@@ -317,6 +317,7 @@
             .meme-widget { flex-direction: column; align-items: center; }
             .meme-canvas-wrapper { width: 100%; max-width: 350px; }
             .meme-controls { width: 100%; }
+            .meme-buttons { width: 100%; }
         }
     </style>
 </head>
@@ -539,6 +540,9 @@
                                 </button>
                                 <button class="btn-primary" style="flex:1; background: var(--accent-green); color: #000;" onclick="downloadMeme()">
                                     <i class="ph-bold ph-download-simple"></i> Descargar
+                                </button>
+                                <button class="btn-primary" style="flex:1; background: #1DA1F2; color: #fff; border: none;" onclick="shareMemeOnTwitter()">
+                                    <i class="ph-fill ph-twitter-logo"></i> Compartir
                                 </button>
                             </div>
                         </div>
@@ -941,6 +945,40 @@
                 toast.classList.remove('show'); 
                 setTimeout(() => { toast.innerText = prevText; }, 300); // restaurar texto
             }, 2000);
+        };
+
+        window.shareMemeOnTwitter = function() {
+            if(!memeCanvas) return;
+            
+            const tweetText = encodeURIComponent("¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 $DRMP @SPAM_Labs");
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            
+            // Intenta copiar la imagen al portapapeles y luego abrir twitter
+            try {
+                memeCanvas.toBlob(function(blob) {
+                    if (navigator.clipboard && navigator.clipboard.write) {
+                        const item = new ClipboardItem({ 'image/png': blob });
+                        navigator.clipboard.write([item]).then(() => {
+                            const toast = document.getElementById('toast');
+                            const prevText = toast.innerText;
+                            toast.innerText = "¡Meme copiado! Pégalo (Ctrl+V) en Twitter.";
+                            toast.classList.add('show');
+                            setTimeout(() => { 
+                                toast.classList.remove('show'); 
+                                setTimeout(() => { toast.innerText = prevText; }, 300);
+                            }, 3500);
+                            window.open(twitterUrl, '_blank');
+                        }).catch((err) => {
+                            // Si falla, abrir twitter y pedir descarga manual
+                            window.open(twitterUrl, '_blank');
+                        });
+                    } else {
+                        window.open(twitterUrl, '_blank');
+                    }
+                }, 'image/png');
+            } catch(e) {
+                window.open(twitterUrl, '_blank');
+            }
         };
 
     </script>
