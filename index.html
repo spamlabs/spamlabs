@@ -947,38 +947,52 @@
             }, 2000);
         };
 
-        window.shareMemeOnTwitter = function() {
+        window.shareMemeOnTwitter = async function() {
             if(!memeCanvas) return;
             
-            const tweetText = encodeURIComponent("¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 $DRMP @SPAM_Labs");
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 $DRMP @SPAM_Labs";
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
             
-            // Intenta copiar la imagen al portapapeles y luego abrir twitter
-            try {
-                memeCanvas.toBlob(function(blob) {
+            memeCanvas.toBlob(async function(blob) {
+                const file = new File([blob], 'drump_meme.png', { type: 'image/png' });
+
+                // 1ER INTENTO: WEB SHARE API (Comparte directo a la app nativa en Celulares/Tablets)
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({
+                            title: 'S.P.A.M. Labs Meme',
+                            text: tweetText,
+                            files: [file]
+                        });
+                        return; // Éxito total, se abrió la app nativa con la foto precargada
+                    } catch (err) {
+                        console.log("Share cancelado por el usuario o fallido.", err);
+                    }
+                }
+
+                // 2DO INTENTO (FALLBACK PC): Intenta copiar al portapapeles y abre Twitter Web
+                try {
                     if (navigator.clipboard && navigator.clipboard.write) {
                         const item = new ClipboardItem({ 'image/png': blob });
-                        navigator.clipboard.write([item]).then(() => {
-                            const toast = document.getElementById('toast');
-                            const prevText = toast.innerText;
-                            toast.innerText = "¡Meme copiado! Pégalo (Ctrl+V) en Twitter.";
-                            toast.classList.add('show');
-                            setTimeout(() => { 
-                                toast.classList.remove('show'); 
-                                setTimeout(() => { toast.innerText = prevText; }, 300);
-                            }, 3500);
-                            window.open(twitterUrl, '_blank');
-                        }).catch((err) => {
-                            // Si falla, abrir twitter y pedir descarga manual
-                            window.open(twitterUrl, '_blank');
-                        });
-                    } else {
+                        await navigator.clipboard.write([item]);
+                        const toast = document.getElementById('toast');
+                        const prevText = toast.innerText;
+                        toast.innerText = "Meme copiado. Pégalo (Ctrl+V) en el Tweet.";
+                        toast.classList.add('show');
+                        setTimeout(() => { 
+                            toast.classList.remove('show'); 
+                            setTimeout(() => { toast.innerText = prevText; }, 300);
+                        }, 3500);
                         window.open(twitterUrl, '_blank');
+                        return;
                     }
-                }, 'image/png');
-            } catch(e) {
+                } catch(e) { console.log("Fallo portapapeles", e); }
+
+                // 3ER INTENTO (FALLBACK FINAL): Descarga el meme y abre Twitter Web
+                downloadMeme();
                 window.open(twitterUrl, '_blank');
-            }
+
+            }, 'image/png');
         };
 
     </script>
