@@ -16,8 +16,8 @@
     <style>
         :root {
             /* Paleta basada en spamlabs.jpg (Neon Arcade Synthwave) */
-            --bg-outer: #05020a;
-            --app-bg: #12091e;
+            --bg-outer: #d1c4e9; /* Morado tirándole a blanco (Lavanda) */
+            --app-bg: #150924; /* Ajustado sutilmente para armonizar */
             --sidebar-bg: #0a0412;
             --card-bg: #1f1135;
             --card-bg-hover: #2d194d;
@@ -255,6 +255,27 @@
         .trend-symbol { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
         .trend-rank { background: var(--accent-yellow); color: var(--text-dark); padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 800; }
 
+        /* --- MEME GENERATOR WIDGET --- */
+        .meme-widget {
+            background-color: var(--card-bg); border-radius: var(--radius-card); padding: 25px;
+            display: flex; gap: 25px; align-items: flex-start; margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .meme-canvas-wrapper {
+            flex-shrink: 0; width: 300px; border-radius: 16px; overflow: hidden;
+            border: 2px solid var(--accent-green); box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            background: #000; position: relative;
+        }
+        .meme-canvas-wrapper canvas { width: 100%; display: block; }
+        .meme-controls { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
+        .meme-input {
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main); padding: 12px 15px; border-radius: 12px; font-family: 'Outfit', sans-serif;
+            font-size: 14px; outline: none; transition: 0.2s; width: 100%;
+        }
+        .meme-input:focus { border-color: var(--accent-green); }
+        .meme-buttons { display: flex; gap: 10px; margin-top: auto; }
+
         /* Toast */
         #toast {
             position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 100px);
@@ -291,6 +312,11 @@
             .main-wrapper { padding-bottom: 90px; } /* Dar espacio para que no se oculte el contenido */
 
             .long-card { flex-direction: column; text-align: center; border-radius: 20px; gap: 10px; }
+            
+            /* Ajustes Meme Widget para móvil */
+            .meme-widget { flex-direction: column; align-items: center; }
+            .meme-canvas-wrapper { width: 100%; max-width: 350px; }
+            .meme-controls { width: 100%; }
         }
     </style>
 </head>
@@ -454,15 +480,15 @@
                 <!-- VISTA 3: NFT VAULT -->
                 <div id="view-nft" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">NFTs S.P.A.M. Labs</h2>
-                    <div class="hero-card" style="background: linear-gradient(135deg, #2b00ff, #00d4ff);">
+                    <div class="hero-card" style="background: linear-gradient(135deg, #4a4a4a, #9e9e9e);">
                         <img src="octopus nft.png" class="hero-card-img" style="opacity:1;" alt="Octopus Collection">
                         <div class="hero-badges">
-                            <span class="badge" style="color:#2b00ff;"><i class="ph-fill ph-hexagon"></i> MINT LIVE</span>
+                            <span class="badge" style="color:#4a4a4a;"><i class="ph-fill ph-hexagon"></i> MINT LIVE</span>
                         </div>
                         <h2 class="hero-title">Octopus<br>Collection</h2>
                         <p class="hero-desc">Extrae tus entidades digitales. Colección exclusiva limitada a 3,000 unidades en todo el ecosistema.</p>
                         <div class="hero-actions">
-                            <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="btn-primary" style="color:#7c3b8a;"><i class="ph-bold ph-rocket-launch"></i> Iniciar Mint</a>
+                            <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="btn-primary" style="color:#4a4a4a;"><i class="ph-bold ph-rocket-launch"></i> Iniciar Mint</a>
                         </div>
                     </div>
                 </div>
@@ -470,7 +496,7 @@
                 <!-- VISTA 4: DEX -->
                 <div id="view-dex" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Memes S.P.A.M. Labs</h2>
-                    <div class="hero-card" style="background: linear-gradient(135deg, #004d33, #14F195);">
+                    <div class="hero-card" style="background: linear-gradient(135deg, #004d33, #14F195); margin-bottom: 30px;">
                         <img src="drump.jpg" class="hero-card-img" alt="Drump Token">
                         <div class="hero-badges">
                             <span class="badge" style="color:#004d33;"><i class="ph-fill ph-chart-line-up"></i> PUMP.FUN</span>
@@ -485,6 +511,36 @@
 
                         <div class="hero-actions">
                             <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="btn-primary" style="color:#1d976c;"><i class="ph-bold ph-shopping-cart"></i> Comprar Tokens</a>
+                        </div>
+                    </div>
+
+                    <!-- NUEVO WIDGET: GENERADOR DE MEMES DRUMP -->
+                    <div class="section-header">
+                        <h3 class="section-title">Generador Drump Meme</h3>
+                        <span class="section-link" style="color: var(--accent-green); cursor: default;"><i class="ph-fill ph-magic-wand"></i> Meme Factory</span>
+                    </div>
+
+                    <div class="meme-widget">
+                        <div class="meme-canvas-wrapper">
+                            <canvas id="drumpMemeCanvas"></canvas>
+                        </div>
+                        <div class="meme-controls">
+                            <div>
+                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Texto Superior</label>
+                                <input type="text" id="memeTopText" class="meme-input" placeholder="Escribe aquí...">
+                            </div>
+                            <div>
+                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Texto Inferior</label>
+                                <input type="text" id="memeBottomText" class="meme-input" placeholder="Escribe aquí...">
+                            </div>
+                            <div class="meme-buttons">
+                                <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomMeme()">
+                                    <i class="ph-fill ph-dice-three"></i> Aleatorio
+                                </button>
+                                <button class="btn-primary" style="flex:1; background: var(--accent-green); color: #000;" onclick="downloadMeme()">
+                                    <i class="ph-bold ph-download-simple"></i> Descargar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -793,6 +849,99 @@
             canvas.addEventListener("mousemove", e => mPaddle(e.clientY));
             canvas.addEventListener("touchmove", e => { mPaddle(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
         }
+
+        // ==========================================
+        // 5. GENERADOR DE MEMES DRUMP
+        // ==========================================
+        const memeCanvas = document.getElementById("drumpMemeCanvas");
+        const ctxMeme = memeCanvas ? memeCanvas.getContext("2d") : null;
+        
+        const drumpImg = new Image();
+        drumpImg.src = 'drump.jpg';
+        
+        let mTopText = "MAKE SOLANA";
+        let mBottomText = "GREAT AGAIN";
+
+        drumpImg.onload = function() {
+            if(!memeCanvas) return;
+            // Configurar canvas con las proporciones de la imagen
+            memeCanvas.width = drumpImg.width || 600;
+            memeCanvas.height = drumpImg.height || 400;
+            drawMeme();
+        };
+
+        function drawMeme() {
+            if(!ctxMeme) return;
+            
+            // Dibujar fondo
+            ctxMeme.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+            ctxMeme.drawImage(drumpImg, 0, 0, memeCanvas.width, memeCanvas.height);
+
+            // Estilos del texto meme clásico
+            const fontSize = Math.floor(memeCanvas.width / 10);
+            ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
+            ctxMeme.fillStyle = 'white';
+            ctxMeme.strokeStyle = 'black';
+            ctxMeme.lineWidth = Math.floor(fontSize / 15);
+            ctxMeme.textAlign = 'center';
+            ctxMeme.lineJoin = 'round';
+
+            // Dibujar Texto Superior
+            ctxMeme.textBaseline = 'top';
+            ctxMeme.strokeText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
+            ctxMeme.fillText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
+
+            // Dibujar Texto Inferior
+            ctxMeme.textBaseline = 'bottom';
+            ctxMeme.strokeText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
+            ctxMeme.fillText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
+        }
+
+        // Listeners para actualizar en vivo
+        const topInput = document.getElementById('memeTopText');
+        const bottomInput = document.getElementById('memeBottomText');
+
+        if(topInput && bottomInput) {
+            topInput.addEventListener('input', (e) => { mTopText = e.target.value; drawMeme(); });
+            bottomInput.addEventListener('input', (e) => { mBottomText = e.target.value; drawMeme(); });
+        }
+
+        window.generateRandomMeme = function() {
+            const arrTop = [
+                "MAKE SOLANA", "CUANDO COMPRAS EL DIP", "TRUST THE PLAN", 
+                "DIAMOND HANDS", "WE BUILT THE WALL", "PUMP IT", "YO VIENDO", "1000X SOON"
+            ];
+            const arrBottom = [
+                "GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", 
+                "AND ETH PAID FOR IT", "TO THE MOON", "MI PORTAFOLIO EN ROJO", "JEJEJE"
+            ];
+
+            mTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
+            mBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
+            
+            topInput.value = mTopText;
+            bottomInput.value = mBottomText;
+            
+            drawMeme();
+        };
+
+        window.downloadMeme = function() {
+            if(!memeCanvas) return;
+            const link = document.createElement('a');
+            link.download = 'Drump_SPAM_Meme.png';
+            link.href = memeCanvas.toDataURL('image/png');
+            link.click();
+            
+            // Pequeña notificación visual usando tu toast
+            const toast = document.getElementById('toast');
+            const prevText = toast.innerText;
+            toast.innerText = "¡Meme guardado con éxito!";
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+                setTimeout(() => { toast.innerText = prevText; }, 300); // restaurar texto
+            }, 2000);
+        };
 
     </script>
 </body>
