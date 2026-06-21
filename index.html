@@ -122,15 +122,30 @@
             display: grid; grid-template-columns: 1.5fr 1fr; gap: 25px;
         }
 
-        /* BANNER INDEPENDIENTE Y AJUSTADO */
-        .standalone-banner {
+        /* Tarjeta Dividida (Unifica Imagen Superior y Contenido Inferior) */
+        .split-card {
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .split-card-img {
             width: 100%;
-            max-height: 350px;
+            height: 280px;
             object-fit: cover;
             object-position: center;
-            border-radius: var(--radius-card);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: block;
+            background: #000;
+        }
+        .split-card-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
         }
 
         /* Tarjeta Hero (Estilo Valorant) */
@@ -320,6 +335,10 @@
 
             .long-card { flex-direction: column; text-align: center; border-radius: 20px; gap: 10px; }
             
+            /* Ajustes en móvil para la Split Card */
+            .split-card-img { height: 200px; }
+            .split-card-content { padding: 20px; gap: 10px; }
+
             /* Ajustes Meme Widget para móvil */
             .meme-widget { flex-direction: column; align-items: center; }
             .meme-canvas-wrapper { width: 100%; max-width: 350px; }
@@ -379,20 +398,21 @@
                 <div id="view-dashboard" class="view active">
                     
                     <div class="dashboard-grid" style="grid-template-columns: 1fr;">
-                        <img src="banner superior.gif" class="standalone-banner" alt="SPAM LABS Banner">
-                        <!-- Hero Card (Mini Bio + Redes) -->
-                        <div class="hero-card">
-                            <div class="hero-badges">
-                                <span class="badge"><i class="ph-fill ph-fire"></i> S.P.A.M. HQ</span>
-                                <span class="badge"><i class="ph-fill ph-globe"></i> LIVE</span>
-                            </div>
-                            <h2 class="hero-title">S.P.A.M. LABS</h2>
-                            <p class="hero-desc">
-                                Somos un estudio de desarrollo enfocado en crear experiencias interactivas, juegos arcade on-chain y herramientas para el ecosistema de Solana.
-                            </p>
-                            <div class="hero-actions">
-                                <a href="https://x.com/SPAM_Labs" target="_blank" class="btn-primary" style="background: #1DA1F2; color: #fff;"><i class="ph-fill ph-twitter-logo"></i> Twitter / X</a>
-                                <a href="https://discord.com/invite/5376haND6" target="_blank" class="btn-primary" style="background: #5865F2; color: #fff;"><i class="ph-fill ph-discord-logo"></i> Discord</a>
+                        <div class="split-card">
+                            <img src="banner superior.gif" class="split-card-img" alt="SPAM LABS Banner">
+                            <div class="split-card-content" style="background: linear-gradient(135deg, #4b0082, #ff007f);">
+                                <div class="hero-badges" style="margin-bottom: 0;">
+                                    <span class="badge"><i class="ph-fill ph-fire"></i> S.P.A.M. HQ</span>
+                                    <span class="badge"><i class="ph-fill ph-globe"></i> LIVE</span>
+                                </div>
+                                <h2 class="hero-title" style="margin-bottom: 0;">S.P.A.M. LABS</h2>
+                                <p class="hero-desc" style="margin-bottom: 5px;">
+                                    Somos un estudio de desarrollo enfocado en crear experiencias interactivas, juegos arcade on-chain y herramientas para el ecosistema de Solana.
+                                </p>
+                                <div class="hero-actions">
+                                    <a href="https://x.com/SPAM_Labs" target="_blank" class="btn-primary" style="background: #1DA1F2; color: #fff;"><i class="ph-fill ph-twitter-logo"></i> Twitter / X</a>
+                                    <a href="https://discord.com/invite/5376haND6" target="_blank" class="btn-primary" style="background: #5865F2; color: #fff;"><i class="ph-fill ph-discord-logo"></i> Discord</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -488,38 +508,39 @@
                 <!-- VISTA 3: NFT VAULT -->
                 <div id="view-nft" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">NFTs S.P.A.M. Labs</h2>
-                    <img src="octopus nft.png" class="standalone-banner" alt="Octopus Collection">
-                    <div class="hero-card" style="background: linear-gradient(135deg, #4a4a4a, #9e9e9e);">
-                        <div class="hero-badges">
-                            <span class="badge" style="color:#4a4a4a;"><i class="ph-fill ph-hexagon"></i> MINT LIVE</span>
-                        </div>
-                        <h2 class="hero-title">Octopus<br>Collection</h2>
-                        <p class="hero-desc">Extrae tus entidades digitales. Colección exclusiva limitada a 3,000 unidades en todo el ecosistema.</p>
-                        <div class="hero-actions">
-                            <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="btn-primary" style="color:#4a4a4a;"><i class="ph-bold ph-rocket-launch"></i> Iniciar Mint</a>
-                        </div>
+                    
+                    <div class="bottom-grid">
+                        <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="square-card" style="min-height: 280px;">
+                            <img src="octopus nft.png" class="card-img-bg" alt="Octopus Collection">
+                            <div class="card-icon-top"><i class="ph-fill ph-hexagon" style="color:#ffffff !important;"></i></div>
+                            <div class="square-card-content">
+                                <span class="badge" style="width:fit-content; margin-bottom:10px; background:#4a4a4a; color:#fff;">MINT LIVE</span>
+                                <h4 class="sc-title">Octopus Collection</h4>
+                                <p class="sc-desc">Extrae tus entidades digitales. Colección exclusiva limitada a 3,000 unidades en todo el ecosistema.</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
 
                 <!-- VISTA 4: DEX -->
                 <div id="view-dex" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Memes S.P.A.M. Labs</h2>
-                    <img src="drump.jpg" class="standalone-banner" alt="Drump Token">
-                    <div class="hero-card" style="background: linear-gradient(135deg, #004d33, #14F195); margin-bottom: 30px;">
-                        <div class="hero-badges">
-                            <span class="badge" style="color:#004d33;"><i class="ph-fill ph-chart-line-up"></i> PUMP.FUN</span>
-                        </div>
-                        <h2 class="hero-title">DRUMP<br>($DRMP)</h2>
-                        <p class="hero-desc">Token de la comunidad. Participa en la curva de liquidez y sé parte del movimiento.</p>
-                        
-                        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 16px; width: fit-content; margin-bottom: 20px; position:relative; z-index:2;">
-                            <div style="font-size: 10px; color:rgba(255,255,255,0.7); margin-bottom:5px;">PRECIO EN VIVO</div>
-                            <div id="drump-price" style="font-size: 24px; font-weight:800; font-family:monospace; color: #ffffff !important;">SYNC...</div>
-                        </div>
-
-                        <div class="hero-actions">
-                            <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="btn-primary" style="color:#1d976c;"><i class="ph-bold ph-shopping-cart"></i> Comprar Tokens</a>
-                        </div>
+                    
+                    <div class="bottom-grid" style="margin-bottom: 40px;">
+                        <a href="https://pump.fun/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump" target="_blank" class="square-card" style="min-height: 280px;">
+                            <img src="drump.jpg" class="card-img-bg" alt="Drump Token">
+                            <div class="card-icon-top"><i class="ph-fill ph-chart-line-up" style="color:#ffffff !important;"></i></div>
+                            <div class="square-card-content">
+                                <span class="badge" style="width:fit-content; margin-bottom:10px; background:#004d33; color:#fff;">PUMP.FUN</span>
+                                <h4 class="sc-title">DRUMP ($DRMP)</h4>
+                                <p class="sc-desc">Token de la comunidad. Participa en la curva de liquidez y sé parte del movimiento.</p>
+                                
+                                <div style="background: rgba(0,0,0,0.5); padding: 10px 15px; border-radius: 12px; width: fit-content; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                                    <div style="font-size: 9px; color:rgba(255,255,255,0.7); margin-bottom:2px;">PRECIO EN VIVO</div>
+                                    <div id="drump-price" style="font-size: 18px; font-weight:800; font-family:monospace; color: #ffffff !important;">SYNC...</div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
 
                     <!-- NUEVO WIDGET: GENERADOR DE MEMES DRUMP -->
@@ -576,34 +597,12 @@
 
                     <!-- PANTALLA DESBLOQUEADA DEV -->
                     <div id="dev-unlocked" style="display: none;">
-                        <h2 class="hero-title" style="margin-bottom:30px; font-family: monospace;">DEV Terminal // ROOT</h2>
+                        <h2 class="hero-title" style="margin-bottom:30px; font-family: monospace; color: var(--accent-green) !important;">PANEL ROOT DEV</h2>
                         
-                        <div class="hero-card" style="background: #05020a; border: 1px solid var(--accent-green); box-shadow: 0 0 30px rgba(20, 241, 149, 0.1);">
-                            <div class="hero-badges">
-                                <span class="badge" style="background: var(--accent-green); color: #000;"><i class="ph-bold ph-check-circle"></i> AUTHORIZED</span>
-                                <span class="badge" style="background: #333; color: #fff;"><i class="ph-bold ph-cpu"></i> SYSTEMS ONLINE</span>
-                            </div>
-                            <h2 class="hero-title" style="color: var(--accent-green) !important; font-family: monospace;">S.P.A.M. CORE ENGINE</h2>
-                            <p class="hero-desc" style="font-family: monospace; color: #888 !important; margin-bottom: 15px;">
-                                Bienvenido de vuelta, desarrollador. Control total de contratos inteligentes y despliegue habilitado.
+                        <div style="background: #05020a; border: 1px solid var(--accent-green); border-radius: var(--radius-card); padding: 30px; box-shadow: 0 0 30px rgba(20, 241, 149, 0.1);">
+                            <p style="color: var(--accent-green); font-family: monospace; font-size: 16px;">
+                                [!] Acceso autorizado. Pásame la lista de lo que necesitas aquí...
                             </p>
-                            
-                            <div style="background: rgba(0,255,0,0.05); padding: 20px; border-radius: 12px; font-family: monospace; color: var(--accent-green); font-size: 13px; line-height: 1.6; margin-bottom: 25px; border-left: 3px solid var(--accent-green);">
-                                > Init S.P.A.M. Protocol v1.4.2... [OK]<br>
-                                > Syncing Solana Nodes (Mainnet-Beta)... [OK]<br>
-                                > Verifying Treasury Wallet: ARRGSnvXJPaPtbD... [SECURED]<br>
-                                > Loading Arcade Game States... [OK]<br>
-                                > Waiting for root commands... _
-                            </div>
-
-                            <div class="hero-actions">
-                                <button class="btn-primary" style="background: #222; color: #fff; border: 1px solid #444;" onclick="alert('Deploy de contratos no disponible en entorno de lectura.')">
-                                    <i class="ph-bold ph-rocket-launch"></i> Deploy Smart Contract
-                                </button>
-                                <button class="btn-primary" style="background: #222; color: #fff; border: 1px solid #444;" onclick="alert('Estadísticas extraídas exitosamente al portapapeles.')">
-                                    <i class="ph-bold ph-download-simple"></i> Exportar Logs
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </div>
