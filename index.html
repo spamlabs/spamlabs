@@ -192,7 +192,7 @@
         .section-link { color: var(--text-muted); font-size: 13px; text-decoration: none; transition: 0.2s; }
         .section-link:hover { color: var(--text-main); }
 
-        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
 
         /* Tarjetas Cuadradas (Juegos) */
         .square-card {
@@ -503,7 +503,7 @@
                             <div class="card-icon-top"><i class="ph-fill ph-chart-line-up" style="color:#ffffff !important;"></i></div>
                             <div class="square-card-content">
                                 <span class="badge" style="width:fit-content; margin-bottom:10px; background:#004d33; color:#fff;">PUMP.FUN</span>
-                                <h4 class="sc-title">DRUMP ($DRMP)</h4>
+                                <h4 class="sc-title">DRUMP (DRMP)</h4>
                                 <p class="sc-desc">Token de la comunidad. Participa en la curva de liquidez y sé parte del movimiento.</p>
                                 
                                 <div style="background: rgba(0,0,0,0.5); padding: 10px 15px; border-radius: 12px; width: fit-content; margin-top: 15px; border: 1px solid rgba(255,255,255,0.1);">
@@ -765,7 +765,7 @@
 
         window.generateRandomMeme = function() {
             const arrTop = ["MAKE SOLANA", "CUANDO COMPRAS EL DIP", "TRUST THE PLAN", "DIAMOND HANDS", "WE BUILT THE WALL", "PUMP IT", "YO VIENDO EL CHART", "1000X SOON", "LOS ALIENS ME DIJERON", "DESCLASIFIQUÉ LOS OVNIS", "TENGO LOS DOCUMENTOS SECRETOS", "NADIE SABE MÁS DE CRYPTO QUE YO", "MI PREDICCIÓN FUE PERFECTA", "EL EXPERTO DIJO BULL RUN", "HICE UN TRATO CON LOS EXTRATERRESTRES", "ENCONTRÉ LOS PAPELES DE SATOSHI", "ESTE TOKEN ES TREMENDO, CRÉANME", "EL ÁREA 51 ES REAL", "ESTAMOS EN EL BOTTOM"];
-            const arrBottom = ["GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", "AND ETH PAID FOR IT", "TO THE MOON", "LIQUIDADO EN 5 MINUTOS", "QUE COMPRE MÁS SOLANA", "Y TODOS COMPRARON SHIBA", "ESTABAN EN MAR A LAGO", "Y ACEPTAN $DRMP", "COMPRÉ EN EL ATH", "ESTAMOS COMIENDO MARUCHAN", "PERO EL COHETE ERA UN RUG PULL", "THE BEST TOKEN IN THE WORLD", "AHÍ GUARDAN MI FRASE SEMILLA", "SATOSHI ES UN ALIEN", "MAKE MI PORTAFOLIO GREEN AGAIN", "Y LUEGO VINO EL DUMP", "JEJEJE"];
+            const arrBottom = ["GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", "AND ETH PAID FOR IT", "TO THE MOON", "LIQUIDADO EN 5 MINUTOS", "QUE COMPRE MÁS SOLANA", "Y TODOS COMPRARON SHIBA", "ESTABAN EN MAR A LAGO", "Y ACEPTAN DRUMP", "COMPRÉ EN EL ATH", "ESTAMOS COMIENDO MARUCHAN", "PERO EL COHETE ERA UN RUG PULL", "THE BEST TOKEN IN THE WORLD", "AHÍ GUARDAN MI FRASE SEMILLA", "SATOSHI ES UN ALIEN", "MAKE MI PORTAFOLIO GREEN AGAIN", "Y LUEGO VINO EL DUMP", "JEJEJE"];
 
             mTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
             mBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
@@ -793,7 +793,7 @@
         window.shareMemeOnTwitter = async function() {
             if(!memeCanvas) return;
             
-            const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 @SPAM_Labs\n\nhttps://pump.fun/coin/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump";
+            const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀\n\nEntra a la terminal y encontrarás los links oficiales para convertirte en Drumper. @SPAM_Labs";
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
             
             memeCanvas.toBlob(async function(blob) {
