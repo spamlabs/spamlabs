@@ -334,7 +334,7 @@
 
     <div class="app-container">
         
-        <!-- SIDEBAR NAVEGACIÓN -->
+        <!-- BARRA LATERAL IZQUIERDA (NAVEGACIÓN) -->
         <aside class="sidebar-left">
             <div class="logo">
                 <img src="spamlabs.png" alt="Logo">
@@ -352,8 +352,8 @@
             <div class="nav-item" data-target="view-dex" title="DEX Market">
                 <i class="ph-fill ph-chart-line-up"></i>
             </div>
-            <div class="nav-item" data-target="view-social" title="Community">
-                <i class="ph-fill ph-users"></i>
+            <div class="nav-item" data-target="view-dev" title="DEV Dashboard">
+                <i class="ph-fill ph-terminal-window"></i>
             </div>
         </aside>
 
@@ -556,34 +556,54 @@
                     </div>
                 </div>
 
-                <!-- VISTA 5: SOCIAL -->
-                <div id="view-social" class="view">
-                    <h2 class="hero-title" style="margin-bottom:30px;">Comunidad S.P.A.M. Labs</h2>
-                    <div class="bottom-grid">
-                        <a href="https://x.com/SPAM_Labs" target="_blank" class="square-card" style="min-height: 200px; background: #1DA1F2;">
-                            <div class="card-icon-top" style="background:rgba(255,255,255,0.2);"><i class="ph-fill ph-twitter-logo" style="color:#ffffff !important;"></i></div>
-                            <div class="square-card-content">
-                                <h4 class="sc-title">Twitter / X</h4>
-                                <p class="sc-desc" style="color:#ffffff !important; font-weight: 500;">Síguenos para anuncios oficiales y noticias.</p>
-                            </div>
-                        </a>
-                        <a href="https://discord.com/invite/5376haND6" target="_blank" class="square-card" style="min-height: 200px; background: #5865F2;">
-                            <div class="card-icon-top" style="background:rgba(255,255,255,0.2);"><i class="ph-fill ph-discord-logo" style="color:#ffffff !important;"></i></div>
-                            <div class="square-card-content">
-                                <h4 class="sc-title">Servidor Discord</h4>
-                                <p class="sc-desc" style="color:#ffffff !important; font-weight: 500;">Conecta con otros operativos, recibe soporte y comparte alfa.</p>
-                            </div>
-                        </a>
+                <!-- VISTA 5: DEV TERMINAL (REEMPLAZA A COMUNIDAD) -->
+                <div id="view-dev" class="view">
+                    
+                    <!-- PANTALLA DE BLOQUEO DEV -->
+                    <div id="dev-locked" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
+                        <i class="ph-fill ph-fingerprint" style="font-size: 80px; color: var(--accent-orange); margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,0,127,0.5);"></i>
+                        <h2 class="hero-title" style="margin-bottom:10px; font-family: monospace;">ROOT ACCESS</h2>
+                        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 15px;">Firma con la billetera maestra de S.P.A.M. Labs para acceder.</p>
+                        
+                        <button class="btn-primary" onclick="connectSolflareWallet()" style="background: #e86b24; color: #fff; width: 250px; font-family: monospace; font-size: 16px;">
+                            <img src="https://raw.githubusercontent.com/solana-labs/wallet-adapter/master/packages/wallets/solflare/images/icon.png" style="width: 20px; height: 20px; border-radius: 4px;" alt="Solflare"> Conectar Solflare
+                        </button>
+                        
+                        <div id="dev-error-msg" style="color: #ff3366; margin-top: 20px; font-size: 14px; font-weight: 600; opacity: 0; transition: 0.3s;">
+                            [ERROR] Firma rechazada.
+                        </div>
                     </div>
 
-                    <div class="section-header" style="margin-top: 40px;">
-                        <h3 class="section-title">Radar de Tendencias</h3>
-                        <span class="section-link" style="cursor: default; color: var(--accent-yellow);">Top 3 Global</span>
-                    </div>
+                    <!-- PANTALLA DESBLOQUEADA DEV -->
+                    <div id="dev-unlocked" style="display: none;">
+                        <h2 class="hero-title" style="margin-bottom:30px; font-family: monospace;">DEV Terminal // ROOT</h2>
+                        
+                        <div class="hero-card" style="background: #05020a; border: 1px solid var(--accent-green); box-shadow: 0 0 30px rgba(20, 241, 149, 0.1);">
+                            <div class="hero-badges">
+                                <span class="badge" style="background: var(--accent-green); color: #000;"><i class="ph-bold ph-check-circle"></i> AUTHORIZED</span>
+                                <span class="badge" style="background: #333; color: #fff;"><i class="ph-bold ph-cpu"></i> SYSTEMS ONLINE</span>
+                            </div>
+                            <h2 class="hero-title" style="color: var(--accent-green) !important; font-family: monospace;">S.P.A.M. CORE ENGINE</h2>
+                            <p class="hero-desc" style="font-family: monospace; color: #888 !important; margin-bottom: 15px;">
+                                Bienvenido de vuelta, desarrollador. Control total de contratos inteligentes y despliegue habilitado.
+                            </p>
+                            
+                            <div style="background: rgba(0,255,0,0.05); padding: 20px; border-radius: 12px; font-family: monospace; color: var(--accent-green); font-size: 13px; line-height: 1.6; margin-bottom: 25px; border-left: 3px solid var(--accent-green);">
+                                > Init S.P.A.M. Protocol v1.4.2... [OK]<br>
+                                > Syncing Solana Nodes (Mainnet-Beta)... [OK]<br>
+                                > Verifying Treasury Wallet: ARRGSnvXJPaPtbD... [SECURED]<br>
+                                > Loading Arcade Game States... [OK]<br>
+                                > Waiting for root commands... _
+                            </div>
 
-                    <div class="trending-list" id="trending-list">
-                        <div style="text-align: center; color: var(--text-muted); padding: 30px; font-weight: 500;">
-                            <p>Escaneando el ecosistema global...</p>
+                            <div class="hero-actions">
+                                <button class="btn-primary" style="background: #222; color: #fff; border: 1px solid #444;" onclick="alert('Deploy de contratos no disponible en entorno de lectura.')">
+                                    <i class="ph-bold ph-rocket-launch"></i> Deploy Smart Contract
+                                </button>
+                                <button class="btn-primary" style="background: #222; color: #fff; border: 1px solid #444;" onclick="alert('Estadísticas extraídas exitosamente al portapapeles.')">
+                                    <i class="ph-bold ph-download-simple"></i> Exportar Logs
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -634,7 +654,7 @@
             <div class="nav-item" data-target="view-arcade" title="Arcade Games"><i class="ph-fill ph-game-controller"></i></div>
             <div class="nav-item" data-target="view-nft" title="NFT Vault"><i class="ph-fill ph-hexagon"></i></div>
             <div class="nav-item" data-target="view-dex" title="DEX Market"><i class="ph-fill ph-chart-line-up"></i></div>
-            <div class="nav-item" data-target="view-social" title="Community"><i class="ph-fill ph-users"></i></div>
+            <div class="nav-item" data-target="view-dev" title="DEV Dashboard"><i class="ph-fill ph-terminal-window"></i></div>
         </nav>
 
     </div>
@@ -725,44 +745,9 @@
             }
         }
 
-        async function fetchTrending() {
-            const container = document.getElementById('trending-list');
-            if(!container) return;
-            try {
-                const res = await fetch('https://api.coingecko.com/api/v3/search/trending');
-                const data = await res.json();
-                
-                if(data && data.coins && data.coins.length > 0) {
-                    container.innerHTML = ''; 
-                    const top3 = data.coins.slice(0, 3); 
-                    
-                    top3.forEach(item => {
-                        const coin = item.item;
-                        const rank = coin.market_cap_rank ? `#${coin.market_cap_rank}` : 'HOT';
-                        
-                        const html = `
-                            <div class="trending-item">
-                                <div class="trend-icon"><img src="${coin.thumb}" alt="${coin.name}" style="width:100%; height:100%; object-fit:cover;"></div>
-                                <div class="trend-info">
-                                    <div class="trend-name">${coin.name}</div>
-                                    <div class="trend-symbol">${coin.symbol}</div>
-                                </div>
-                                <div class="trend-rank">${rank}</div>
-                            </div>
-                        `;
-                        container.insertAdjacentHTML('beforeend', html);
-                    });
-                }
-            } catch (error) {
-                console.error("Error al cargar tendencias:", error);
-                container.innerHTML = '<p style="text-align: center; color: var(--text-muted); padding: 20px;">No fue posible sincronizar el radar en este momento.</p>';
-            }
-        }
-
-        // Iniciar llamadas
+        // Iniciar llamadas de precios
         fetchMarketData(); setInterval(fetchMarketData, 60000);
         fetchDrumpPrice(); setInterval(fetchDrumpPrice, 30000);
-        fetchTrending(); setInterval(fetchTrending, 300000); 
 
         // ==========================================
         // 4. PONG.SYS WIDGET
@@ -957,7 +942,7 @@
         window.shareMemeOnTwitter = async function() {
             if(!memeCanvas) return;
             
-            const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 $DRMP @SPAM_Labs";
+            const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀 @SPAM_Labs\n\nhttps://pump.fun/coin/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump";
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
             
             memeCanvas.toBlob(async function(blob) {
@@ -1000,6 +985,69 @@
                 window.open(twitterUrl, '_blank');
 
             }, 'image/png');
+        };
+
+        // ==========================================
+        // 6. CONTROL DE ACCESO DEV (WEB3 PHANTOM)
+        // ==========================================
+        // 6. CONTROL DE ACCESO DEV (WEB3 SOLFLARE)
+        // ==========================================
+        
+        function showDevError(msg) {
+            const errorMsg = document.getElementById('dev-error-msg');
+            errorMsg.innerText = "[ERROR] " + msg;
+            errorMsg.style.opacity = '1';
+            
+            // Efecto de error (shake)
+            const btn = document.querySelector('#dev-locked button');
+            btn.style.transform = 'translateX(10px)';
+            setTimeout(() => btn.style.transform = 'translateX(-10px)', 100);
+            setTimeout(() => btn.style.transform = 'translateX(10px)', 200);
+            setTimeout(() => btn.style.transform = 'translateX(0)', 300);
+            
+            setTimeout(() => { errorMsg.style.opacity = '0'; }, 4000);
+        }
+
+        window.connectSolflareWallet = async function() {
+            const devWallet = "ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy";
+
+            try {
+                // Verificar si Solflare está instalado en el navegador
+                const { solflare } = window;
+                
+                if (solflare && solflare.isSolflare) {
+                    // Solicitar conexión a la billetera Solflare
+                    await solflare.connect();
+                    const connectedWallet = solflare.publicKey.toString();
+                    
+                    console.log("Billetera detectada: ", connectedWallet);
+
+                    if (connectedWallet === devWallet) {
+                        // Desbloqueo exitoso: La billetera conectada coincide
+                        document.getElementById('dev-locked').style.display = 'none';
+                        document.getElementById('dev-unlocked').style.display = 'block';
+                        
+                        const toast = document.getElementById('toast');
+                        toast.innerText = "¡Firma verificada! Acceso ROOT concedido.";
+                        toast.classList.add('show');
+                        setTimeout(() => toast.classList.remove('show'), 2500);
+                    } else {
+                        // Acceso Denegado: Billetera incorrecta
+                        solflare.disconnect(); // Forzar desconexión
+                        showDevError("Billetera no autorizada. Acceso denegado.");
+                    }
+                } else {
+                    // No tiene Solflare
+                    showDevError("Extensión de Solflare no detectada en el navegador.");
+                    setTimeout(() => {
+                        window.open("https://solflare.com/", "_blank");
+                    }, 2000);
+                }
+            } catch (err) {
+                // El usuario canceló la petición
+                console.error(err);
+                showDevError("Petición de conexión cancelada por el usuario.");
+            }
         };
 
     </script>
