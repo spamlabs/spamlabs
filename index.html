@@ -192,9 +192,9 @@
         .section-link { color: var(--text-muted); font-size: 13px; text-decoration: none; transition: 0.2s; }
         .section-link:hover { color: var(--text-main); }
 
-        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 25px; }
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 
-        /* Tarjetas Cuadradas (Juegos / Pong) */
+        /* Tarjetas Cuadradas (Juegos) */
         .square-card {
             background-color: var(--card-bg); border-radius: var(--radius-card); padding: 20px;
             position: relative; overflow: hidden; display: flex; flex-direction: column;
@@ -208,21 +208,7 @@
         .sc-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: #ffffff !important; }
         .sc-desc { font-size: 12px; color: var(--text-muted); }
 
-        /* Contenedor específico para el Pong (Simula el "Your Statistic") */
-        .pong-widget {
-            background: linear-gradient(180deg, var(--card-dark) 0%, #1f0f12 100%);
-            border-radius: var(--radius-card); padding: 20px; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden;
-            display: flex; flex-direction: column;
-        }
-        .pong-canvas-container { width: 100%; flex-grow: 1; border-radius: 16px; overflow: hidden; background: #000; position: relative;}
-        canvas { width: 100%; height: 100%; display: block; touch-action: none; }
-        .pong-stats { display: flex; justify-content: space-between; margin-top: 15px; }
-        .stat-col { text-align: center; }
-        .stat-val { font-size: 16px; font-weight: 800; color: var(--accent-orange); }
-        .stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-
-        /* Tarjeta Larga (Treasury / Last Download) */
+        /* Tarjeta Larga (Treasury / Info) */
         .long-card {
             background-color: var(--card-bg); border-radius: 100px; padding: 15px 25px;
             display: flex; align-items: center; gap: 20px; margin-top: 20px; position: relative; overflow: hidden;
@@ -394,7 +380,7 @@
             <!-- CONTENEDOR DE VISTAS -->
             <div id="views-container">
                 
-                <!-- VISTA 1: DASHBOARD -->
+                <!-- VISTA 1: DASHBOARD (LANDING INFO) -->
                 <div id="view-dashboard" class="view active">
                     
                     <div class="dashboard-grid" style="grid-template-columns: 1fr;">
@@ -410,72 +396,55 @@
                                     Somos un estudio de desarrollo enfocado en crear experiencias interactivas, juegos arcade on-chain y herramientas para el ecosistema de Solana.
                                 </p>
                                 <div class="hero-actions">
-                                    <a href="https://x.com/SPAM_Labs" target="_blank" class="btn-primary" style="background: #1DA1F2; color: #fff;"><i class="ph-fill ph-twitter-logo"></i> Twitter / X</a>
-                                    <a href="https://discord.com/invite/5376haND6" target="_blank" class="btn-primary" style="background: #5865F2; color: #fff;"><i class="ph-fill ph-discord-logo"></i> Discord</a>
+                                    <a href="https://x.com/SPAM_Labs" target="_blank" class="btn-primary" style="background: #1DA1F2; color: #fff; max-width:200px;"><i class="ph-fill ph-twitter-logo"></i> Twitter / X</a>
+                                    <a href="https://discord.com/invite/5376haND6" target="_blank" class="btn-primary" style="background: #5865F2; color: #fff; max-width:200px;"><i class="ph-fill ph-discord-logo"></i> Discord</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- SECCIÓN INFORMATIVA DEL LANDING -->
                     <div class="section-header">
-                        <h3 class="section-title">Juegos S.P.A.M. Labs</h3>
-                        <a href="#" class="section-link" onclick="switchTab('view-arcade')">See More <i class="ph-bold ph-arrow-right"></i></a>
+                        <h3 class="section-title">Nuestra Misión y Visión</h3>
                     </div>
-
-                    <div class="bottom-grid">
-                        <!-- Arcade Card 1 -->
-                        <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="square-card">
-                            <img src="box banner.png" class="card-img-bg" alt="Solana Boxing">
-                            <div class="card-icon-top"><i class="ph-fill ph-play" style="color:#ffffff !important;"></i></div>
-                            <div class="square-card-content">
-                                <h4 class="sc-title">Solana Boxing</h4>
-                                <p class="sc-desc">Simulador deportivo en la red de Solana. Entrena y sobrevive.</p>
-                            </div>
-                        </a>
-
-                        <!-- Arcade Card 2 -->
-                        <div class="square-card" style="opacity: 0.7; cursor: default;">
-                            <img src="octopus banner.png" class="card-img-bg" alt="Octopus Viscoso">
-                            <div class="card-icon-top"><i class="ph-fill ph-lock-key" style="color:var(--text-muted);"></i></div>
-                            <div class="square-card-content">
-                                <h4 class="sc-title">Octopus Viscoso</h4>
-                                <p class="sc-desc">Standard Edition. Próximamente.</p>
-                            </div>
-                        </div>
-
-                        <!-- PONG (Imita el "Your Statistic") -->
-                        <div class="pong-widget">
-                            <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                                <h4 class="sc-title">Pong.sys</h4>
-                                <i class="ph-bold ph-arrow-right" style="color:var(--text-muted);"></i>
-                            </div>
-                            <div class="pong-canvas-container">
-                                <canvas id="pongCanvas"></canvas>
-                                <div style="position:absolute; top:5px; width:100%; text-align:center; font-size:9px; color:rgba(255,255,255,0.5); pointer-events:none;">SWIPE TO MOVE</div>
-                            </div>
-                            <div class="pong-stats">
-                                <div class="stat-col"><div class="stat-val" id="pong-score-p">0</div><div class="stat-lbl">TÚ</div></div>
-                                <div class="stat-col"><div class="stat-val" style="color:var(--text-muted);">VS</div><div class="stat-lbl">---</div></div>
-                                <div class="stat-col"><div class="stat-val" id="pong-score-c">0</div><div class="stat-lbl">CPU</div></div>
-                            </div>
-                        </div>
+                    
+                    <div style="background-color: var(--card-bg); border-radius: var(--radius-card); padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);">
+                        <p style="color: var(--text-muted); line-height: 1.8; font-size: 15px;">
+                            <strong style="color: var(--text-main); font-size: 18px;">Solana Pixel Arcade Masters (S.P.A.M.)</strong> nace de la colisión entre la nostalgia de las arcadias de los 80s y la innovación de la tecnología Web3.<br><br>
+                            Nuestra visión no es simplemente crear juegos aislados, sino forjar un ecosistema completo donde tu progreso, tus entidades digitales (NFTs) y tu participación en la red tengan un valor real y te pertenezcan criptográficamente. Desde herramientas DEX para la comunidad hasta simuladores deportivos on-chain, cada línea de código que desplegamos está diseñada para fortalecer a los operativos de Solana.
+                            <br><br>
+                            Navega usando el menú lateral para descubrir nuestras colecciones, interactuar con el mercado de Memes y jugar en nuestra terminal Arcade en vivo.
+                        </p>
                     </div>
 
                     <div class="section-header" style="margin-top: 20px;">
-                        <h3 class="section-title">Treasury Vault</h3>
+                        <h3 class="section-title">Donativos & Documentación</h3>
                     </div>
 
-                    <!-- Treasury Card (Imita "Last Downloads") -->
-                    <div class="long-card">
-                        <div class="lc-icon">S</div>
-                        <div class="lc-info">
-                            <h4 class="lc-title" style="color: #ffffff !important;">S.P.A.M. Ecosystem Wallet</h4>
-                            <p class="lc-subtitle">ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy</p>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <!-- Tarjeta de Donativos (30% más pequeña y compacta) -->
+                        <div class="long-card" style="margin-top: 0; padding: 10px 20px; border-radius: 20px; flex: 1.5; min-width: 250px;">
+                            <div class="lc-icon" style="width: 40px; height: 40px; font-size: 18px; border-radius: 12px;">S</div>
+                            <div class="lc-info">
+                                <h4 class="lc-title" style="color: #ffffff !important; font-size: 15px;">S.P.A.M. Donativos</h4>
+                                <p class="lc-subtitle" style="font-size: 11px;">ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy</p>
+                            </div>
+                            <div class="lc-actions">
+                                <button class="lc-btn" style="width: 35px; height: 35px; font-size: 16px;" title="Copiar Dirección" onclick="copyCA('ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy')"><i class="ph-fill ph-copy"></i></button>
+                            </div>
                         </div>
-                        <div class="lc-actions">
-                            <button class="lc-btn" title="Copiar Dirección" onclick="copyCA('ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy')"><i class="ph-fill ph-copy"></i></button>
-                            <button class="lc-btn outline"><i class="ph-bold ph-x"></i></button>
-                        </div>
+
+                        <!-- Tarjeta del Whitepaper -->
+                        <a href="whitepaper.pdf" target="_blank" class="long-card" style="margin-top: 0; padding: 10px 20px; border-radius: 20px; flex: 1; min-width: 200px; text-decoration: none; background: var(--card-bg); border: 1px solid var(--accent-orange); color: #fff; transition: 0.2s;">
+                            <div class="lc-icon" style="width: 40px; height: 40px; font-size: 20px; border-radius: 12px; background: rgba(255, 0, 127, 0.1); color: var(--accent-orange);"><i class="ph-fill ph-book-open-text"></i></div>
+                            <div class="lc-info">
+                                <h4 class="lc-title" style="color: #ffffff !important; font-size: 15px;">Whitepaper</h4>
+                                <p class="lc-subtitle" style="font-size: 11px; color: var(--text-muted);">S.P.A.M. Manifesto</p>
+                            </div>
+                            <div class="lc-actions">
+                                <i class="ph-bold ph-download-simple" style="font-size: 20px; color: var(--text-muted);"></i>
+                            </div>
+                        </a>
                     </div>
 
                 </div>
@@ -483,6 +452,8 @@
                 <!-- VISTA 2: ARCADE -->
                 <div id="view-arcade" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Arcade S.P.A.M. Labs</h2>
+                    
+                    <!-- CATÁLOGO DE JUEGOS ARCADE -->
                     <div class="bottom-grid">
                         <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="square-card" style="min-height: 280px;">
                             <img src="box banner.png" class="card-img-bg" alt="Solana Boxing">
@@ -577,7 +548,7 @@
                     </div>
                 </div>
 
-                <!-- VISTA 5: DEV TERMINAL (REEMPLAZA A COMUNIDAD) -->
+                <!-- VISTA 5: DEV TERMINAL -->
                 <div id="view-dev" class="view">
                     
                     <!-- PANTALLA DE BLOQUEO DEV -->
@@ -667,24 +638,20 @@
 
         navItems.forEach(item => {
             item.addEventListener('click', () => {
-                if(!item.hasAttribute('data-target')) return; // Ignorar botones vacíos
+                if(!item.hasAttribute('data-target')) return; 
                 
                 const targetId = item.getAttribute('data-target');
                 
-                // Sincronizar botones en la barra lateral y en la barra móvil
                 navItems.forEach(nav => nav.classList.remove('active'));
                 document.querySelectorAll(`.nav-item[data-target="${targetId}"]`).forEach(nav => nav.classList.add('active'));
                 
-                // Actualizar Vistas
                 views.forEach(view => view.classList.remove('active'));
                 document.getElementById(targetId).classList.add('active');
                 
-                // Hacer scroll al tope de la vista suavemente
                 document.querySelector('.main-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        // Función global para cambiar tabs desde links internos
         window.switchTab = function(targetId) {
             const targetBtn = document.querySelector(`.nav-item[data-target="${targetId}"]`);
             if(targetBtn) targetBtn.click();
@@ -712,7 +679,7 @@
         };
 
         // ==========================================
-        // 3. APIS DE PRECIOS Y NOTICIAS AUTOMÁTICAS
+        // 3. APIS DE PRECIOS AUTOMÁTICAS
         // ==========================================
         async function fetchMarketData() {
             try {
@@ -725,7 +692,7 @@
                     const grassPrice = data.grass ? data.grass.usd.toFixed(4) : "0.00";
                     document.getElementById('top-price-grass').innerText = `$${grassPrice}`;
                 }
-            } catch (error) { console.log("Error sincronizando precios de CoinGecko"); }
+            } catch (error) { console.log("Error sincronizando precios"); }
         }
 
         async function fetchDrumpPrice() {
@@ -744,109 +711,11 @@
             }
         }
 
-        // Iniciar llamadas de precios
         fetchMarketData(); setInterval(fetchMarketData, 60000);
         fetchDrumpPrice(); setInterval(fetchDrumpPrice, 30000);
 
         // ==========================================
-        // 4. PONG.SYS WIDGET
-        // ==========================================
-        const canvas = document.getElementById("pongCanvas");
-        const ctx = canvas.getContext("2d");
-        
-        const pongAccent = "#00f3ff"; 
-
-        let ball = { x: 0, y: 0, radius: 4, vx: 3, vy: 3, speed: 4 };
-        let user = { x: 10, y: 0, w: 6, h: 30, s: 0 };
-        let cpu = { x: 0, y: 0, w: 6, h: 30, s: 0 };
-
-        function resizePong() {
-            if(!canvas) return;
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-            // Reposicionar
-            ball.x = canvas.width/2; ball.y = canvas.height/2;
-            cpu.x = canvas.width - 16;
-            user.y = (canvas.height - user.h)/2; cpu.y = (canvas.height - cpu.h)/2;
-        }
-        
-        setTimeout(resizePong, 100);
-        window.addEventListener('resize', resizePong);
-
-        function render() {
-            if(!ctx || canvas.width === 0) return;
-            ctx.fillStyle = "rgba(0,0,0,0.4)"; // Trail
-            ctx.fillRect(0, 0, canvas.width, canvas.height); 
-            
-            // Línea central punteada
-            ctx.fillStyle = "rgba(255,255,255,0.1)";
-            for(let i=0; i<=canvas.height; i+=15) ctx.fillRect(canvas.width/2-1, i, 2, 8);
-            
-            // Raquetas y bola
-            ctx.fillStyle = pongAccent;
-            ctx.fillRect(user.x, user.y, user.w, user.h);
-            ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
-            
-            ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2); 
-            ctx.fillStyle = "#fff"; ctx.fill();
-
-            // Actualizar Marcador HTML
-            if(document.getElementById('pong-score-p')) document.getElementById('pong-score-p').innerText = user.s;
-            if(document.getElementById('pong-score-c')) document.getElementById('pong-score-c').innerText = cpu.s;
-        }
-
-        function update() {
-            if(canvas.width === 0) return;
-
-            ball.x += ball.vx; ball.y += ball.vy;
-            cpu.y += ((ball.y - (cpu.y + cpu.h/2))) * 0.1; // CPU Suave
-            
-            if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) ball.vy = -ball.vy;
-            
-            let p = (ball.x < canvas.width/2) ? user : cpu;
-            
-            // Colisión
-            if(p.x < ball.x + ball.radius && p.x + p.w > ball.x - ball.radius && 
-               p.y < ball.y + ball.radius && p.y + p.h > ball.y - ball.radius) {
-                
-                let cp = (ball.y - (p.y + p.h/2)) / (p.h/2);
-                let a = (Math.PI/4) * cp;
-                let dir = (ball.x < canvas.width/2) ? 1 : -1;
-                ball.vx = dir * ball.speed * Math.cos(a); ball.vy = ball.speed * Math.sin(a);
-                ball.speed += 0.2; 
-            }
-            
-            // Gol
-            if(ball.x - ball.radius < 0) { cpu.s++; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx;}
-            else if(ball.x + ball.radius > canvas.width) { user.s++; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx;}
-        }
-
-        function gameLoop() { 
-            const dashView = document.getElementById('view-dashboard');
-            if(dashView && dashView.classList.contains('active')) {
-                update(); render(); 
-            }
-            requestAnimationFrame(gameLoop); 
-        }
-        gameLoop(); 
-
-        // Movimiento Táctil / Mouse
-        function mPaddle(clientY) {
-            let rect = canvas.getBoundingClientRect();
-            if(rect.height === 0) return;
-            let scaleY = canvas.height / rect.height;
-            user.y = (clientY - rect.top) * scaleY - user.h/2;
-            if(user.y < 0) user.y = 0; if(user.y + user.h > canvas.height) user.y = canvas.height - user.h;
-        }
-
-        if(canvas) {
-            canvas.addEventListener("mousemove", e => mPaddle(e.clientY));
-            canvas.addEventListener("touchmove", e => { mPaddle(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
-        }
-
-        // ==========================================
-        // 5. GENERADOR DE MEMES DRUMP
+        // 4. GENERADOR DE MEMES DRUMP
         // ==========================================
         const memeCanvas = document.getElementById("drumpMemeCanvas");
         const ctxMeme = memeCanvas ? memeCanvas.getContext("2d") : null;
@@ -859,7 +728,6 @@
 
         drumpImg.onload = function() {
             if(!memeCanvas) return;
-            // Configurar canvas con las proporciones de la imagen
             memeCanvas.width = drumpImg.width || 600;
             memeCanvas.height = drumpImg.height || 400;
             drawMeme();
@@ -867,12 +735,9 @@
 
         function drawMeme() {
             if(!ctxMeme) return;
-            
-            // Dibujar fondo
             ctxMeme.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
             ctxMeme.drawImage(drumpImg, 0, 0, memeCanvas.width, memeCanvas.height);
 
-            // Estilos del texto meme clásico
             const fontSize = Math.floor(memeCanvas.width / 10);
             ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
             ctxMeme.fillStyle = 'white';
@@ -881,18 +746,15 @@
             ctxMeme.textAlign = 'center';
             ctxMeme.lineJoin = 'round';
 
-            // Dibujar Texto Superior
             ctxMeme.textBaseline = 'top';
             ctxMeme.strokeText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
             ctxMeme.fillText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
 
-            // Dibujar Texto Inferior
             ctxMeme.textBaseline = 'bottom';
             ctxMeme.strokeText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
             ctxMeme.fillText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
         }
 
-        // Listeners para actualizar en vivo
         const topInput = document.getElementById('memeTopText');
         const bottomInput = document.getElementById('memeBottomText');
 
@@ -902,21 +764,12 @@
         }
 
         window.generateRandomMeme = function() {
-            const arrTop = [
-                "MAKE SOLANA", "CUANDO COMPRAS EL DIP", "TRUST THE PLAN", 
-                "DIAMOND HANDS", "WE BUILT THE WALL", "PUMP IT", "YO VIENDO", "1000X SOON"
-            ];
-            const arrBottom = [
-                "GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", 
-                "AND ETH PAID FOR IT", "TO THE MOON", "MI PORTAFOLIO EN ROJO", "JEJEJE"
-            ];
+            const arrTop = ["MAKE SOLANA", "CUANDO COMPRAS EL DIP", "TRUST THE PLAN", "DIAMOND HANDS", "WE BUILT THE WALL", "PUMP IT", "YO VIENDO EL CHART", "1000X SOON", "LOS ALIENS ME DIJERON", "DESCLASIFIQUÉ LOS OVNIS", "TENGO LOS DOCUMENTOS SECRETOS", "NADIE SABE MÁS DE CRYPTO QUE YO", "MI PREDICCIÓN FUE PERFECTA", "EL EXPERTO DIJO BULL RUN", "HICE UN TRATO CON LOS EXTRATERRESTRES", "ENCONTRÉ LOS PAPELES DE SATOSHI", "ESTE TOKEN ES TREMENDO, CRÉANME", "EL ÁREA 51 ES REAL", "ESTAMOS EN EL BOTTOM"];
+            const arrBottom = ["GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", "AND ETH PAID FOR IT", "TO THE MOON", "LIQUIDADO EN 5 MINUTOS", "QUE COMPRE MÁS SOLANA", "Y TODOS COMPRARON SHIBA", "ESTABAN EN MAR A LAGO", "Y ACEPTAN $DRMP", "COMPRÉ EN EL ATH", "ESTAMOS COMIENDO MARUCHAN", "PERO EL COHETE ERA UN RUG PULL", "THE BEST TOKEN IN THE WORLD", "AHÍ GUARDAN MI FRASE SEMILLA", "SATOSHI ES UN ALIEN", "MAKE MI PORTAFOLIO GREEN AGAIN", "Y LUEGO VINO EL DUMP", "JEJEJE"];
 
             mTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
             mBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
-            
-            topInput.value = mTopText;
-            bottomInput.value = mBottomText;
-            
+            topInput.value = mTopText; bottomInput.value = mBottomText;
             drawMeme();
         };
 
@@ -927,14 +780,13 @@
             link.href = memeCanvas.toDataURL('image/png');
             link.click();
             
-            // Pequeña notificación visual usando tu toast
             const toast = document.getElementById('toast');
             const prevText = toast.innerText;
             toast.innerText = "¡Meme guardado con éxito!";
             toast.classList.add('show');
             setTimeout(() => { 
                 toast.classList.remove('show'); 
-                setTimeout(() => { toast.innerText = prevText; }, 300); // restaurar texto
+                setTimeout(() => { toast.innerText = prevText; }, 300);
             }, 2000);
         };
 
@@ -947,21 +799,13 @@
             memeCanvas.toBlob(async function(blob) {
                 const file = new File([blob], 'drump_meme.png', { type: 'image/png' });
 
-                // 1ER INTENTO: WEB SHARE API (Comparte directo a la app nativa en Celulares/Tablets)
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
-                        await navigator.share({
-                            title: 'S.P.A.M. Labs Meme',
-                            text: tweetText,
-                            files: [file]
-                        });
-                        return; // Éxito total, se abrió la app nativa con la foto precargada
-                    } catch (err) {
-                        console.log("Share cancelado por el usuario o fallido.", err);
-                    }
+                        await navigator.share({ title: 'S.P.A.M. Labs Meme', text: tweetText, files: [file] });
+                        return; 
+                    } catch (err) { console.log("Share cancelado.", err); }
                 }
 
-                // 2DO INTENTO (FALLBACK PC): Intenta copiar al portapapeles y abre Twitter Web
                 try {
                     if (navigator.clipboard && navigator.clipboard.write) {
                         const item = new ClipboardItem({ 'image/png': blob });
@@ -979,7 +823,6 @@
                     }
                 } catch(e) { console.log("Fallo portapapeles", e); }
 
-                // 3ER INTENTO (FALLBACK FINAL): Descarga el meme y abre Twitter Web
                 downloadMeme();
                 window.open(twitterUrl, '_blank');
 
@@ -987,9 +830,7 @@
         };
 
         // ==========================================
-        // 6. CONTROL DE ACCESO DEV (WEB3 PHANTOM)
-        // ==========================================
-        // 6. CONTROL DE ACCESO DEV (WEB3 SOLFLARE)
+        // 5. CONTROL DE ACCESO DEV (WEB3 SOLFLARE)
         // ==========================================
         
         function showDevError(msg) {
@@ -997,7 +838,6 @@
             errorMsg.innerText = "[ERROR] " + msg;
             errorMsg.style.opacity = '1';
             
-            // Efecto de error (shake)
             const btn = document.querySelector('#dev-locked button');
             btn.style.transform = 'translateX(10px)';
             setTimeout(() => btn.style.transform = 'translateX(-10px)', 100);
@@ -1011,18 +851,12 @@
             const devWallet = "ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy";
 
             try {
-                // Verificar si Solflare está instalado en el navegador
                 const { solflare } = window;
-                
                 if (solflare && solflare.isSolflare) {
-                    // Solicitar conexión a la billetera Solflare
                     await solflare.connect();
                     const connectedWallet = solflare.publicKey.toString();
                     
-                    console.log("Billetera detectada: ", connectedWallet);
-
                     if (connectedWallet === devWallet) {
-                        // Desbloqueo exitoso: La billetera conectada coincide
                         document.getElementById('dev-locked').style.display = 'none';
                         document.getElementById('dev-unlocked').style.display = 'block';
                         
@@ -1031,19 +865,14 @@
                         toast.classList.add('show');
                         setTimeout(() => toast.classList.remove('show'), 2500);
                     } else {
-                        // Acceso Denegado: Billetera incorrecta
-                        solflare.disconnect(); // Forzar desconexión
+                        solflare.disconnect(); 
                         showDevError("Billetera no autorizada. Acceso denegado.");
                     }
                 } else {
-                    // No tiene Solflare
                     showDevError("Extensión de Solflare no detectada en el navegador.");
-                    setTimeout(() => {
-                        window.open("https://solflare.com/", "_blank");
-                    }, 2000);
+                    setTimeout(() => { window.open("https://solflare.com/", "_blank"); }, 2000);
                 }
             } catch (err) {
-                // El usuario canceló la petición
                 console.error(err);
                 showDevError("Petición de conexión cancelada por el usuario.");
             }
