@@ -9,7 +9,6 @@
     <link rel="icon" href="spamlabs.png" type="image/png">
     <link rel="shortcut icon" href="spamlabs.png" type="image/png">
     <link rel="apple-touch-icon" href="spamlabs.png">
-    <!-- Respaldo por si la imagen real es el JPG -->
     <link rel="icon" href="spamlabs.jpg" type="image/jpeg">
     
     <!-- Fuentes modernas -->
@@ -132,10 +131,19 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .split-card-img {
-            width: 100%; height: 280px; object-fit: cover; object-position: center; display: block; background: #000;
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            background: #000;
         }
         .split-card-content {
-            padding: 30px; display: flex; flex-direction: column; gap: 15px; position: relative;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
         }
 
         .hero-badges { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2; }
@@ -176,25 +184,6 @@
         .sc-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; color: #ffffff !important; }
         .sc-desc { font-size: 12px; color: var(--text-muted); }
 
-        /* Contenedor específico para el Pong */
-        .pong-widget {
-            background: linear-gradient(180deg, var(--card-dark) 0%, #1f0f12 100%);
-            border-radius: var(--radius-card); padding: 20px; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); overflow: hidden; display: flex; flex-direction: column;
-        }
-        .pong-canvas-container { width: 100%; flex-grow: 1; border-radius: 16px; overflow: hidden; background: #000; position: relative;}
-        canvas { width: 100%; height: 100%; display: block; touch-action: none; }
-        .pong-stats { display: flex; justify-content: space-between; margin-top: 15px; }
-        .stat-col { text-align: center; }
-        .stat-val { font-size: 16px; font-weight: 800; color: var(--accent-orange); }
-        .stat-lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
-        .pong-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 10;
-            backdrop-filter: blur(3px); transition: 0.3s;
-        }
-
         /* Tarjeta Larga (Treasury / Info) */
         .long-card {
             background-color: var(--card-bg); border-radius: 100px; padding: 15px 25px;
@@ -212,8 +201,10 @@
 
         /* --- BARRA LATERAL DERECHA (SOCIALS / FRIENDS) --- */
         .sidebar-right {
-            width: 250px; background-color: var(--app-bg); border-left: 2px solid rgba(255,255,255,0.05);
-            display: flex; flex-direction: column; padding: 30px 20px; flex-shrink: 0;
+            width: 250px; background-color: var(--app-bg);
+            border-left: 2px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; padding: 30px 20px;
+            flex-shrink: 0;
         }
         
         .profile-card {
@@ -286,9 +277,12 @@
                 z-index: 1000;
             }
             .main-wrapper { padding-bottom: 90px; } 
+
             .long-card { flex-direction: column; text-align: center; border-radius: 20px; gap: 10px; }
+            
             .split-card-img { height: 200px; }
             .split-card-content { padding: 20px; gap: 10px; }
+
             .meme-widget { flex-direction: column; align-items: center; }
             .meme-canvas-wrapper { width: 100%; max-width: 350px; }
             .meme-controls { width: 100%; }
@@ -298,25 +292,37 @@
 </head>
 <body>
 
-    <div id="toast">¡Dirección Copiada!</div>
+    <div id="toast">¡Notificación!</div>
 
     <div class="app-container">
         
+        <!-- BARRA LATERAL IZQUIERDA (NAVEGACIÓN) -->
         <aside class="sidebar-left">
             <div class="logo">
                 <img src="spamlabs.png" alt="Logo">
             </div>
             
-            <div class="nav-item active" data-target="view-dashboard" title="Dashboard"><i class="ph-fill ph-house"></i></div>
-            <div class="nav-item" data-target="view-arcade" title="Arcade Games"><i class="ph-fill ph-game-controller"></i></div>
-            <div class="nav-item" data-target="view-nft" title="NFT Vault"><i class="ph-fill ph-hexagon"></i></div>
-            <div class="nav-item" data-target="view-dex" title="DEX Market"><i class="ph-fill ph-chart-line-up"></i></div>
-            <div class="nav-item" data-target="view-tools" title="Tools"><i class="ph-fill ph-wrench"></i></div>
-            <div class="nav-item" data-target="view-dev" title="DEV Dashboard"><i class="ph-fill ph-terminal-window"></i></div>
+            <div class="nav-item active" data-target="view-dashboard" title="Dashboard">
+                <i class="ph-fill ph-house"></i>
+            </div>
+            <div class="nav-item" data-target="view-arcade" title="Arcade Games">
+                <i class="ph-fill ph-game-controller"></i>
+            </div>
+            <div class="nav-item" data-target="view-nft" title="NFT Vault">
+                <i class="ph-fill ph-hexagon"></i>
+            </div>
+            <div class="nav-item" data-target="view-dex" title="DEX Market">
+                <i class="ph-fill ph-chart-line-up"></i>
+            </div>
+            <div class="nav-item" data-target="view-tools" title="Tools">
+                <i class="ph-fill ph-wrench"></i>
+            </div>
         </aside>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <main class="main-wrapper">
             
+            <!-- HEADER -->
             <header class="topbar">
                 <div class="topbar-logo">
                     <h1>S.P.A.M. Labs</h1>
@@ -328,6 +334,7 @@
                 </div>
             </header>
 
+            <!-- CONTENEDOR DE VISTAS -->
             <div id="views-container">
                 
                 <!-- VISTA 1: DASHBOARD (LANDING INFO) -->
@@ -353,6 +360,7 @@
                         </div>
                     </div>
 
+                    <!-- SECCIÓN INFORMATIVA DEL LANDING -->
                     <div class="section-header">
                         <h3 class="section-title">Nuestra Misión y Visión</h3>
                     </div>
@@ -371,6 +379,7 @@
                     </div>
 
                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <!-- Tarjeta de Donativos -->
                         <div class="long-card" style="margin-top: 0; padding: 10px 20px; border-radius: 20px; flex: 1.5; min-width: 250px;">
                             <div class="lc-icon" style="width: 40px; height: 40px; font-size: 18px; border-radius: 12px;">S</div>
                             <div class="lc-info">
@@ -382,6 +391,7 @@
                             </div>
                         </div>
 
+                        <!-- Tarjeta del Whitepaper -->
                         <a href="whitepaper.pdf" target="_blank" class="long-card" style="margin-top: 0; padding: 10px 20px; border-radius: 20px; flex: 1; min-width: 200px; text-decoration: none; background: var(--card-bg); border: 1px solid var(--accent-orange); color: #fff; transition: 0.2s;">
                             <div class="lc-icon" style="width: 40px; height: 40px; font-size: 20px; border-radius: 12px; background: rgba(255, 0, 127, 0.1); color: var(--accent-orange);"><i class="ph-fill ph-book-open-text"></i></div>
                             <div class="lc-info">
@@ -393,40 +403,13 @@
                             </div>
                         </a>
                     </div>
+
                 </div>
 
-                <!-- VISTA 2: ARCADE -->
+                <!-- VISTA 2: ARCADE (SIN PONG) -->
                 <div id="view-arcade" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Arcade S.P.A.M. Labs</h2>
                     
-                    <div class="pong-widget" style="margin-bottom: 30px; min-height: 280px;">
-                        <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                            <h4 class="sc-title">Pong.sys // Simulador de Operativos</h4>
-                            <i class="ph-bold ph-game-controller" style="color:var(--text-muted);"></i>
-                        </div>
-                        
-                        <div class="pong-canvas-container" style="min-height: 200px;">
-                            <canvas id="pongCanvas"></canvas>
-                            
-                            <div id="pongOverlay" class="pong-overlay">
-                                <div id="pongMessage" style="color:var(--accent-orange); font-family:monospace; font-size:16px; margin-bottom:20px; text-align:center; font-weight:bold;">
-                                    SISTEMA PONG INICIALIZADO<br><span style="font-size:12px; color:var(--text-muted); font-weight:normal;">PRIMERO EN LLEGAR A 10 PUNTOS GANA</span>
-                                </div>
-                                <button class="btn-primary" onclick="startPong()" style="background:var(--accent-green); color:#000; font-family:monospace; font-size:16px; width:200px;">
-                                    <i class="ph-fill ph-play"></i> INICIAR JUEGO
-                                </button>
-                            </div>
-                            
-                            <div style="position:absolute; top:5px; width:100%; text-align:center; font-size:9px; color:rgba(255,255,255,0.5); pointer-events:none; z-index:5;">SWIPE TO MOVE</div>
-                        </div>
-                        
-                        <div class="pong-stats">
-                            <div class="stat-col"><div class="stat-val" id="pong-score-p">0</div><div class="stat-lbl">TÚ</div></div>
-                            <div class="stat-col"><div class="stat-val" style="color:var(--text-muted);">VS</div><div class="stat-lbl">---</div></div>
-                            <div class="stat-col"><div class="stat-val" id="pong-score-c">0</div><div class="stat-lbl">CPU</div></div>
-                        </div>
-                    </div>
-
                     <div class="bottom-grid">
                         <a href="https://spamlabs.github.io/solana-box/" target="_blank" class="square-card" style="min-height: 280px;">
                             <img src="box banner.png" class="card-img-bg" alt="Solana Boxing">
@@ -452,6 +435,7 @@
                 <!-- VISTA 3: NFT VAULT -->
                 <div id="view-nft" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">NFTs S.P.A.M. Labs</h2>
+                    
                     <div class="bottom-grid">
                         <a href="https://pages.launchmynft.io/p/7zsZ8sQz9W" target="_blank" class="square-card" style="min-height: 280px;">
                             <img src="octopus nft.png" class="card-img-bg" alt="Octopus Collection">
@@ -486,6 +470,7 @@
                         </a>
                     </div>
 
+                    <!-- WIDGET: GENERADOR DE MEMES DRUMP -->
                     <div class="section-header">
                         <h3 class="section-title">Generador Drump Meme</h3>
                         <span class="section-link" style="color: var(--accent-green); cursor: default;"><i class="ph-fill ph-magic-wand"></i> Meme Factory</span>
@@ -518,7 +503,7 @@
                         </div>
                     </div>
 
-                    <!-- NUEVO WIDGET: SHITPOST TWEET GENERATOR -->
+                    <!-- WIDGET: SHITPOST TWEET GENERATOR -->
                     <div class="section-header" style="margin-top: 40px;">
                         <h3 class="section-title">Generador de Shitpost</h3>
                         <span class="section-link" style="color: var(--accent-orange); cursor: default;"><i class="ph-fill ph-chat-teardrop-text"></i> Creador de FUD</span>
@@ -550,45 +535,50 @@
                 <div id="view-tools" class="view">
                     <h2 class="hero-title" style="margin-bottom:30px;">Tools S.P.A.M. Labs</h2>
                     
-                    <div style="background-color: var(--card-bg); border-radius: var(--radius-card); padding: 40px; text-align: center; border: 1px dashed rgba(255,255,255,0.1);">
-                        <i class="ph-fill ph-toolbox" style="font-size: 50px; color: var(--text-muted); margin-bottom: 15px;"></i>
-                        <h4 style="color: var(--text-main); font-size: 18px; margin-bottom: 10px;">Caja de Herramientas</h4>
-                        <p style="color: var(--text-muted); font-size: 14px;">Módulo inicializado. A la espera de la carga de enlaces y utilidades oficiales...</p>
-                    </div>
-                    
-                    <div class="bottom-grid" id="tools-container" style="margin-top: 30px;">
-                        <!-- Aquí inyectaremos tus herramientas -->
-                    </div>
-                </div>
-
-                <!-- VISTA 6: DEV TERMINAL -->
-                <div id="view-dev" class="view">
-                    
-                    <!-- PANTALLA DE BLOQUEO DEV -->
-                    <div id="dev-locked" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; text-align: center;">
-                        <i class="ph-fill ph-fingerprint" style="font-size: 80px; color: var(--accent-orange); margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,0,127,0.5);"></i>
-                        <h2 class="hero-title" style="margin-bottom:10px; font-family: monospace;">ROOT ACCESS</h2>
-                        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 15px;">Firma con la billetera maestra de S.P.A.M. Labs para acceder.</p>
-                        
-                        <button class="btn-primary" onclick="connectSolflareWallet()" style="background: #e86b24; color: #fff; width: 250px; font-family: monospace; font-size: 16px;">
-                            <i class="ph-bold ph-wallet" style="font-size: 20px;"></i> Conectar Solflare
-                        </button>
-                        
-                        <div id="dev-error-msg" style="color: #ff3366; margin-top: 20px; font-size: 14px; font-weight: 600; opacity: 0; transition: 0.3s;">
-                            [ERROR] Firma rechazada.
+                    <div class="split-card" style="margin-bottom: 40px;">
+                        <img src="pulso.jpg" class="split-card-img" alt="Pulso Dev" style="object-position: top;">
+                        <div class="split-card-content" style="background: linear-gradient(135deg, #110922, #29114b);">
+                            <div class="hero-badges" style="margin-bottom: 0;">
+                                <span class="badge" style="background:var(--accent-green); color:#000;"><i class="ph-bold ph-terminal-window"></i> PULSO OVERRIDE</span>
+                            </div>
+                            <h2 class="hero-title" style="margin-bottom: 0;">Transmisiones PULSO</h2>
+                            <p class="hero-desc" style="margin-bottom: 5px;">Codifica las profecías del Dev. Predicciones on-chain, cripto-mandamientos y el futuro de DRUMP.</p>
                         </div>
                     </div>
 
-                    <!-- PANTALLA DESBLOQUEADA DEV -->
-                    <div id="dev-unlocked" style="display: none;">
-                        <h2 class="hero-title" style="margin-bottom:30px; font-family: monospace; color: var(--accent-green) !important;">PANEL ROOT DEV</h2>
-                        
-                        <div style="background: #05020a; border: 1px solid var(--accent-green); border-radius: var(--radius-card); padding: 30px; box-shadow: 0 0 30px rgba(20, 241, 149, 0.1);">
-                            <p style="color: var(--accent-green); font-family: monospace; font-size: 16px;">
-                                [!] Acceso autorizado. Pásame la lista de lo que necesitas aquí...
-                            </p>
+                    <div class="section-header">
+                        <h3 class="section-title">Generador de Oráculo</h3>
+                        <span class="section-link" style="color: var(--accent-yellow); cursor: default;"><i class="ph-fill ph-skull"></i> Root Access</span>
+                    </div>
+
+                    <!-- WIDGET ORÁCULO PULSO -->
+                    <div class="meme-widget">
+                        <div class="meme-canvas-wrapper" style="border-color: var(--accent-yellow);">
+                            <canvas id="pulsoMemeCanvas"></canvas>
+                        </div>
+                        <div class="meme-controls">
+                            <div>
+                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Cifra Superior</label>
+                                <input type="text" id="pulsoTopText" class="meme-input" placeholder="Escribe aquí...">
+                            </div>
+                            <div>
+                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Cifra Inferior</label>
+                                <input type="text" id="pulsoBottomText" class="meme-input" placeholder="Escribe aquí...">
+                            </div>
+                            <div class="meme-buttons">
+                                <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomPulsoMeme()">
+                                    <i class="ph-fill ph-dice-three"></i> Oráculo
+                                </button>
+                                <button class="btn-primary" style="flex:1; background: var(--accent-yellow); color: #000;" onclick="downloadPulsoMeme()">
+                                    <i class="ph-bold ph-download-simple"></i> Guardar
+                                </button>
+                                <button class="btn-primary" style="flex:1; background: #1DA1F2; color: #fff; border: none;" onclick="sharePulsoMemeOnTwitter()">
+                                    <i class="ph-fill ph-twitter-logo"></i> Transmitir
+                                </button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
@@ -638,14 +628,13 @@
             <div class="nav-item" data-target="view-nft" title="NFT Vault"><i class="ph-fill ph-hexagon"></i></div>
             <div class="nav-item" data-target="view-dex" title="DEX Market"><i class="ph-fill ph-chart-line-up"></i></div>
             <div class="nav-item" data-target="view-tools" title="Tools"><i class="ph-fill ph-wrench"></i></div>
-            <div class="nav-item" data-target="view-dev" title="DEV Dashboard"><i class="ph-fill ph-terminal-window"></i></div>
         </nav>
 
     </div>
 
     <script>
         // ==========================================
-        // 1. NAVEGACIÓN SPA
+        // 1. NAVEGACIÓN SPA (Single Page App)
         // ==========================================
         const navItems = document.querySelectorAll('.nav-item');
         const views = document.querySelectorAll('.view');
@@ -671,6 +660,9 @@
             if(targetBtn) targetBtn.click();
         }
 
+        // ==========================================
+        // 2. UTILIDAD COPIAR PORTAPAPELES
+        // ==========================================
         window.copyCA = function(text) {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -681,26 +673,34 @@
             try {
                 document.execCommand('copy');
                 const toast = document.getElementById('toast');
+                const prevText = toast.innerText;
+                toast.innerText = "¡Dirección Copiada!";
                 toast.classList.add('show');
-                setTimeout(() => toast.classList.remove('show'), 2000);
-            } catch (err) {}
+                setTimeout(() => { 
+                    toast.classList.remove('show'); 
+                    setTimeout(() => { toast.innerText = prevText; }, 300);
+                }, 2000);
+            } catch (err) {
+                console.error("Error copiando address:", err);
+            }
             document.body.removeChild(textArea);
         };
 
         // ==========================================
-        // APIS PRECIOS
+        // 3. APIS DE PRECIOS AUTOMÁTICAS
         // ==========================================
         async function fetchMarketData() {
             try {
                 const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana,bitcoin,grass&vs_currencies=usd');
                 const data = await res.json();
+                
                 if(document.getElementById('top-price-btc')) document.getElementById('top-price-btc').innerText = `$${data.bitcoin.usd.toLocaleString()}`;
                 if(document.getElementById('top-price-sol')) document.getElementById('top-price-sol').innerText = `$${data.solana.usd.toFixed(2)}`;
                 if(document.getElementById('top-price-grass')) {
                     const grassPrice = data.grass ? data.grass.usd.toFixed(4) : "0.00";
                     document.getElementById('top-price-grass').innerText = `$${grassPrice}`;
                 }
-            } catch (error) {}
+            } catch (error) { console.log("Error sincronizando precios"); }
         }
 
         async function fetchDrumpPrice() {
@@ -708,133 +708,64 @@
                 const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/2RCZQm7abBY6kvagd71L3fJB1YgQpmUhtmcYWLLwpump');
                 const data = await res.json();
                 const el = document.getElementById('drump-price');
-                if(data.pairs && data.pairs.length > 0) el.innerText = `$${parseFloat(data.pairs[0].priceUsd).toFixed(8)}`;
-                else el.innerText = "BONDING CURVE"; 
+                if(data.pairs && data.pairs.length > 0) {
+                    el.innerText = `$${parseFloat(data.pairs[0].priceUsd).toFixed(8)}`;
+                } else { 
+                    el.innerText = "BONDING CURVE"; 
+                }
             } catch (error) { 
                 const el = document.getElementById('drump-price');
                 if(el) el.innerText = "OFFLINE"; 
             }
         }
+
         fetchMarketData(); setInterval(fetchMarketData, 60000);
         fetchDrumpPrice(); setInterval(fetchDrumpPrice, 30000);
 
         // ==========================================
-        // PONG.SYS WIDGET
-        // ==========================================
-        const canvas = document.getElementById("pongCanvas");
-        const ctx = canvas ? canvas.getContext("2d") : null;
-        const pongAccent = "#00f3ff"; 
-        let ball = { x: 0, y: 0, radius: 4, vx: 3, vy: 3, speed: 4 };
-        let user = { x: 10, y: 0, w: 6, h: 30, s: 0 };
-        let cpu = { x: 0, y: 0, w: 6, h: 30, s: 0 };
-        let pongState = 'idle';
-
-        function resizePong() {
-            if(!canvas) return;
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width; canvas.height = rect.height;
-            ball.x = canvas.width/2; ball.y = canvas.height/2;
-            cpu.x = canvas.width - 16;
-            user.y = (canvas.height - user.h)/2; cpu.y = (canvas.height - cpu.h)/2;
-        }
-        setTimeout(resizePong, 100); window.addEventListener('resize', resizePong);
-
-        window.startPong = function() {
-            user.s = 0; cpu.s = 0;
-            document.getElementById('pong-score-p').innerText = '0';
-            document.getElementById('pong-score-c').innerText = '0';
-            document.getElementById('pongOverlay').style.opacity = '0';
-            setTimeout(() => { document.getElementById('pongOverlay').style.display = 'none'; }, 300);
-            ball.x = canvas.width/2; ball.y = canvas.height/2; ball.speed = 4;
-            ball.vx = 3 * (Math.random() > 0.5 ? 1 : -1); ball.vy = 3 * (Math.random() > 0.5 ? 1 : -1);
-            pongState = 'playing';
-        };
-
-        function endPong(winner) {
-            pongState = 'over';
-            const overlay = document.getElementById('pongOverlay');
-            const msgEl = document.getElementById('pongMessage');
-            overlay.style.display = 'flex'; setTimeout(() => { overlay.style.opacity = '1'; }, 10);
-            
-            const cpuMock = ["¡JAJAJA, BOT DIFÍCIL!", "VUELVE A TU CUEVA TRADER", "NI CON PING SIRVES", "GIT GUD N00B", "INSERT COIN TO CRY AGAIN", "LA IA DOMINARÁ EL MUNDO", "MI ABUELA JUEGA MEJOR"];
-            const userMock = ["¡GANASTE, PERO ESTOY NERFEADO!", "SUERTE DE PRINCIPIANTE...", "HACKER DETECTADO // REPORTANDO", "SOLO PORQUE ME DIO LAG EN LA BLOCKCHAIN"];
-
-            if(winner === 'cpu') msgEl.innerHTML = "<span style='color:#ff007f'>GAME OVER // PERDISTE</span><br><br><span style='font-size:14px; color:var(--text-muted); font-weight:normal;'>" + cpuMock[Math.floor(Math.random()*cpuMock.length)] + "</span>";
-            else msgEl.innerHTML = "<span style='color:var(--accent-green)'>¡VICTORIA REGISTRADA!</span><br><br><span style='font-size:14px; color:var(--text-muted); font-weight:normal;'>" + userMock[Math.floor(Math.random()*userMock.length)] + "</span>";
-            document.querySelector('#pongOverlay button').innerHTML = '<i class="ph-bold ph-arrows-clockwise"></i> Jugar de Nuevo';
-        }
-
-        function renderPong() {
-            if(!ctx || canvas.width === 0) return;
-            ctx.fillStyle = "rgba(0,0,0,0.4)"; ctx.fillRect(0, 0, canvas.width, canvas.height); 
-            ctx.fillStyle = "rgba(255,255,255,0.1)"; for(let i=0; i<=canvas.height; i+=15) ctx.fillRect(canvas.width/2-1, i, 2, 8);
-            ctx.fillStyle = pongAccent; ctx.fillRect(user.x, user.y, user.w, user.h); ctx.fillRect(cpu.x, cpu.y, cpu.w, cpu.h);
-            ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2); ctx.fillStyle = "#fff"; ctx.fill();
-            if(document.getElementById('pong-score-p')) document.getElementById('pong-score-p').innerText = user.s;
-            if(document.getElementById('pong-score-c')) document.getElementById('pong-score-c').innerText = cpu.s;
-        }
-
-        function updatePong() {
-            if(canvas.width === 0 || pongState !== 'playing') return;
-            ball.x += ball.vx; ball.y += ball.vy;
-            cpu.y += ((ball.y - (cpu.y + cpu.h/2))) * 0.1; 
-            if(ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) ball.vy = -ball.vy;
-            let p = (ball.x < canvas.width/2) ? user : cpu;
-            if(p.x < ball.x + ball.radius && p.x + p.w > ball.x - ball.radius && p.y < ball.y + ball.radius && p.y + p.h > ball.y - ball.radius) {
-                let cp = (ball.y - (p.y + p.h/2)) / (p.h/2); let a = (Math.PI/4) * cp; let dir = (ball.x < canvas.width/2) ? 1 : -1;
-                ball.vx = dir * ball.speed * Math.cos(a); ball.vy = ball.speed * Math.sin(a); ball.speed += 0.2; 
-            }
-            if(ball.x - ball.radius < 0) { cpu.s++; if(cpu.s >= 10) endPong('cpu'); else { ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx; } }
-            else if(ball.x + ball.radius > canvas.width) { user.s++; if(user.s >= 10) endPong('user'); else { ball.x=canvas.width/2; ball.y=canvas.height/2; ball.speed=4; ball.vx=-ball.vx; } }
-        }
-
-        function gameLoop() { 
-            const arcadeView = document.getElementById('view-arcade');
-            if(arcadeView && arcadeView.classList.contains('active')) { if(pongState === 'playing') updatePong(); renderPong(); }
-            requestAnimationFrame(gameLoop); 
-        }
-        gameLoop(); 
-
-        function mPaddle(clientY) {
-            if(pongState !== 'playing') return;
-            let rect = canvas.getBoundingClientRect();
-            if(rect.height === 0) return;
-            let scaleY = canvas.height / rect.height;
-            user.y = (clientY - rect.top) * scaleY - user.h/2;
-            if(user.y < 0) user.y = 0; if(user.y + user.h > canvas.height) user.y = canvas.height - user.h;
-        }
-
-        if(canvas) {
-            canvas.addEventListener("mousemove", e => mPaddle(e.clientY));
-            canvas.addEventListener("touchmove", e => { mPaddle(e.touches[0].clientY); e.preventDefault(); }, { passive: false });
-        }
-
-        // ==========================================
-        // GENERADOR DE MEMES DRUMP
+        // 4. GENERADOR DE MEMES DRUMP
         // ==========================================
         const memeCanvas = document.getElementById("drumpMemeCanvas");
         const ctxMeme = memeCanvas ? memeCanvas.getContext("2d") : null;
-        const drumpImg = new Image(); drumpImg.src = 'drump.jpg';
-        let mTopText = "MAKE SOLANA"; let mBottomText = "GREAT AGAIN";
+        
+        const drumpImg = new Image();
+        drumpImg.src = 'drump.jpg';
+        
+        let mTopText = "MAKE SOLANA";
+        let mBottomText = "GREAT AGAIN";
 
         drumpImg.onload = function() {
             if(!memeCanvas) return;
-            memeCanvas.width = drumpImg.width || 600; memeCanvas.height = drumpImg.height || 400; drawMeme();
+            memeCanvas.width = drumpImg.width || 600;
+            memeCanvas.height = drumpImg.height || 400;
+            drawMeme();
         };
 
         function drawMeme() {
             if(!ctxMeme) return;
             ctxMeme.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
             ctxMeme.drawImage(drumpImg, 0, 0, memeCanvas.width, memeCanvas.height);
+
             const fontSize = Math.floor(memeCanvas.width / 10);
-            ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`; ctxMeme.fillStyle = 'white'; ctxMeme.strokeStyle = 'black';
-            ctxMeme.lineWidth = Math.floor(fontSize / 15); ctxMeme.textAlign = 'center'; ctxMeme.lineJoin = 'round';
-            ctxMeme.textBaseline = 'top'; ctxMeme.strokeText(mTopText.toUpperCase(), memeCanvas.width / 2, 15); ctxMeme.fillText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
-            ctxMeme.textBaseline = 'bottom'; ctxMeme.strokeText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15); ctxMeme.fillText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
+            ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
+            ctxMeme.fillStyle = 'white';
+            ctxMeme.strokeStyle = 'black';
+            ctxMeme.lineWidth = Math.floor(fontSize / 15);
+            ctxMeme.textAlign = 'center';
+            ctxMeme.lineJoin = 'round';
+
+            ctxMeme.textBaseline = 'top';
+            ctxMeme.strokeText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
+            ctxMeme.fillText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
+
+            ctxMeme.textBaseline = 'bottom';
+            ctxMeme.strokeText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
+            ctxMeme.fillText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
         }
 
         const topInput = document.getElementById('memeTopText');
         const bottomInput = document.getElementById('memeBottomText');
+
         if(topInput && bottomInput) {
             topInput.addEventListener('input', (e) => { mTopText = e.target.value; drawMeme(); });
             bottomInput.addEventListener('input', (e) => { mBottomText = e.target.value; drawMeme(); });
@@ -843,42 +774,71 @@
         window.generateRandomMeme = function() {
             const arrTop = ["MAKE SOLANA", "CUANDO COMPRAS EL DIP", "TRUST THE PLAN", "DIAMOND HANDS", "WE BUILT THE WALL", "PUMP IT", "YO VIENDO EL CHART", "1000X SOON", "LOS ALIENS ME DIJERON", "DESCLASIFIQUÉ LOS OVNIS", "TENGO LOS DOCUMENTOS SECRETOS", "NADIE SABE MÁS DE CRYPTO QUE YO", "MI PREDICCIÓN FUE PERFECTA", "EL EXPERTO DIJO BULL RUN", "HICE UN TRATO CON LOS EXTRATERRESTRES", "ENCONTRÉ LOS PAPELES DE SATOSHI", "ESTE TOKEN ES TREMENDO, CRÉANME", "EL ÁREA 51 ES REAL", "ESTAMOS EN EL BOTTOM"];
             const arrBottom = ["GREAT AGAIN", "Y SIGUE CAYENDO", "HOLD THE LINE", "AND ETH PAID FOR IT", "TO THE MOON", "LIQUIDADO EN 5 MINUTOS", "QUE COMPRE MÁS SOLANA", "Y TODOS COMPRARON SHIBA", "ESTABAN EN MAR A LAGO", "Y ACEPTAN DRUMP", "COMPRÉ EN EL ATH", "ESTAMOS COMIENDO MARUCHAN", "PERO EL COHETE ERA UN RUG PULL", "THE BEST TOKEN IN THE WORLD", "AHÍ GUARDAN MI FRASE SEMILLA", "SATOSHI ES UN ALIEN", "MAKE MI PORTAFOLIO GREEN AGAIN", "Y LUEGO VINO EL DUMP", "JEJEJE"];
-            mTopText = arrTop[Math.floor(Math.random() * arrTop.length)]; mBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
-            topInput.value = mTopText; bottomInput.value = mBottomText; drawMeme();
+
+            mTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
+            mBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
+            topInput.value = mTopText; bottomInput.value = mBottomText;
+            drawMeme();
         };
 
         window.downloadMeme = function() {
             if(!memeCanvas) return;
-            const link = document.createElement('a'); link.download = 'Drump_SPAM_Meme.png'; link.href = memeCanvas.toDataURL('image/png'); link.click();
-            const toast = document.getElementById('toast'); const prevText = toast.innerText;
-            toast.innerText = "¡Meme guardado con éxito!"; toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => { toast.innerText = prevText; }, 300); }, 2000);
+            const link = document.createElement('a');
+            link.download = 'Drump_SPAM_Meme.png';
+            link.href = memeCanvas.toDataURL('image/png');
+            link.click();
+            
+            const toast = document.getElementById('toast');
+            const prevText = toast.innerText;
+            toast.innerText = "¡Meme guardado con éxito!";
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+                setTimeout(() => { toast.innerText = prevText; }, 300);
+            }, 2000);
         };
 
         window.shareMemeOnTwitter = async function() {
             if(!memeCanvas) return;
+            
             const tweetText = "¡Acabo de forjar este meme en la terminal de S.P.A.M. Labs! 🚀\n\nEntra a la terminal y encontrarás los links oficiales para convertirte en Drumper. @SPAM_Labs";
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+            
             memeCanvas.toBlob(async function(blob) {
                 const file = new File([blob], 'drump_meme.png', { type: 'image/png' });
+
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    try { await navigator.share({ title: 'S.P.A.M. Labs Meme', text: tweetText, files: [file] }); return; } catch (err) {}
+                    try {
+                        await navigator.share({ title: 'S.P.A.M. Labs Meme', text: tweetText, files: [file] });
+                        return; 
+                    } catch (err) { console.log("Share cancelado.", err); }
                 }
+
                 try {
                     if (navigator.clipboard && navigator.clipboard.write) {
-                        const item = new ClipboardItem({ 'image/png': blob }); await navigator.clipboard.write([item]);
-                        const toast = document.getElementById('toast'); const prevText = toast.innerText;
-                        toast.innerText = "Meme copiado. Pégalo (Ctrl+V) en el Tweet."; toast.classList.add('show');
-                        setTimeout(() => { toast.classList.remove('show'); setTimeout(() => { toast.innerText = prevText; }, 300); }, 3500);
-                        window.open(twitterUrl, '_blank'); return;
+                        const item = new ClipboardItem({ 'image/png': blob });
+                        await navigator.clipboard.write([item]);
+                        const toast = document.getElementById('toast');
+                        const prevText = toast.innerText;
+                        toast.innerText = "Meme copiado. Pégalo (Ctrl+V) en el Tweet.";
+                        toast.classList.add('show');
+                        setTimeout(() => { 
+                            toast.classList.remove('show'); 
+                            setTimeout(() => { toast.innerText = prevText; }, 300);
+                        }, 3500);
+                        window.open(twitterUrl, '_blank');
+                        return;
                     }
-                } catch(e) {}
-                downloadMeme(); window.open(twitterUrl, '_blank');
+                } catch(e) { console.log("Fallo portapapeles", e); }
+
+                downloadMeme();
+                window.open(twitterUrl, '_blank');
+
             }, 'image/png');
         };
 
         // ==========================================
-        // SHITPOST TWEET GENERATOR (PUTERO DE FRASES)
+        // 4.1 SHITPOST TWEET GENERATOR
         // ==========================================
         const shitpostPhrases = [
             "Mi portafolio está tan rojo que parece escena del crimen. Al menos tengo mis JPEGs de monos feos. 📉🐒 #crypto #solana #rekt",
@@ -900,81 +860,12 @@
             "He sobrevivido a 4 crashes, 3 bear markets y 2 colapsos de exchanges. Sigo igual de pobre pero con mucho 'conocimiento'. 🧠🗑️ #crypto",
             "Mi estrategia de trading se basa en comprar lo que shillea un wey anónimo con foto de anime en Twitter. Nunca falla. 📉🤓 #solana #trading",
             "Vendí mi carro para comprar el dip. Ahora voy en camión pero mentalmente estoy en un yate. 🚌🛥️ #mindset #crypto",
-            "Compré un JPEG de una roca pixelada por 5 SOL y mi novia me dejó. El futuro de las finanzas es solitario. 🪨💔 #NFTs #solana",
-            "El mercado es cíclico, lo que significa que cíclicamente pierdo todos mis ahorros. 📉🤡 #btc #crypto",
-            "No te preocupes amor, este token de un gato con sombrero de mariachi va a pagar nuestra hipoteca. 🐈👒 #memecoins #solana",
-            "Dicen que compres el miedo. Pues estoy aterrorizado, llorando en posición fetal y sin liquidez. ¿Ahora qué? 😭💸 #crypto #bearmarket",
-            "Mi análisis técnico se basa en la astrología y en si Elon Musk twittea a las 3 AM. 📈🔮 #trading #crypto",
-            "Me dijeron que diversificara, así que ahora pierdo dinero en 5 blockchains diferentes al mismo tiempo. 🧠📉 #web3 #defi",
-            "Hodlear es fácil cuando tu token vale 0 y literalmente no puedes vender porque el pool no tiene liquidez. 💎🤲 #diamondhands",
-            "A veces miro el chart de 1 minuto solo para sentir algo. Mayormente dolor y taquicardia. 🕯️💔 #daytrading #crypto",
-            "Felicidades al wey que me vendió el top. Espero que disfrutes mis $50 dólares, ballena asquerosa. 🐋📉 #solana #rekt",
-            "El soporte era inquebrantable... hasta que yo compré. Soy el destructor de velas verdes. 🔴📉 #trading #crypto",
-            "Mi portafolio es 90% fe, 9% comisiones de red y 1% liquidez real. 🦅💸 #solana #hopium",
-            "En el mundo real soy un perdedor, pero en Discord soy nivel 50 y tengo rol de OG. Respeto. 👾🤓 #NFTs #web3",
-            "Ese influencer de Dubai me juró que este token iba a 100x. Supongo que le faltó decir que era hacia abajo. 📉🏎️ #rugpull #crypto",
-            "No entiendo cómo la gente confía en los bancos. Prefiero mil veces perder mi dinero en un contrato inteligente hackeado. 🧠💻 #defi #crypto",
-            "Me liquidaron en x100. Al parecer el mercado no respetó la línea que dibujé con crayones en mi pantalla. 🖍️📉 #leverage #rekt",
-            "Compré Solana a $200, vendí a $10, volví a comprar a $180. Soy un maestro comprando alto y vendiendo bajo. 📈🤡 #solana #trading",
-            "Si no miras tu Ledger, la pérdida no es real. Es física cuántica básica aplicada a las finanzas. 🧪📉 #crypto #hodl",
-            "El dev tiró el liquidity pool porque 'estaba estresado'. Pobrecito, ojalá mis $100 lo ayuden a relajarse en las Bahamas. 🏝️💸 #rugpull #solana",
-            "Voy a holdear esto hasta que me haga millonario o termine viviendo debajo de un puente. Spoiler: ya estoy buscando puentes. 🌉📉 #crypto #diamondhands",
-            "Satoshi Nakamoto está en una nave nodriza alienígena riéndose de nosotros mientras tradeamos monedas de perros. 👽🛸 #btc #crypto",
-            "El FBI tiene los documentos ovnis, pero yo tengo las llaves privadas de un token que bajó 99.9%. Somos iguales. 📂👽 #conspiracy #crypto",
-            "Me encanta el olor a liquidaciones masivas por la mañana. ☕🔴 #btc #trading",
-            "Tengo un Excel muy complejo que demuestra cómo con solo $20 me haré rico en 10 años. Solo ignoremos la inflación. 🤓📊 #crypto #hopium",
-            "Si cada persona que me dijo 'bro, es un proyectazo' me diera $1, ya habría recuperado lo que perdí en ese proyectazo. 🤡💸 #web3 #NFTs",
-            "Buscando sugar daddy que acepte pagos en shitcoins bloqueadas por 2 años. 🍬🐶 #crypto #broke",
-            "El verdadero metaverso es la disociación mental que me da ver mi balance en TrustWallet. 🥽🫠 #metaverse #crypto",
-            "A este punto, creo que mi botón de 'Vender' en el exchange está de adorno. Solo sé acumular miseria. 🛒📉 #hodl #solana",
-            "Mi familia cree que soy un genio inversor tecnológico. En realidad, solo le ruego a una rana de pixel que suba 10 centavos. 🐸📈 #crypto #impostor",
-            "El chart parece el electrocardiograma de alguien teniendo un infarto. Justo como yo ahora mismo. 📉🏥 #trading #rekt",
-            "Ayer le dije a mi jefe que me iba a retirar joven gracias a las criptos. Hoy le pregunté si hay horas extras este finde. 🍔🤡 #crypto #bearmarket",
-            "El 99% de los traders se rinden justo antes de ganar su primer millón. Yo soy el 1% que sigue perdiendo su salario mensual. 🧠💸 #mindset #trading",
-            "Si el gobierno supiera cómo manejo mis finanzas descentralizadas, me meterían a la cárcel por peligro para mí mismo. 🚓📉 #defi #crypto",
-            "La inflación es robo, por eso prefiero perder mi poder adquisitivo voluntariamente farmeando shitcoins. 🦅💸 #solana #crypto",
-            "Mi novia me preguntó qué significa 'Rugpull'. Le mostré los ahorros para nuestra boda. 💍📉 #crypto #solana",
-            "Soy un 'inversor a largo plazo'. Esa es mi forma elegante de decir que estoy atrapado en -80% y no quiero asumir la pérdida. 🍷🤡 #hodl #crypto",
-            "Este token tiene una utilidad increíble: logra desaparecer mi liquidez en tiempo récord. Tecnología punta. 🚀🗑️ #memecoins #solana",
-            "Los de Wall Street estudiaron 5 años de finanzas. Yo vi un TikTok de un wey bailando y metí todos mis ahorros a un token de un hamster. 🐹📉 #crypto #trading",
-            "Si las velas rojas fueran músculos, mi portafolio sería Mr. Olympia. 💪🔴 #rekt #crypto",
-            "El dev apagó el Telegram, borró el Twitter y la gráfica es una línea vertical hacia abajo. Creo que es una corrección sana. 📉🫠 #rugpull #solana",
-            "Compré el dip. Luego el dip del dip. Y luego descubrí que el dip tenía sótano. 📉🕳️ #bearmarket #crypto",
-            "La volatilidad del mercado no es nada comparada con la volatilidad de mi estabilidad emocional. 📉😭 #crypto #daytrader",
-            "En mi CV puse 'Experto en Gestión de Riesgos'. En realidad, promedio a la baja en memecoins hasta quedar en cero. 📄🤡 #solana #trading",
-            "Dime que estás en crypto sin decirme que estás en crypto: Ceno Maruchan de camarón los fines de semana como un lujo. 🍜🦐 #crypto #broke",
-            "El mejor caso de uso para Web3 es aprender cómo no volver a confiar en ningún ser humano de internet jamás. 🤝🐍 #defi #web3",
-            "Mi Ledger está guardado en una caja fuerte. No para proteger mis fondos de los hackers, sino para protegerme de mí mismo queriendo comprar más basura. 🔒📉 #crypto",
-            "Todos hablan de la adopción masiva. Yo solo quiero la adopción masiva de un maldito psicólogo para los que pasamos el bear market 2022. 🛋️💀 #crypto #btc",
-            "El mercado bajista separó a los hombres de los niños. Yo me quedé siendo un niño pobre. 👶💸 #bearmarket #rekt",
-            "Acabo de pagar $40 en gas fees en ETH para fallar una transacción. Solana, perdóname por dudar de ti. ⛽🦅 #solana #eth",
-            "El roadmap prometía un juego AAA, mercancía, y una serie en Netflix. Tres años después, solo tenemos un servidor de Discord muerto. 🎮👻 #NFTs #rugpull",
-            "Si te sientes inútil, recuerda que alguien es el 'Community Manager' de una memecoin muerta hace 2 años. 🗣️💀 #crypto #web3",
-            "Mi estrategia DCA: (D)onar (C)apital (A)nónimos. Funciona a la perfección. 💸📉 #crypto #trading",
-            "El dev acaba de tuitear 'WAGMI' desde su nuevo yate pagado con el dinero de mi renta. 🛥️🤡 #solana #rugpull",
-            "No eres un verdadero inversor cripto hasta que no has perdido un mes de sueldo por poner mal una dirección de contrato. 🔗🗑️ #crypto #rekt",
-            "Me metí a crypto para combatir a la élite financiera y terminé siendo estafado por un chaval de 14 años en Discord. Justicia poética. 🤓📉 #web3 #defi",
-            "El único yield farming que me funciona es farmear lágrimas de arrepentimiento. 💧🚜 #defi #crypto",
-            "Si no puedes manejar mis caídas del 80%, no mereces mis subidas del 5% que duran 10 minutos. 💅📉 #trading #crypto",
-            "Mi portafolio está tan muerto que el próximo halving va a resucitarlo como zombie. 🧟‍♂️📉 #btc #halving",
-            "Invertir en shitcoins es como comprar boletos de lotería, pero con la garantía adicional de que el cajero te escupirá en la cara. 🎟️💦 #solana #memecoins",
-            "Cuando Satoshi creó Bitcoin, estoy seguro de que soñaba con el día en que tradearíamos tokens basados en el color de calzones de un famoso. La cima de la evolución. 🩲🚀 #crypto #btc",
-            "Esa ballena acaba de mover 1000 BTC y el mercado tembló. Yo muevo $10 y mi banco me llama para bloquear la tarjeta. 🐋💳 #crypto #fiat",
-            "El ecosistema crypto es hermoso: aquí todos somos millonarios, hasta que intentamos retirar al banco. 🏦📉 #web3 #solana",
-            "Vendí mi riñón izquierdo para meter todo a una moneda de Elon Musk. Ahora solo tengo un riñón y 0 liquidez. 🫀📉 #memecoins #rekt",
-            "En el mundo cripto 1 mes equivale a 10 años humanos en estrés acumulado. Ya parezco de 80. 👴📉 #daytrading #crypto",
-            "Comprar un NFT es pagar para que alguien más sea rico mientras tú te quedas con un link roto a una imagen de un chango. 🐒💸 #NFTs #web3",
-            "Me desperté optimista hoy, abrí DexScreener y se me pasó. 📉🫠 #solana #trading",
-            "El análisis fundamental en memecoins se trata de qué tan feo está el dibujo de la mascota. Entre más feo, más X hace. 🐕🚀 #solana #memecoins",
-            "Si los aliens nos observan, deben pensar que nuestra especie alcanzó su pico perdiendo fortunas en tokens de gatos. 👽🐈 #conspiracy #crypto",
-            "He logrado dominar el arte de siempre comprar el top absoluto. Es un talento natural, no se puede enseñar. 📈🤡 #trading #rekt",
-            "Un día eres joven y al otro estás rogándole a una gráfica de 1 minuto que respete el soporte. 🕯️😭 #daytrader #crypto",
-            "Mi plan de jubilación depende enteramente de que un adolescente no apague el bot que le da liquidez a mi token. 🤖📉 #defi #solana",
-            "La vida del trader es hermosa: comes basura, duermes 3 horas, y pierdes dinero todo el día. El sueño americano. 🍔😴 #crypto #grind",
-            "El Dev dijo 'Liquidity Locked'. Sí, bloqueada en su cuenta personal de Binance. 🔒💸 #rugpull #solana",
-            "Me reía de los que jugaban a la lotería y luego metí el sueldo a un token llamado SafeMoonDogeRocket. 🤡🚀 #memecoins #rekt",
-            "El mejor consejo de inversión que me han dado en crypto fue 'Salte de ahí wey'. Ojalá lo hubiera escuchado. 🏃‍♂️📉 #bearmarket #crypto",
-            "Ser mi propio banco es lo peor que me ha pasado. Resulta que soy un gerente terrible y corrupto. 🏦🤡 #defi #solana"
+            "Si el FBI desclasifica los OVNIS mañana, seguro el mercado crashea un 20% nomás por joder. 👽📉 #crypto",
+            "Un día eres joven y al otro estás revisando DexScreener en el baño del trabajo cada 5 minutos. 🚽📱 #solana #trading",
+            "El soporte técnico de este token es un grupo de Telegram lleno de bots que te dicen 'ser' y te piden tu frase semilla. 🤖💀 #scam #crypto",
+            "Invirtiendo en el metaverso para ser dueño de una casa virtual, ya que en la vida real no me alcanza ni para una de cartón. 🏠💻 #web3",
+            "El mercado está tan aburrido que me emociono cuando mi moneda sube 3 centavos. ¡Bull run confirmado! 📈🐌 #crypto",
+            "Mis 'diamond hands' se están pareciendo más a carbón prensado a este punto. 💎🤏 #hodl #solana"
         ];
 
         window.rollShitpost = function() {
@@ -999,58 +890,159 @@
         window.tweetShitpost = function() {
             const txtArea = document.getElementById('tweetGeneratorText');
             if(!txtArea || !txtArea.value) return;
+            
             const finalTweet = txtArea.value + " @SPAM_Labs";
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(finalTweet)}`;
             window.open(twitterUrl, '_blank');
         };
+        
         setTimeout(rollShitpost, 1000);
 
         // ==========================================
-        // CONTROL DE ACCESO DEV (WEB3 SOLFLARE)
+        // 5. GENERADOR DE ORÁCULO PULSO (TOOLS)
         // ==========================================
-        function showDevError(msg) {
-            const errorMsg = document.getElementById('dev-error-msg');
-            errorMsg.innerText = "[ERROR] " + msg;
-            errorMsg.style.opacity = '1';
-            
-            const btn = document.querySelector('#dev-locked button');
-            btn.style.transform = 'translateX(10px)';
-            setTimeout(() => btn.style.transform = 'translateX(-10px)', 100);
-            setTimeout(() => btn.style.transform = 'translateX(10px)', 200);
-            setTimeout(() => btn.style.transform = 'translateX(0)', 300);
-            
-            setTimeout(() => { errorMsg.style.opacity = '0'; }, 4000);
+        const pulsoCanvas = document.getElementById("pulsoMemeCanvas");
+        const ctxPulso = pulsoCanvas ? pulsoCanvas.getContext("2d") : null;
+        
+        const pulsoImg = new Image();
+        pulsoImg.src = 'pulso.jpg';
+        
+        let pTopText = "EL CÓDIGO NO MIENTE";
+        let pBottomText = "DRUMP ES INEVITABLE";
+
+        pulsoImg.onload = function() {
+            if(!pulsoCanvas) return;
+            pulsoCanvas.width = pulsoImg.width || 600;
+            pulsoCanvas.height = pulsoImg.height || 600;
+            drawPulsoMeme();
+        };
+
+        function drawPulsoMeme() {
+            if(!ctxPulso) return;
+            ctxPulso.clearRect(0, 0, pulsoCanvas.width, pulsoCanvas.height);
+            ctxPulso.drawImage(pulsoImg, 0, 0, pulsoCanvas.width, pulsoCanvas.height);
+
+            const fontSize = Math.floor(pulsoCanvas.width / 12);
+            ctxPulso.font = `900 ${fontSize}px Courier New, monospace`;
+            ctxPulso.fillStyle = '#00f3ff'; // Cyan neon para pulso
+            ctxPulso.strokeStyle = 'black';
+            ctxPulso.lineWidth = Math.floor(fontSize / 10);
+            ctxPulso.textAlign = 'center';
+            ctxPulso.lineJoin = 'round';
+
+            ctxPulso.textBaseline = 'top';
+            ctxPulso.strokeText(pTopText.toUpperCase(), pulsoCanvas.width / 2, 20);
+            ctxPulso.fillText(pTopText.toUpperCase(), pulsoCanvas.width / 2, 20);
+
+            ctxPulso.textBaseline = 'bottom';
+            ctxPulso.strokeText(pBottomText.toUpperCase(), pulsoCanvas.width / 2, pulsoCanvas.height - 20);
+            ctxPulso.fillText(pBottomText.toUpperCase(), pulsoCanvas.width / 2, pulsoCanvas.height - 20);
         }
 
-        window.connectSolflareWallet = async function() {
-            const devWallet = "ARRGSnvXJPaPtbD4FfVff5CVJ8PUhLaPhju3W9rXWyxy";
+        const pulsoTopInput = document.getElementById('pulsoTopText');
+        const pulsoBottomInput = document.getElementById('pulsoBottomText');
 
-            try {
-                const { solflare } = window;
-                if (solflare && solflare.isSolflare) {
-                    await solflare.connect();
-                    const connectedWallet = solflare.publicKey.toString();
-                    
-                    if (connectedWallet === devWallet) {
-                        document.getElementById('dev-locked').style.display = 'none';
-                        document.getElementById('dev-unlocked').style.display = 'block';
-                        
-                        const toast = document.getElementById('toast');
-                        toast.innerText = "¡Firma verificada! Acceso ROOT concedido.";
-                        toast.classList.add('show');
-                        setTimeout(() => toast.classList.remove('show'), 2500);
-                    } else {
-                        solflare.disconnect(); 
-                        showDevError("Billetera no autorizada. Acceso denegado.");
-                    }
-                } else {
-                    showDevError("Extensión de Solflare no detectada en el navegador.");
-                    setTimeout(() => { window.open("https://solflare.com/", "_blank"); }, 2000);
+        if(pulsoTopInput && pulsoBottomInput) {
+            pulsoTopInput.addEventListener('input', (e) => { pTopText = e.target.value; drawPulsoMeme(); });
+            pulsoBottomInput.addEventListener('input', (e) => { pBottomText = e.target.value; drawPulsoMeme(); });
+        }
+
+        window.generateRandomPulsoMeme = function() {
+            const arrTop = [
+                "LA PROFECÍA ON-CHAIN",
+                "EL PROTOCOLO S.P.A.M.",
+                "EL CÓDIGO NO MIENTE",
+                "HE VISTO EL FUTURO",
+                "DRUMP ES LA LLAVE",
+                "ESTÁ ESCRITO EN LOS BLOQUES",
+                "PRIMER MANDAMIENTO CRYPTO",
+                "SOLANA ABSORBERÁ TODO",
+                "NO HAY ESCAPE DEL ALGORITMO",
+                "HE DESENCRIPTADO LA VERDAD",
+                "LAS SOMBRAS DE LA BLOCKCHAIN",
+                "LA LIQUIDEZ HABLA",
+                "LOS NODOS SUSURRAN",
+                "S.P.A.M. LABS LO CONTROLA TODO",
+                "DRUMP DESPERTARÁ"
+            ];
+            const arrBottom = [
+                "Y DESTRUIRÁ A LOS DÉBILES",
+                "SOLO LOS DIAMOND HANDS SOBREVIVEN",
+                "TU PORTAFOLIO SERÁ ASIMILADO",
+                "EL FLIPPENING ES INEVITABLE",
+                "EL FIAT ESTÁ MUERTO",
+                "DRUMP GOBERNARÁ LA CURVA",
+                "ABRAZA LA VOLATILIDAD",
+                "TUS SHITCOINS ARDERÁN",
+                "LA SINGULARIDAD SE ACERCA",
+                "COMPRA O SERÁS BORRADO",
+                "EL DUMP ES UNA ILUSIÓN",
+                "NADIE PUEDE DETENERLO",
+                "PREPÁRATE PARA EL IMPACTO",
+                "EL RESETEO HA COMENZADO",
+                "SÍGUEME HACIA EL VACÍO"
+            ];
+
+            pTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
+            pBottomText = arrBottom[Math.floor(Math.random() * arrBottom.length)];
+            pulsoTopInput.value = pTopText; pulsoBottomInput.value = pBottomText;
+            drawPulsoMeme();
+        };
+
+        window.downloadPulsoMeme = function() {
+            if(!pulsoCanvas) return;
+            const link = document.createElement('a');
+            link.download = 'Pulso_Oraculo_SPAM.png';
+            link.href = pulsoCanvas.toDataURL('image/png');
+            link.click();
+            
+            const toast = document.getElementById('toast');
+            const prevText = toast.innerText;
+            toast.innerText = "¡Transmisión guardada!";
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+                setTimeout(() => { toast.innerText = prevText; }, 300);
+            }, 2000);
+        };
+
+        window.sharePulsoMemeOnTwitter = async function() {
+            if(!pulsoCanvas) return;
+            
+            const tweetText = "Una nueva transmisión del Oráculo ha sido decodificada... 💀💻\n\nDescubre más profecías en la terminal de @SPAM_Labs";
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+            
+            pulsoCanvas.toBlob(async function(blob) {
+                const file = new File([blob], 'pulso_oraculo.png', { type: 'image/png' });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                        await navigator.share({ title: 'S.P.A.M. Labs Pulso', text: tweetText, files: [file] });
+                        return; 
+                    } catch (err) { console.log("Share cancelado.", err); }
                 }
-            } catch (err) {
-                console.error(err);
-                showDevError("Petición de conexión cancelada por el usuario.");
-            }
+
+                try {
+                    if (navigator.clipboard && navigator.clipboard.write) {
+                        const item = new ClipboardItem({ 'image/png': blob });
+                        await navigator.clipboard.write([item]);
+                        const toast = document.getElementById('toast');
+                        const prevText = toast.innerText;
+                        toast.innerText = "Imagen copiada. Pégala (Ctrl+V) en X.";
+                        toast.classList.add('show');
+                        setTimeout(() => { 
+                            toast.classList.remove('show'); 
+                            setTimeout(() => { toast.innerText = prevText; }, 300);
+                        }, 3500);
+                        window.open(twitterUrl, '_blank');
+                        return;
+                    }
+                } catch(e) { console.log("Fallo portapapeles", e); }
+
+                downloadPulsoMeme();
+                window.open(twitterUrl, '_blank');
+
+            }, 'image/png');
         };
 
     </script>
