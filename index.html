@@ -9,6 +9,7 @@
     <link rel="icon" href="spamlabs.png" type="image/png">
     <link rel="shortcut icon" href="spamlabs.png" type="image/png">
     <link rel="apple-touch-icon" href="spamlabs.png">
+    <!-- Respaldo por si la imagen real es el JPG -->
     <link rel="icon" href="spamlabs.jpg" type="image/jpeg">
     
     <!-- Fuentes modernas -->
@@ -116,34 +117,20 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- LAYOUT DEL DASHBOARD --- */
-        .dashboard-grid {
-            display: grid; grid-template-columns: 1fr; gap: 25px;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
 
         /* Tarjeta Dividida (Unifica Imagen Superior y Contenido Inferior) */
         .split-card {
-            border-radius: var(--radius-card);
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-card); overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); margin-bottom: 30px;
+            display: flex; flex-direction: column; border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .split-card-img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            background: #000;
+            width: 100%; height: 280px; object-fit: cover; object-position: center;
+            display: block; background: #000;
         }
         .split-card-content {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            position: relative;
+            padding: 30px; display: flex; flex-direction: column; gap: 15px; position: relative;
         }
 
         .hero-badges { display: flex; gap: 10px; margin-bottom: 20px; position: relative; z-index: 2; }
@@ -226,7 +213,7 @@
         .social-name { font-size: 14px; font-weight: 500; color: var(--text-main); }
         .social-status { font-size: 12px; color: var(--text-muted); font-weight: 400; }
 
-        /* --- MEME GENERATOR WIDGET --- */
+        /* --- MEME GENERATOR WIDGET (ADAPTADO PARA TOOLS GRID) --- */
         .meme-widget {
             background-color: var(--card-bg); border-radius: var(--radius-card); padding: 25px;
             display: flex; gap: 25px; align-items: flex-start; margin-bottom: 30px;
@@ -238,14 +225,23 @@
             background: #000; position: relative;
         }
         .meme-canvas-wrapper canvas { width: 100%; display: block; }
-        .meme-controls { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; }
+        .meme-controls { flex-grow: 1; display: flex; flex-direction: column; gap: 15px; width: 100%; }
         .meme-input {
             background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
             color: var(--text-main); padding: 12px 15px; border-radius: 12px; font-family: 'Outfit', sans-serif;
             font-size: 14px; outline: none; transition: 0.2s; width: 100%;
         }
         .meme-input:focus { border-color: var(--accent-green); }
-        .meme-buttons { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
+        .meme-buttons { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; width: 100%; }
+
+        /* Grilla especial para la sección Tools */
+        .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px; }
+        .tools-grid .meme-widget { flex-direction: column; align-items: center; margin-bottom: 0; padding: 20px; }
+        .tools-grid .meme-canvas-wrapper { width: 100%; max-width: 100%; }
+        
+        @media (max-width: 1100px) {
+            .tools-grid { grid-template-columns: 1fr; }
+        }
 
         /* Toast */
         #toast {
@@ -279,14 +275,8 @@
             .main-wrapper { padding-bottom: 90px; } 
 
             .long-card { flex-direction: column; text-align: center; border-radius: 20px; gap: 10px; }
-            
             .split-card-img { height: 200px; }
             .split-card-content { padding: 20px; gap: 10px; }
-
-            .meme-widget { flex-direction: column; align-items: center; }
-            .meme-canvas-wrapper { width: 100%; max-width: 350px; }
-            .meme-controls { width: 100%; }
-            .meme-buttons { width: 100%; }
         }
     </style>
 </head>
@@ -314,7 +304,7 @@
             <div class="nav-item" data-target="view-dex" title="DEX Market">
                 <i class="ph-fill ph-chart-line-up"></i>
             </div>
-            <div class="nav-item" data-target="view-tools" title="Tools">
+            <div class="nav-item" data-target="view-tools" title="Tools S.P.A.M. Labs">
                 <i class="ph-fill ph-wrench"></i>
             </div>
         </aside>
@@ -403,7 +393,6 @@
                             </div>
                         </a>
                     </div>
-
                 </div>
 
                 <!-- VISTA 2: ARCADE (SIN PONG) -->
@@ -469,42 +458,94 @@
                             </div>
                         </a>
                     </div>
+                </div>
 
-                    <!-- WIDGET: GENERADOR DE MEMES DRUMP -->
+                <!-- VISTA 5: TOOLS S.P.A.M. LABS -->
+                <div id="view-tools" class="view">
+                    <h2 class="hero-title" style="margin-bottom:30px;">Tools S.P.A.M. Labs</h2>
+                    
+                    <!-- Banner de Pulso Superior -->
+                    <div class="split-card" style="margin-bottom: 40px;">
+                        <img src="pulso.jpg" class="split-card-img" alt="Pulso Dev" style="object-position: top;">
+                        <div class="split-card-content" style="background: linear-gradient(135deg, #110922, #29114b);">
+                            <div class="hero-badges" style="margin-bottom: 0;">
+                                <span class="badge" style="background:var(--accent-green); color:#000;"><i class="ph-bold ph-terminal-window"></i> PULSO OVERRIDE</span>
+                            </div>
+                            <h2 class="hero-title" style="margin-bottom: 0;">Transmisiones PULSO</h2>
+                            <p class="hero-desc" style="margin-bottom: 5px;">Codifica las profecías del Dev. Predicciones on-chain, cripto-mandamientos y el futuro del ecosistema S.P.A.M.</p>
+                        </div>
+                    </div>
+
                     <div class="section-header">
-                        <h3 class="section-title">Generador Drump Meme</h3>
-                        <span class="section-link" style="color: var(--accent-green); cursor: default;"><i class="ph-fill ph-magic-wand"></i> Meme Factory</span>
+                        <h3 class="section-title">Fábrica de Memes y Oráculos</h3>
+                        <span class="section-link" style="color: var(--accent-orange); cursor: default;"><i class="ph-fill ph-magic-wand"></i> Visual Engine</span>
                     </div>
 
-                    <div class="meme-widget">
-                        <div class="meme-canvas-wrapper">
-                            <canvas id="drumpMemeCanvas"></canvas>
+                    <!-- CONTENEDOR GRID PARA LAS DOS HERRAMIENTAS DE IMAGEN -->
+                    <div class="tools-grid">
+                        
+                        <!-- WIDGET 1: GENERADOR DRUMP -->
+                        <div class="meme-widget">
+                            <h4 style="color: var(--text-main); margin-bottom: 15px; font-size: 16px; width: 100%; text-align: left;"><i class="ph-fill ph-image"></i> Drump Meme</h4>
+                            <div class="meme-canvas-wrapper">
+                                <canvas id="drumpMemeCanvas"></canvas>
+                            </div>
+                            <div class="meme-controls">
+                                <div>
+                                    <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block; text-align: left;">Texto Superior</label>
+                                    <input type="text" id="memeTopText" class="meme-input" placeholder="Escribe aquí...">
+                                </div>
+                                <div>
+                                    <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block; text-align: left;">Texto Inferior</label>
+                                    <input type="text" id="memeBottomText" class="meme-input" placeholder="Escribe aquí...">
+                                </div>
+                                <div class="meme-buttons">
+                                    <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomMeme()">
+                                        <i class="ph-fill ph-dice-three"></i> Aleatorio
+                                    </button>
+                                    <button class="btn-primary" style="flex:1; background: var(--accent-green); color: #000;" onclick="downloadMeme()">
+                                        <i class="ph-bold ph-download-simple"></i> Descargar
+                                    </button>
+                                </div>
+                                <button class="btn-primary" style="width: 100%; background: #1DA1F2; color: #fff; border: none; margin-top: 5px;" onclick="shareMemeOnTwitter()">
+                                    <i class="ph-fill ph-twitter-logo"></i> Compartir Meme
+                                </button>
+                            </div>
                         </div>
-                        <div class="meme-controls">
-                            <div>
-                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Texto Superior</label>
-                                <input type="text" id="memeTopText" class="meme-input" placeholder="Escribe aquí...">
+
+                        <!-- WIDGET 2: ORÁCULO PULSO -->
+                        <div class="meme-widget">
+                            <h4 style="color: var(--accent-yellow); margin-bottom: 15px; font-size: 16px; width: 100%; text-align: left; font-family: monospace;"><i class="ph-fill ph-terminal"></i> Oráculo Pulso</h4>
+                            <div class="meme-canvas-wrapper" style="border-color: var(--accent-yellow);">
+                                <canvas id="pulsoMemeCanvas"></canvas>
                             </div>
-                            <div>
-                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Texto Inferior</label>
-                                <input type="text" id="memeBottomText" class="meme-input" placeholder="Escribe aquí...">
-                            </div>
-                            <div class="meme-buttons">
-                                <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomMeme()">
-                                    <i class="ph-fill ph-dice-three"></i> Aleatorio
-                                </button>
-                                <button class="btn-primary" style="flex:1; background: var(--accent-green); color: #000;" onclick="downloadMeme()">
-                                    <i class="ph-bold ph-download-simple"></i> Descargar
-                                </button>
-                                <button class="btn-primary" style="flex:1; background: #1DA1F2; color: #fff; border: none;" onclick="shareMemeOnTwitter()">
-                                    <i class="ph-fill ph-twitter-logo"></i> Compartir
+                            <div class="meme-controls">
+                                <div>
+                                    <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block; text-align: left;">Cifra Superior</label>
+                                    <input type="text" id="pulsoTopText" class="meme-input" placeholder="Escribe aquí..." style="font-family: monospace; color: var(--accent-yellow);">
+                                </div>
+                                <div>
+                                    <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block; text-align: left;">Cifra Inferior</label>
+                                    <input type="text" id="pulsoBottomText" class="meme-input" placeholder="Escribe aquí..." style="font-family: monospace; color: var(--accent-yellow);">
+                                </div>
+                                <div class="meme-buttons">
+                                    <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomPulsoMeme()">
+                                        <i class="ph-fill ph-dice-three"></i> Oráculo
+                                    </button>
+                                    <button class="btn-primary" style="flex:1; background: var(--accent-yellow); color: #000;" onclick="downloadPulsoMeme()">
+                                        <i class="ph-bold ph-download-simple"></i> Guardar
+                                    </button>
+                                </div>
+                                <button class="btn-primary" style="width: 100%; background: #1DA1F2; color: #fff; border: none; margin-top: 5px;" onclick="sharePulsoMemeOnTwitter()">
+                                    <i class="ph-fill ph-twitter-logo"></i> Transmitir
                                 </button>
                             </div>
                         </div>
+
                     </div>
 
-                    <!-- WIDGET: SHITPOST TWEET GENERATOR -->
-                    <div class="section-header" style="margin-top: 40px;">
+                    <!-- WIDGET 3: SHITPOST TWEET GENERATOR (Ancho Completo) -->
+                    <div class="section-header" style="margin-top: 20px;">
                         <h3 class="section-title">Generador de Shitpost</h3>
                         <span class="section-link" style="color: var(--accent-orange); cursor: default;"><i class="ph-fill ph-chat-teardrop-text"></i> Creador de FUD</span>
                     </div>
@@ -527,55 +568,6 @@
                             <button class="btn-primary" style="background: #1DA1F2; color: #fff; border: none; flex-grow: 1; max-width: 200px;" onclick="tweetShitpost()">
                                 <i class="ph-fill ph-twitter-logo"></i> Twittear
                             </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VISTA 5: TOOLS S.P.A.M. LABS -->
-                <div id="view-tools" class="view">
-                    <h2 class="hero-title" style="margin-bottom:30px;">Tools S.P.A.M. Labs</h2>
-                    
-                    <div class="split-card" style="margin-bottom: 40px;">
-                        <img src="pulso.jpg" class="split-card-img" alt="Pulso Dev" style="object-position: top;">
-                        <div class="split-card-content" style="background: linear-gradient(135deg, #110922, #29114b);">
-                            <div class="hero-badges" style="margin-bottom: 0;">
-                                <span class="badge" style="background:var(--accent-green); color:#000;"><i class="ph-bold ph-terminal-window"></i> PULSO OVERRIDE</span>
-                            </div>
-                            <h2 class="hero-title" style="margin-bottom: 0;">Transmisiones PULSO</h2>
-                            <p class="hero-desc" style="margin-bottom: 5px;">Codifica las profecías del Dev. Predicciones on-chain, cripto-mandamientos y el futuro de DRUMP.</p>
-                        </div>
-                    </div>
-
-                    <div class="section-header">
-                        <h3 class="section-title">Generador de Oráculo</h3>
-                        <span class="section-link" style="color: var(--accent-yellow); cursor: default;"><i class="ph-fill ph-skull"></i> Root Access</span>
-                    </div>
-
-                    <!-- WIDGET ORÁCULO PULSO -->
-                    <div class="meme-widget">
-                        <div class="meme-canvas-wrapper" style="border-color: var(--accent-yellow);">
-                            <canvas id="pulsoMemeCanvas"></canvas>
-                        </div>
-                        <div class="meme-controls">
-                            <div>
-                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Cifra Superior</label>
-                                <input type="text" id="pulsoTopText" class="meme-input" placeholder="Escribe aquí...">
-                            </div>
-                            <div>
-                                <label style="font-size:12px; color:var(--text-muted); margin-bottom:5px; display:block;">Cifra Inferior</label>
-                                <input type="text" id="pulsoBottomText" class="meme-input" placeholder="Escribe aquí...">
-                            </div>
-                            <div class="meme-buttons">
-                                <button class="btn-primary" style="flex:1; background: var(--card-dark); color: var(--text-main); border: 1px solid rgba(255,255,255,0.2);" onclick="generateRandomPulsoMeme()">
-                                    <i class="ph-fill ph-dice-three"></i> Oráculo
-                                </button>
-                                <button class="btn-primary" style="flex:1; background: var(--accent-yellow); color: #000;" onclick="downloadPulsoMeme()">
-                                    <i class="ph-bold ph-download-simple"></i> Guardar
-                                </button>
-                                <button class="btn-primary" style="flex:1; background: #1DA1F2; color: #fff; border: none;" onclick="sharePulsoMemeOnTwitter()">
-                                    <i class="ph-fill ph-twitter-logo"></i> Transmitir
-                                </button>
-                            </div>
                         </div>
                     </div>
 
@@ -838,68 +830,7 @@
         };
 
         // ==========================================
-        // 4.1 SHITPOST TWEET GENERATOR
-        // ==========================================
-        const shitpostPhrases = [
-            "Mi portafolio está tan rojo que parece escena del crimen. Al menos tengo mis JPEGs de monos feos. 📉🐒 #crypto #solana #rekt",
-            "El wey que me dijo 'compra el dip' ahora está vendiendo Herbalife. Gracias por los consejos financieros, bro. 🤡 #btc #bearmarket",
-            "No es una pérdida si no vendes, es una donación forzada a la liquidez del mercado. De nada, ballenas. 🐋💸 #solana #crypto",
-            "Ayer me sentía el lobo de Wall Street. Hoy estoy calculando con cuántas maruchans sobrevivo el mes. 🍜📉 #trading #rekt",
-            "Satoshi nos dio el Bitcoin para ser libres, y nosotros inventamos tokens de ranas para perderlo todo. La evolución humana es hermosa. 🐸🚀 #crypto",
-            "Dicen que la paciencia paga. Llevo 3 años holdeando esta memecoin que ya no tiene ni dev. Seguro mañana hace 1000x. 🤡💀 #solana #diamondhands",
-            "Comprar en el ATH y vender en el pánico es mi pasión. Síganme para más consejos financieros. 📉🔥 #crypto #trading",
-            "Mi psicólogo: 'El bear market no puede hacerte daño físico'. Mi portafolio: '-99%'. 💀📉 #solana #btc",
-            "El único 'Pump' que veo últimamente es el de mis niveles de estrés. 📈🫠 #crypto #rekt",
-            "Despertarme a las 3 AM para ver velas rojas de un minuto es mi deporte extremo favorito. 🕯️🔴 #daytrader #crypto",
-            "Todos somos genios en un Bull Market. En el Bear Market, todos somos cajeros de McDonald's. 🍔🍟 #crypto #bearmarket",
-            "Si le meto $10 a este token de un perro derivativo, matemáticamente seré millonario en 2 días. Lógica infalible. 🐕🚀 #memecoins #solana",
-            "El 'Buy the dip' funcionaba mejor cuando tenía dinero fiduciario para gastar. 💸📉 #crypto #broke",
-            "Tengo más fe en que los aliens me abduzcan a que mi portafolio vuelva a verde. 👽🛸 #solana #hopium",
-            "Amo la descentralización: ahora puedo perder mi dinero sin que ningún banco me cobre comisiones por hacerlo. Libertad total. 🦅💸 #crypto #defi",
-            "El dev me prometió que íbamos a la luna y terminó comprándose un lambo con mi liquidez. Un tipazo. 🚗💨 #rugpull #solana",
-            "He sobrevivido a 4 crashes, 3 bear markets y 2 colapsos de exchanges. Sigo igual de pobre pero con mucho 'conocimiento'. 🧠🗑️ #crypto",
-            "Mi estrategia de trading se basa en comprar lo que shillea un wey anónimo con foto de anime en Twitter. Nunca falla. 📉🤓 #solana #trading",
-            "Vendí mi carro para comprar el dip. Ahora voy en camión pero mentalmente estoy en un yate. 🚌🛥️ #mindset #crypto",
-            "Si el FBI desclasifica los OVNIS mañana, seguro el mercado crashea un 20% nomás por joder. 👽📉 #crypto",
-            "Un día eres joven y al otro estás revisando DexScreener en el baño del trabajo cada 5 minutos. 🚽📱 #solana #trading",
-            "El soporte técnico de este token es un grupo de Telegram lleno de bots que te dicen 'ser' y te piden tu frase semilla. 🤖💀 #scam #crypto",
-            "Invirtiendo en el metaverso para ser dueño de una casa virtual, ya que en la vida real no me alcanza ni para una de cartón. 🏠💻 #web3",
-            "El mercado está tan aburrido que me emociono cuando mi moneda sube 3 centavos. ¡Bull run confirmado! 📈🐌 #crypto",
-            "Mis 'diamond hands' se están pareciendo más a carbón prensado a este punto. 💎🤏 #hodl #solana"
-        ];
-
-        window.rollShitpost = function() {
-            const txtArea = document.getElementById('tweetGeneratorText');
-            if(!txtArea) return;
-            const randomTweet = shitpostPhrases[Math.floor(Math.random() * shitpostPhrases.length)];
-            
-            txtArea.value = "";
-            let i = 0;
-            const speed = 15;
-            
-            function typeWriter() {
-                if (i < randomTweet.length) {
-                    txtArea.value += randomTweet.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                }
-            }
-            typeWriter();
-        };
-
-        window.tweetShitpost = function() {
-            const txtArea = document.getElementById('tweetGeneratorText');
-            if(!txtArea || !txtArea.value) return;
-            
-            const finalTweet = txtArea.value + " @SPAM_Labs";
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(finalTweet)}`;
-            window.open(twitterUrl, '_blank');
-        };
-        
-        setTimeout(rollShitpost, 1000);
-
-        // ==========================================
-        // 5. GENERADOR DE ORÁCULO PULSO (TOOLS)
+        // 5. GENERADOR DE ORÁCULO PULSO
         // ==========================================
         const pulsoCanvas = document.getElementById("pulsoMemeCanvas");
         const ctxPulso = pulsoCanvas ? pulsoCanvas.getContext("2d") : null;
@@ -924,7 +855,7 @@
 
             const fontSize = Math.floor(pulsoCanvas.width / 12);
             ctxPulso.font = `900 ${fontSize}px Courier New, monospace`;
-            ctxPulso.fillStyle = '#00f3ff'; // Cyan neon para pulso
+            ctxPulso.fillStyle = '#00f3ff'; 
             ctxPulso.strokeStyle = 'black';
             ctxPulso.lineWidth = Math.floor(fontSize / 10);
             ctxPulso.textAlign = 'center';
@@ -949,38 +880,18 @@
 
         window.generateRandomPulsoMeme = function() {
             const arrTop = [
-                "LA PROFECÍA ON-CHAIN",
-                "EL PROTOCOLO S.P.A.M.",
-                "EL CÓDIGO NO MIENTE",
-                "HE VISTO EL FUTURO",
-                "DRUMP ES LA LLAVE",
-                "ESTÁ ESCRITO EN LOS BLOQUES",
-                "PRIMER MANDAMIENTO CRYPTO",
-                "SOLANA ABSORBERÁ TODO",
-                "NO HAY ESCAPE DEL ALGORITMO",
-                "HE DESENCRIPTADO LA VERDAD",
-                "LAS SOMBRAS DE LA BLOCKCHAIN",
-                "LA LIQUIDEZ HABLA",
-                "LOS NODOS SUSURRAN",
-                "S.P.A.M. LABS LO CONTROLA TODO",
-                "DRUMP DESPERTARÁ"
+                "LA PROFECÍA ON-CHAIN", "EL PROTOCOLO S.P.A.M.", "EL CÓDIGO NO MIENTE", "HE VISTO EL FUTURO", 
+                "DRUMP ES LA LLAVE", "ESTÁ ESCRITO EN LOS BLOQUES", "PRIMER MANDAMIENTO CRYPTO", 
+                "SOLANA ABSORBERÁ TODO", "NO HAY ESCAPE DEL ALGORITMO", "HE DESENCRIPTADO LA VERDAD", 
+                "LAS SOMBRAS DE LA BLOCKCHAIN", "LA LIQUIDEZ HABLA", "LOS NODOS SUSURRAN", 
+                "S.P.A.M. LABS LO CONTROLA TODO", "DRUMP DESPERTARÁ"
             ];
             const arrBottom = [
-                "Y DESTRUIRÁ A LOS DÉBILES",
-                "SOLO LOS DIAMOND HANDS SOBREVIVEN",
-                "TU PORTAFOLIO SERÁ ASIMILADO",
-                "EL FLIPPENING ES INEVITABLE",
-                "EL FIAT ESTÁ MUERTO",
-                "DRUMP GOBERNARÁ LA CURVA",
-                "ABRAZA LA VOLATILIDAD",
-                "TUS SHITCOINS ARDERÁN",
-                "LA SINGULARIDAD SE ACERCA",
-                "COMPRA O SERÁS BORRADO",
-                "EL DUMP ES UNA ILUSIÓN",
-                "NADIE PUEDE DETENERLO",
-                "PREPÁRATE PARA EL IMPACTO",
-                "EL RESETEO HA COMENZADO",
-                "SÍGUEME HACIA EL VACÍO"
+                "Y DESTRUIRÁ A LOS DÉBILES", "SOLO LOS DIAMOND HANDS SOBREVIVEN", "TU PORTAFOLIO SERÁ ASIMILADO", 
+                "EL FLIPPENING ES INEVITABLE", "EL FIAT ESTÁ MUERTO", "DRUMP GOBERNARÁ LA CURVA", 
+                "ABRAZA LA VOLATILIDAD", "TUS SHITCOINS ARDERÁN", "LA SINGULARIDAD SE ACERCA", 
+                "COMPRA O SERÁS BORRADO", "EL DUMP ES UNA ILUSIÓN", "NADIE PUEDE DETENERLO", 
+                "PREPÁRATE PARA EL IMPACTO", "EL RESETEO HA COMENZADO", "SÍGUEME HACIA EL VACÍO"
             ];
 
             pTopText = arrTop[Math.floor(Math.random() * arrTop.length)];
@@ -1044,6 +955,152 @@
 
             }, 'image/png');
         };
+
+        // ==========================================
+        // 6. SHITPOST TWEET GENERATOR (100+ FRASES)
+        // ==========================================
+        const shitpostPhrases = [
+            "Mi portafolio está tan rojo que parece escena del crimen. Al menos tengo mis JPEGs de monos feos. 📉🐒 #crypto #solana #rekt",
+            "El wey que me dijo 'compra el dip' ahora está vendiendo Herbalife. Gracias por los consejos financieros, bro. 🤡 #btc #bearmarket",
+            "No es una pérdida si no vendes, es una donación forzada a la liquidez del mercado. De nada, ballenas. 🐋💸 #solana #crypto",
+            "Ayer me sentía el lobo de Wall Street. Hoy estoy calculando con cuántas maruchans sobrevivo el mes. 🍜📉 #trading #rekt",
+            "Satoshi nos dio el Bitcoin para ser libres, y nosotros inventamos tokens de ranas para perderlo todo. La evolución humana es hermosa. 🐸🚀 #crypto",
+            "Dicen que la paciencia paga. Llevo 3 años holdeando esta memecoin que ya no tiene ni dev. Seguro mañana hace 1000x. 🤡💀 #solana #diamondhands",
+            "Comprar en el ATH y vender en el pánico es mi pasión. Síganme para más consejos financieros. 📉🔥 #crypto #trading",
+            "Mi psicólogo: 'El bear market no puede hacerte daño físico'. Mi portafolio: '-99%'. 💀📉 #solana #btc",
+            "El único 'Pump' que veo últimamente es el de mis niveles de estrés. 📈🫠 #crypto #rekt",
+            "Despertarme a las 3 AM para ver velas rojas de un minuto es mi deporte extremo favorito. 🕯️🔴 #daytrader #crypto",
+            "Todos somos genios en un Bull Market. En el Bear Market, todos somos cajeros de McDonald's. 🍔🍟 #crypto #bearmarket",
+            "Si le meto $10 a este token de un perro derivativo, matemáticamente seré millonario en 2 días. Lógica infalible. 🐕🚀 #memecoins #solana",
+            "El 'Buy the dip' funcionaba mejor cuando tenía dinero fiduciario para gastar. 💸📉 #crypto #broke",
+            "Tengo más fe en que los aliens me abduzcan a que mi portafolio vuelva a verde. 👽🛸 #solana #hopium",
+            "Amo la descentralización: ahora puedo perder mi dinero sin que ningún banco me cobre comisiones por hacerlo. Libertad total. 🦅💸 #crypto #defi",
+            "El dev me prometió que íbamos a la luna y terminó comprándose un lambo con mi liquidez. Un tipazo. 🚗💨 #rugpull #solana",
+            "He sobrevivido a 4 crashes, 3 bear markets y 2 colapsos de exchanges. Sigo igual de pobre pero con mucho 'conocimiento'. 🧠🗑️ #crypto",
+            "Mi estrategia de trading se basa en comprar lo que shillea un wey anónimo con foto de anime en Twitter. Nunca falla. 📉🤓 #solana #trading",
+            "Vendí mi carro para comprar el dip. Ahora voy en camión pero mentalmente estoy en un yate. 🚌🛥️ #mindset #crypto",
+            "Si el FBI desclasifica los OVNIS mañana, seguro el mercado crashea un 20% nomás por joder. 👽📉 #crypto",
+            "Un día eres joven y al otro estás revisando DexScreener en el baño del trabajo cada 5 minutos. 🚽📱 #solana #trading",
+            "El soporte técnico de este token es un grupo de Telegram lleno de bots que te dicen 'ser' y te piden tu frase semilla. 🤖💀 #scam #crypto",
+            "Invirtiendo en el metaverso para ser dueño de una casa virtual, ya que en la vida real no me alcanza ni para una de cartón. 🏠💻 #web3",
+            "El mercado está tan aburrido que me emociono cuando mi moneda sube 3 centavos. ¡Bull run confirmado! 📈🐌 #crypto",
+            "Mis 'diamond hands' se están pareciendo más a carbón prensado a este punto. 💎🤏 #hodl #solana",
+            "El verdadero metaverso es la esquizofrenia colectiva que agarramos viendo la gráfica de 1 minuto. 😵‍💫📈 #crypto",
+            "Ya le dije a mi familia que el próximo año los saco de trabajar. (Llevo diciendo lo mismo desde 2017). 🤡📆 #solana",
+            "Mi portafolio es como un submarino: hecho para estar bajo el agua y a punto de implosionar. 🤿💥 #rekt",
+            "Compré en el soporte, pero resultó ser el techo de cristal de mi propia miseria. 📉🪟 #trading",
+            "El dev hizo un 'soft rug' que fue tan suave que hasta me dio las gracias. Un caballero. 🎩💸 #scam",
+            "Solo necesito que esta shitcoin de un gato con sombrero haga un x5000 para recuperar lo que perdí en LUNA. Fe ciega. 🐈🧢 #solana",
+            "Mi indicador favorito es la fase lunar, porque el MACD y el RSI ya me demostraron que no sirven para nada. 🌕📉 #crypto",
+            "No estoy perdiendo dinero, estoy pagando la colegiatura del mercado. (La universidad más cara del mundo). 🎓💸 #cope",
+            "El whitepaper decía 'innovador ecosistema DeFi', pero el código decía 'transferirLiquidezAlDev()'. 📝💻 #rugpull",
+            "Si pasas más de 8 horas viendo gráficas, el mercado te devuelve la mirada... y te quita tu dinero. 👁️📉 #abyss",
+            "Mi estrategia a largo plazo es esperar a que la inflación haga que mis sats valgan algo nominalmente. 🧠📈 #bigbrain",
+            "Invité a mis amigos a crypto y ahora me cruzan la calle cuando me ven. 🚶‍♂️💨 #solana",
+            "El único airdrop que recibí este año fue un NFT de spam que me drenó la wallet. Gracias Web3. 🎁💀 #scam",
+            "Dicen que inviertas lo que estés dispuesto a perder. Yo ya perdí hasta las ganas de vivir. 🫠📉 #bearmarket",
+            "Comprar alto y vender bajo es un arte que he perfeccionado a lo largo de los años. 🎨📉 #trading",
+            "El token tiene utilidad real: me es útil para recordarme lo estúpido que soy. 💡🤡 #solana",
+            "En crypto los años valen por siete, como los perros. Llevo aquí 3 meses y ya me duele la ciática. 👴🐕 #crypto",
+            "Esperando el halving como si fuera la segunda venida de Cristo. 🙏⛏️ #btc",
+            "Tengo un doctorado en analizar shitcoins de perros que van a cero en 24 horas. 🐕📉 #solana",
+            "El 'dinero inteligente' nos está usando de liquidez de salida, y nosotros le decimos 'acumulación'. 🧠💸 #cope",
+            "Le metí $5 a un presale y estoy exigiéndole marketing al dev como si fuera accionista mayoritario de Apple. 🍏🤡 #crypto",
+            "El verdadero tesoro fueron los amigos estafadores que hicimos en el camino. 🤝💀 #web3",
+            "Viendo tutoriales de 'Cómo ser millonario con airdrops' mientras ceno arroz blanco. 🍚💻 #grind",
+            "Mi hardware wallet es un sarcófago para mis malas decisiones financieras. 🪦🔒 #ledger",
+            "Si Satoshi viera lo que hicimos con su tecnología, borraría el repositorio de Github. 🧑‍💻🗑️ #crypto",
+            "El mercado es cíclico: compro, crashea, vendo, pumpea. Funciona como un reloj. ⏰📉 #trading",
+            "Holdear una shitcoin es como tener una relación tóxica: sabes que te hace daño pero no la puedes dejar ir. 💔📉 #solana",
+            "La volatilidad no me asusta, me asusta el saldo de mi cuenta bancaria. 🏦👻 #broke",
+            "Estoy a una mala operación de vender fotos de mis pies para comprar el dip. 🦶📸 #desperation",
+            "El roadmap prometía un metaverso AAA, pero entregaron un juego de navegador hecho en Flash. 🎮🤡 #rugpull",
+            "En el mundo real soy un cajero, en el Discord de esta shitcoin soy un 'OG Whale Diamond Hand'. 🐳💎 #crypto",
+            "Mi frase semilla está guardada tan segura que ya se me olvidó dónde la puse. Seguridad nivel militar. 🔒🧠 #amnesia",
+            "Diversificar en crypto significa perder dinero en 5 blockchains diferentes al mismo tiempo. 🌐📉 #solana",
+            "El dev doxxeado resultó ser un actor pagado de Fiverr. La descentralización es mágica. 🎭💸 #scam",
+            "Si no revisas el precio cada 3 minutos, ¿realmente estás invirtiendo en crypto? 📱👁️ #obsession",
+            "Mi token favorito pasó de 'el futuro de las finanzas' a 'error 404' en una semana. 🌐💀 #rugpull",
+            "El análisis técnico es astrología para hombres que no se bañan. Y yo soy Sagitario con ascendente en Bear Market. ♐📉 #trading",
+            "La única red que está congestionada es la de mis arterias por tanto estrés. 🫀🚨 #solana",
+            "Compré el dip del dip del dip. Resulta que estaba comprando la fosa séptica. 🕳️💩 #crypto",
+            "El mercado está manipulado por ballenas reptilianas de la quinta dimensión. Es la única explicación lógica a mis pérdidas. 🦎🛸 #cope",
+            "Mi portafolio es un monumento a la euforia irracional de 2021. 🏛️🤡 #bagholder",
+            "Le pedí a ChatGPT que analizara mi portafolio y me recomendó buscar ayuda profesional. 🤖🏥 #rekt",
+            "El único 'burn' que he visto es el de mis ahorros esfumándose. 🔥💸 #crypto",
+            "En Bull Market todos son gurús de inversiones; en Bear Market todos desaparecen y borran sus tweets. 🥷📉 #trading",
+            "Comprando monedas con nombres de comida, esperando que me alimenten financieramente. 🍔🚀 #solana",
+            "El dev abandonó el proyecto por 'problemas de salud mental'. (La salud mental de no querer trabajar más después de forrarse). 💆‍♂️💰 #rugpull",
+            "Mi estrategia de stop-loss es simplemente desinstalar la app y fingir que no pasó nada. 🙈📱 #cope",
+            "El staking me da 5% anual, pero la moneda cae 10% diario. Un negocio redondo. 🔄📉 #defi",
+            "Si extraterrestres visitan la Tierra y ven el mercado de memecoins, nos vaporizan inmediatamente. 👽💥 #crypto",
+            "Tengo más direcciones de billeteras que contactos en mi teléfono. Y todas están en ceros. 📞💸 #lonelytrader",
+            "El 'utility token' tiene tanta utilidad como un paraguas en un submarino. ☂️🤿 #shitcoin",
+            "Mi abuela hace mejor trading que yo, y ella solo guarda dinero debajo del colchón. 👵🛏️ #rekt",
+            "El proyecto no fracasó, simplemente 'pivotó' hacia ser un experimento social sobre la pérdida de fondos. 🧪💸 #rugpull",
+            "Esperando que Elon Musk twitee sobre mi shitcoin de 2 dólares de market cap para hacerme rico. 🚀🐦 #hopium",
+            "El gas fee me costó más que la transacción en sí. El futuro es ahora. ⛽💸 #crypto",
+            "Mi portafolio parece una colección de sellos postales sin valor. 📮📉 #bagholder",
+            "El AMA del equipo desarrollador sonó como una disculpa pública anticipada. 🎤🙏 #redflag",
+            "Si traduces 'WAGMI' del latín antiguo, significa 'Voy a robar tu liquidez'. 🏛️💀 #crypto",
+            "Comprando el rumor, vendiendo mis pertenencias para pagar la renta. 📰🏠 #trading",
+            "El 'yield farming' me dejó más pobre que un granjero en sequía. 🧑‍🌾🏜️ #defi",
+            "Mi cartera de inversiones es una obra de arte abstracto que representa el dolor humano. 🎨😭 #rekt",
+            "El token era deflacionario, pero mi saldo deflactó aún más rápido. 🎈📉 #solana",
+            "Si cada error de trading me diera un dólar, ya habría recuperado mis pérdidas. 💵🤦‍♂️ #crypto",
+            "El 'smart contract' resultó ser bastante estúpido con mi dinero. 🧠📉 #hack",
+            "Mi horizonte de inversión cambió de 'corto plazo' a 'herencia para mis nietos'. 👴📜 #bagholder",
+            "El airdrop gratis me costó $50 en comisiones y me dio $2 en tokens. Stonks. 📈🤡 #crypto",
+            "Viendo la gráfica de velas rojas como si fuera una fogata para calentarme. 🔥🥶 #bearmarket",
+            "El proyecto tenía 'Auditoría CertiK', lo cual significa que el hacker está auditado y certificado. 🛡️💻 #rekt",
+            "Mi estrategia de trading es hacer lo contrario de lo que me dice mi intuición. Aún así, pierdo. 🧠🔄 #crypto",
+            "El token de gobernanza solo me dio el poder de votar por mi propia ruina financiera. 🗳️💀 #dao",
+            "Si el mercado fuera un casino, yo sería el wey que le apuesta a las máquinas tragamonedas apagadas. 🎰🤡 #trading",
+            "El dev prometió que no iba a vender sus tokens. Técnicamente no mintió, vendió los de la tesorería. 🤥💰 #rugpull",
+            "Mi portafolio es un testimonio de que el optimismo puede ser una enfermedad mental. 🌈😵‍💫 #hopium",
+            "Esperando la 'adopción masiva' mientras trato de explicarle a mi mamá por qué compré una foto de una roca. 🪨🗣️ #nft",
+            "El ecosistema es tan innovador que inventan nuevas formas de quitarte el dinero todos los días. 💡💸 #crypto"
+        ];
+
+        window.rollShitpost = function() {
+            const txtArea = document.getElementById('tweetGeneratorText');
+            if(!txtArea) return;
+            
+            // 1. Obtenemos la frase aleatoria
+            let randomPhrase = shitpostPhrases[Math.floor(Math.random() * shitpostPhrases.length)];
+            
+            // 2. Limpiamos cualquier hashtag viejo que viniera en la lista original para no ensuciar
+            randomPhrase = randomPhrase.replace(/#[a-zA-Z0-9_]+/g, '').trim();
+            
+            // 3. Agregamos los hashtags obligatorios
+            const mandatoryHashtags = "\n\n#DRUMP #SPAMLABS #SOLANA #MEME #CRYPTO";
+            const finalTweet = randomPhrase + mandatoryHashtags;
+            
+            // 4. Animación de escritura
+            txtArea.value = "";
+            let i = 0;
+            const speed = 15;
+            
+            function typeWriter() {
+                if (i < finalTweet.length) {
+                    txtArea.value += finalTweet.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            typeWriter();
+        };
+
+        window.tweetShitpost = function() {
+            const txtArea = document.getElementById('tweetGeneratorText');
+            if(!txtArea || !txtArea.value) return;
+            
+            const finalTweet = txtArea.value + " @SPAM_Labs";
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(finalTweet)}`;
+            window.open(twitterUrl, '_blank');
+        };
+        
+        setTimeout(rollShitpost, 1000);
 
     </script>
 </body>
