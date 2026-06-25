@@ -738,21 +738,30 @@
             ctxMeme.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
             ctxMeme.drawImage(drumpImg, 0, 0, memeCanvas.width, memeCanvas.height);
 
-            const fontSize = Math.floor(memeCanvas.width / 10);
-            ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
             ctxMeme.fillStyle = 'white';
             ctxMeme.strokeStyle = 'black';
-            ctxMeme.lineWidth = Math.floor(fontSize / 15);
             ctxMeme.textAlign = 'center';
             ctxMeme.lineJoin = 'round';
 
-            ctxMeme.textBaseline = 'top';
-            ctxMeme.strokeText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
-            ctxMeme.fillText(mTopText.toUpperCase(), memeCanvas.width / 2, 15);
+            // Función para escalar el texto dinámicamente
+            function drawFitText(text, yPosition, baseline) {
+                let fontSize = Math.floor(memeCanvas.width / 8); 
+                ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
+                
+                // Reducir la fuente hasta que el texto quepa con margen
+                while (ctxMeme.measureText(text).width > memeCanvas.width - 40 && fontSize > 12) {
+                    fontSize -= 2;
+                    ctxMeme.font = `900 ${fontSize}px Impact, sans-serif`;
+                }
 
-            ctxMeme.textBaseline = 'bottom';
-            ctxMeme.strokeText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
-            ctxMeme.fillText(mBottomText.toUpperCase(), memeCanvas.width / 2, memeCanvas.height - 15);
+                ctxMeme.lineWidth = Math.max(3, Math.floor(fontSize / 10));
+                ctxMeme.textBaseline = baseline;
+                ctxMeme.strokeText(text, memeCanvas.width / 2, yPosition);
+                ctxMeme.fillText(text, memeCanvas.width / 2, yPosition);
+            }
+
+            drawFitText(mTopText.toUpperCase(), 15, 'top');
+            drawFitText(mBottomText.toUpperCase(), memeCanvas.height - 15, 'bottom');
         }
 
         const topInput = document.getElementById('memeTopText');
@@ -853,21 +862,30 @@
             ctxPulso.clearRect(0, 0, pulsoCanvas.width, pulsoCanvas.height);
             ctxPulso.drawImage(pulsoImg, 0, 0, pulsoCanvas.width, pulsoCanvas.height);
 
-            const fontSize = Math.floor(pulsoCanvas.width / 12);
-            ctxPulso.font = `900 ${fontSize}px Courier New, monospace`;
             ctxPulso.fillStyle = '#00f3ff'; 
             ctxPulso.strokeStyle = 'black';
-            ctxPulso.lineWidth = Math.floor(fontSize / 10);
             ctxPulso.textAlign = 'center';
             ctxPulso.lineJoin = 'round';
 
-            ctxPulso.textBaseline = 'top';
-            ctxPulso.strokeText(pTopText.toUpperCase(), pulsoCanvas.width / 2, 20);
-            ctxPulso.fillText(pTopText.toUpperCase(), pulsoCanvas.width / 2, 20);
+            // Función para escalar el texto dinámicamente en el oráculo
+            function drawFitTextPulso(text, yPosition, baseline) {
+                let fontSize = Math.floor(pulsoCanvas.width / 10);
+                ctxPulso.font = `900 ${fontSize}px Courier New, monospace`;
+                
+                // Reducir la fuente hasta que el texto quepa en el canvas (dejando 40px de margen total)
+                while (ctxPulso.measureText(text).width > pulsoCanvas.width - 40 && fontSize > 12) {
+                    fontSize -= 2;
+                    ctxPulso.font = `900 ${fontSize}px Courier New, monospace`;
+                }
 
-            ctxPulso.textBaseline = 'bottom';
-            ctxPulso.strokeText(pBottomText.toUpperCase(), pulsoCanvas.width / 2, pulsoCanvas.height - 20);
-            ctxPulso.fillText(pBottomText.toUpperCase(), pulsoCanvas.width / 2, pulsoCanvas.height - 20);
+                ctxPulso.lineWidth = Math.max(3, Math.floor(fontSize / 8));
+                ctxPulso.textBaseline = baseline;
+                ctxPulso.strokeText(text, pulsoCanvas.width / 2, yPosition);
+                ctxPulso.fillText(text, pulsoCanvas.width / 2, yPosition);
+            }
+
+            drawFitTextPulso(pTopText.toUpperCase(), 20, 'top');
+            drawFitTextPulso(pBottomText.toUpperCase(), pulsoCanvas.height - 20, 'bottom');
         }
 
         const pulsoTopInput = document.getElementById('pulsoTopText');
